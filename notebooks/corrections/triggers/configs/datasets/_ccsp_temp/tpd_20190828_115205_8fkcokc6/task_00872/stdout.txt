@@ -1,0 +1,6 @@
+Task = <function get_nevents_sumweights at 0x7f890ba66620>
+
+args = ('root://xrootd-cms.infn.it///store/data/Run2016G/SingleElectron/NANOAOD/Nano14Dec2018-v1/90000/58A28C43-D330-2A4A-A844-45A9A7462056.root',)
+
+kwargs = {'param': None}
+
