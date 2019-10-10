@@ -1,0 +1,236 @@
+query:
+    groupby:
+    - table
+    - varname0
+    - varname1
+    - selection
+    - parent
+    - binvar0
+    - binvar1
+    tables:
+        jerSF10: Events_jerSF10
+        jerSF20: Events_jerSF20
+        jerSF30: Events_jerSF30
+        jerSF40: Events_jerSF40
+        jerSF50: Events_jerSF50
+        jerSF60: Events_jerSF60
+        jerSF70: Events_jerSF70
+        jerSF80: Events_jerSF80
+        jerSF90: Events_jerSF90
+    aliases: {}
+    eval:
+    -   ZCand_px: 'df: np.where(df.nMuonSelection==2, df.LeadMuonSelection_pt*np.cos(df.LeadMuonSelection_phi)+df.SecondMuonSelection_pt*np.cos(df.SecondMuonSelection_phi),
+            np.zeros_like(df.nMuonSelection)) + np.where(df.nElectronSelection==2,
+            df.LeadElectronSelection_pt*np.cos(df.LeadElectronSelection_phi)+df.SecondElectronSelection_pt*np.cos(df.SecondElectronSelection_phi),
+            np.zeros_like(df.nMuonSelection))'
+    -   ZCand_py: 'df: np.where(df.nMuonSelection==2, df.LeadMuonSelection_pt*np.sin(df.LeadMuonSelection_phi)+df.SecondMuonSelection_pt*np.sin(df.SecondMuonSelection_phi),
+            np.zeros_like(df.nElectronSelection)) + np.where(df.nElectronSelection==2,
+            df.LeadElectronSelection_pt*np.sin(df.LeadElectronSelection_phi)+df.SecondElectronSelection_pt*np.sin(df.SecondElectronSelection_phi),
+            np.zeros_like(df.nElectronSelection))'
+    -   ZCand_pt: 'df: np.sqrt(df.ZCand_px**2 + df.ZCand_py**2)'
+    -   ZCand_phi: 'df: np.arctan2(df.ZCand_py, df.ZCand_px)'
+    -   METnoX_ptParaZCandCent: 'df: df.METnoX_pt*np.cos(df.METnoX_phi-df.ZCand_phi)
+            - df.ZCand_pt'
+    -   METnoX_ptPerpZCandCent: 'df: df.METnoX_pt*np.sin(df.METnoX_phi-df.ZCand_phi)'
+    -   ZCand_pt_bin: 'df: np.floor(df.ZCand_pt/5.)*5.'
+    -   METnoX_ptParaZCandCent_bin: 'df: np.floor(df.METnoX_ptParaZCandCent/10.)*10.'
+    -   METnoX_ptPerpZCandCent_bin: 'df: np.floor(df.METnoX_ptPerpZCandCent/10.)*10.'
+    -   parent: 'df: np.where( df.parent.isin([''WJetsToLNu'', ''DYJetsToLL'']), np.where(
+            df.parent==''WJetsToLNu'', np.where( df.LeptonIsElectron, np.full_like(df.parent,
+            ''WJetsToENu''), np.where( df.LeptonIsMuon, np.full_like(df.parent, ''WJetsToMuNu''),
+            np.where( df.LeptonIsTau, np.full_like(df.parent, ''WJetsToTauNu''), np.full_like(df.parent,
+            ''WJetsToLNu''),),),), np.where( df.parent==''DYJetsToLL'', np.where(
+            df.LeptonIsElectron, np.full_like(df.parent, ''DYJetsToEE''), np.where(
+            df.LeptonIsMuon, np.full_like(df.parent, ''DYJetsToMuMu''), np.where(
+            df.LeptonIsTau, np.where( df.nGenTauL==0, np.full_like(df.parent, ''DYJetsToTauHTauH''),
+            np.where( df.nGenTauL==1, np.full_like(df.parent, ''DYJetsToTauHTauL''),
+            np.where( df.nGenTauL==2, np.full_like(df.parent, ''DYJetsToTauLTauL''),
+            np.full_like(df.parent, ''DYJetsToTauTau''),),),), np.full_like(df.parent,
+            ''DYJetsToLL''),),),), df.parent,),), df.parent,)'
+    -   Weight_DoubleMuon: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauSelectionIdTight)*(df.WeightMETTrig)'
+    -   Weight_DoubleElectron: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightElectronSelectionIdIsoTight)*(df.WeightElectronSelectionReco)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronVetoNoSelectionReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauSelectionIdTight)*(df.WeightSingleElectronTrig)'
+    -   Weight_DoubleMuonMu: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauSelectionIdTight)*(df.WeightSingleMuonTrig)'
+    cutflows:
+        DoubleMuon:
+            selection_name: DoubleMuon
+            selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
+                & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) &
+                (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
+                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
+                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+            weight: df.Weight_DoubleMuon
+            hists:
+            - ZCand_pt_METnoX_ptParaZCandCent
+            - ZCand_pt_METnoX_ptPerpZCandCent
+        DoubleElectron:
+            selection_name: DoubleElectron
+            selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
+                & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) &
+                (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
+                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
+                & (nElectronSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+            weight: df.Weight_DoubleElectron
+            hists:
+            - ZCand_pt_METnoX_ptParaZCandCent
+            - ZCand_pt_METnoX_ptPerpZCandCent
+        DoubleMuonMu:
+            selection_name: DoubleMuonMu
+            selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
+                & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) &
+                (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
+                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
+                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+            weight: df.Weight_DoubleMuonMu
+            hists:
+            - ZCand_pt_METnoX_ptParaZCandCent
+            - ZCand_pt_METnoX_ptPerpZCandCent
+    hists:
+        ZCand_pt_METnoX_ptParaZCandCent:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''ZCand_pt'''
+        -   varname1: 'df: ''METnoX_ptParaZCandCent'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.ZCand_pt_bin'
+        -   binvar1: 'df: df.METnoX_ptParaZCandCent_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_wZCand_pt: 'df: df.sum_w*df.ZCand_pt'
+        ZCand_pt_METnoX_ptPerpZCandCent:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''ZCand_pt'''
+        -   varname1: 'df: ''METnoX_ptPerpZCandCent'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.ZCand_pt_bin'
+        -   binvar1: 'df: df.METnoX_ptPerpZCandCent_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_wZCand_pt: 'df: df.sum_w*df.ZCand_pt'
+files:
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00000.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00001.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00002.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00003.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00004.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00005.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00006-0.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00006-1.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00006-2.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00006-3.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00007-0.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00007-1.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00007-2.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00007-3.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00008.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00009.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00010.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00011.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00012.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00013.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00014.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00015.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00016.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00017.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00018.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00019.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00020.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00021.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00022.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00023.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00024-0.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00024-1.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00024-2.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00024-3.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00025-0.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00025-1.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00025-2.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00025-3.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00026.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00027.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00028.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00029.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00030.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00031.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00032.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00033.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00034.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00035.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00036.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00037.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00038.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00039.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00040.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00041.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00042.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00043.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00044.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00045.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00046.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00047.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00048.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00049.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00050.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00051.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00052.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00053.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00054.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00055.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00056.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00057.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00058.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00059.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00060.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00061.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00062.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00063.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00064.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00065.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00066.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00067.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00068.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00069.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00070.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00071.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00072.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00073.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00074.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00075.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00076.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00077.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00078.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00079.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00080-0.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00080-1.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00080-2.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00080-3.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00081-0.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00081-1.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00081-2.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00081-3.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00082.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00083.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00084.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00085.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00086.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00087.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00088.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00089.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00090.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00091.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00092.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00093.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00094.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00095.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00096.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00097.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00098.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc_jer/result_00099.h5

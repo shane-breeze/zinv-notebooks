@@ -1,0 +1,1844 @@
+query:
+    groupby:
+    - table
+    - varname0
+    - varname1
+    - varname2
+    - selection
+    - parent
+    - mass_window
+    - large_pt
+    - eta_restricted
+    - binvar0
+    - binvar1
+    - binvar2
+    tables:
+        central: Events
+    aliases: {}
+    eval:
+    -   GenPartBoson_mass_bin: 'df: np.floor(df.GenPartBoson_mass/1.)*1.'
+    -   GenPartBoson_pt_bin: 'df: np.floor(df.GenPartBoson_pt/5.)*5.'
+    -   LeadGenLepCandidate_pt_bin: 'df: np.floor(df.LeadGenLepCandidate_pt/5.)*5.'
+    -   LeadGenLepCandidate_eta_bin: 'df: np.floor(df.LeadGenLepCandidate_eta/0.1)*0.1'
+    -   SecondGenLepCandidate_pt_bin: 'df: np.floor(df.SecondGenLepCandidate_pt/5.)*5.'
+    -   SecondGenLepCandidate_eta_bin: 'df: np.floor(df.SecondGenLepCandidate_eta/0.1)*0.1'
+    -   Generator_id1_bin: 'df: np.floor(np.minimum(df.Generator_id1, df.Generator_id2)/1)*1'
+    -   Generator_id2_bin: 'df: np.floor(np.maximum(df.Generator_id1, df.Generator_id2)/1)*1'
+    cutflows:
+        DoubleLepton:
+            selection_name: DoubleLepton
+            selection: GenPartBoson_mass>=0
+            weight: df.WeightXsLumi
+            hists:
+            - GenPartBoson_mass_Generator_id1_Generator_id2
+            - GenPartBoson_pt_Generator_id1_Generator_id2
+            - LeadGenLepCandidate_pt_Generator_id1_Generator_id2
+            - LeadGenLepCandidate_eta_Generator_id1_Generator_id2
+            - SecondGenLepCandidate_pt_Generator_id1_Generator_id2
+            - SecondGenLepCandidate_eta_Generator_id1_Generator_id2
+    hists:
+        GenPartBoson_mass_Generator_id1_Generator_id2:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''GenPartBoson_mass'''
+        -   varname1: 'df: ''Generator_id1'''
+        -   varname2: 'df: ''Generator_id2'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   mass_window: 'df: (df.GenPartBoson_mass>=71.) & (df.GenPartBoson_mass<111.)'
+        -   large_pt: 'df: df.GenPartBoson_pt>=200.'
+        -   eta_restricted: 'df: (np.abs(df.LeadGenLepCandidate_pt)<2.4) & (np.abs(df.SecondGenLepCandidate_pt)<2.4)'
+        -   binvar0: 'df: df.GenPartBoson_mass_bin'
+        -   binvar1: 'df: df.Generator_id1_bin'
+        -   binvar2: 'df: df.Generator_id2_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_w_alphasUp: 'df: df.sum_w*(df.LHEPdfWeight101)'
+        -   sum_ww_alphasUp: 'df: (df.sum_w*(df.LHEPdfWeight101))**2'
+        -   sum_w_alphasDown: 'df: df.sum_w*(df.LHEPdfWeight102)'
+        -   sum_ww_alphasDown: 'df: (df.sum_w*(df.LHEPdfWeight102))**2'
+        -   sum_w_lheScaleWeight0: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight0: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight1: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight1: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight3: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight3: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight5: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight5: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight7: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight7: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight8: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight8: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lhePdfWeight0: 'df: df.sum_w*(df.LHEPdfWeight0)'
+        -   sum_ww_lhePdfWeight0: 'df: (df.sum_w*(df.LHEPdfWeight0))**2'
+        -   sum_w_lhePdfWeight1: 'df: df.sum_w*(df.LHEPdfWeight1)'
+        -   sum_ww_lhePdfWeight1: 'df: (df.sum_w*(df.LHEPdfWeight1))**2'
+        -   sum_w_lhePdfWeight2: 'df: df.sum_w*(df.LHEPdfWeight2)'
+        -   sum_ww_lhePdfWeight2: 'df: (df.sum_w*(df.LHEPdfWeight2))**2'
+        -   sum_w_lhePdfWeight3: 'df: df.sum_w*(df.LHEPdfWeight3)'
+        -   sum_ww_lhePdfWeight3: 'df: (df.sum_w*(df.LHEPdfWeight3))**2'
+        -   sum_w_lhePdfWeight4: 'df: df.sum_w*(df.LHEPdfWeight4)'
+        -   sum_ww_lhePdfWeight4: 'df: (df.sum_w*(df.LHEPdfWeight4))**2'
+        -   sum_w_lhePdfWeight5: 'df: df.sum_w*(df.LHEPdfWeight5)'
+        -   sum_ww_lhePdfWeight5: 'df: (df.sum_w*(df.LHEPdfWeight5))**2'
+        -   sum_w_lhePdfWeight6: 'df: df.sum_w*(df.LHEPdfWeight6)'
+        -   sum_ww_lhePdfWeight6: 'df: (df.sum_w*(df.LHEPdfWeight6))**2'
+        -   sum_w_lhePdfWeight7: 'df: df.sum_w*(df.LHEPdfWeight7)'
+        -   sum_ww_lhePdfWeight7: 'df: (df.sum_w*(df.LHEPdfWeight7))**2'
+        -   sum_w_lhePdfWeight8: 'df: df.sum_w*(df.LHEPdfWeight8)'
+        -   sum_ww_lhePdfWeight8: 'df: (df.sum_w*(df.LHEPdfWeight8))**2'
+        -   sum_w_lhePdfWeight9: 'df: df.sum_w*(df.LHEPdfWeight9)'
+        -   sum_ww_lhePdfWeight9: 'df: (df.sum_w*(df.LHEPdfWeight9))**2'
+        -   sum_w_lhePdfWeight10: 'df: df.sum_w*(df.LHEPdfWeight10)'
+        -   sum_ww_lhePdfWeight10: 'df: (df.sum_w*(df.LHEPdfWeight10))**2'
+        -   sum_w_lhePdfWeight11: 'df: df.sum_w*(df.LHEPdfWeight11)'
+        -   sum_ww_lhePdfWeight11: 'df: (df.sum_w*(df.LHEPdfWeight11))**2'
+        -   sum_w_lhePdfWeight12: 'df: df.sum_w*(df.LHEPdfWeight12)'
+        -   sum_ww_lhePdfWeight12: 'df: (df.sum_w*(df.LHEPdfWeight12))**2'
+        -   sum_w_lhePdfWeight13: 'df: df.sum_w*(df.LHEPdfWeight13)'
+        -   sum_ww_lhePdfWeight13: 'df: (df.sum_w*(df.LHEPdfWeight13))**2'
+        -   sum_w_lhePdfWeight14: 'df: df.sum_w*(df.LHEPdfWeight14)'
+        -   sum_ww_lhePdfWeight14: 'df: (df.sum_w*(df.LHEPdfWeight14))**2'
+        -   sum_w_lhePdfWeight15: 'df: df.sum_w*(df.LHEPdfWeight15)'
+        -   sum_ww_lhePdfWeight15: 'df: (df.sum_w*(df.LHEPdfWeight15))**2'
+        -   sum_w_lhePdfWeight16: 'df: df.sum_w*(df.LHEPdfWeight16)'
+        -   sum_ww_lhePdfWeight16: 'df: (df.sum_w*(df.LHEPdfWeight16))**2'
+        -   sum_w_lhePdfWeight17: 'df: df.sum_w*(df.LHEPdfWeight17)'
+        -   sum_ww_lhePdfWeight17: 'df: (df.sum_w*(df.LHEPdfWeight17))**2'
+        -   sum_w_lhePdfWeight18: 'df: df.sum_w*(df.LHEPdfWeight18)'
+        -   sum_ww_lhePdfWeight18: 'df: (df.sum_w*(df.LHEPdfWeight18))**2'
+        -   sum_w_lhePdfWeight19: 'df: df.sum_w*(df.LHEPdfWeight19)'
+        -   sum_ww_lhePdfWeight19: 'df: (df.sum_w*(df.LHEPdfWeight19))**2'
+        -   sum_w_lhePdfWeight20: 'df: df.sum_w*(df.LHEPdfWeight20)'
+        -   sum_ww_lhePdfWeight20: 'df: (df.sum_w*(df.LHEPdfWeight20))**2'
+        -   sum_w_lhePdfWeight21: 'df: df.sum_w*(df.LHEPdfWeight21)'
+        -   sum_ww_lhePdfWeight21: 'df: (df.sum_w*(df.LHEPdfWeight21))**2'
+        -   sum_w_lhePdfWeight22: 'df: df.sum_w*(df.LHEPdfWeight22)'
+        -   sum_ww_lhePdfWeight22: 'df: (df.sum_w*(df.LHEPdfWeight22))**2'
+        -   sum_w_lhePdfWeight23: 'df: df.sum_w*(df.LHEPdfWeight23)'
+        -   sum_ww_lhePdfWeight23: 'df: (df.sum_w*(df.LHEPdfWeight23))**2'
+        -   sum_w_lhePdfWeight24: 'df: df.sum_w*(df.LHEPdfWeight24)'
+        -   sum_ww_lhePdfWeight24: 'df: (df.sum_w*(df.LHEPdfWeight24))**2'
+        -   sum_w_lhePdfWeight25: 'df: df.sum_w*(df.LHEPdfWeight25)'
+        -   sum_ww_lhePdfWeight25: 'df: (df.sum_w*(df.LHEPdfWeight25))**2'
+        -   sum_w_lhePdfWeight26: 'df: df.sum_w*(df.LHEPdfWeight26)'
+        -   sum_ww_lhePdfWeight26: 'df: (df.sum_w*(df.LHEPdfWeight26))**2'
+        -   sum_w_lhePdfWeight27: 'df: df.sum_w*(df.LHEPdfWeight27)'
+        -   sum_ww_lhePdfWeight27: 'df: (df.sum_w*(df.LHEPdfWeight27))**2'
+        -   sum_w_lhePdfWeight28: 'df: df.sum_w*(df.LHEPdfWeight28)'
+        -   sum_ww_lhePdfWeight28: 'df: (df.sum_w*(df.LHEPdfWeight28))**2'
+        -   sum_w_lhePdfWeight29: 'df: df.sum_w*(df.LHEPdfWeight29)'
+        -   sum_ww_lhePdfWeight29: 'df: (df.sum_w*(df.LHEPdfWeight29))**2'
+        -   sum_w_lhePdfWeight30: 'df: df.sum_w*(df.LHEPdfWeight30)'
+        -   sum_ww_lhePdfWeight30: 'df: (df.sum_w*(df.LHEPdfWeight30))**2'
+        -   sum_w_lhePdfWeight31: 'df: df.sum_w*(df.LHEPdfWeight31)'
+        -   sum_ww_lhePdfWeight31: 'df: (df.sum_w*(df.LHEPdfWeight31))**2'
+        -   sum_w_lhePdfWeight32: 'df: df.sum_w*(df.LHEPdfWeight32)'
+        -   sum_ww_lhePdfWeight32: 'df: (df.sum_w*(df.LHEPdfWeight32))**2'
+        -   sum_w_lhePdfWeight33: 'df: df.sum_w*(df.LHEPdfWeight33)'
+        -   sum_ww_lhePdfWeight33: 'df: (df.sum_w*(df.LHEPdfWeight33))**2'
+        -   sum_w_lhePdfWeight34: 'df: df.sum_w*(df.LHEPdfWeight34)'
+        -   sum_ww_lhePdfWeight34: 'df: (df.sum_w*(df.LHEPdfWeight34))**2'
+        -   sum_w_lhePdfWeight35: 'df: df.sum_w*(df.LHEPdfWeight35)'
+        -   sum_ww_lhePdfWeight35: 'df: (df.sum_w*(df.LHEPdfWeight35))**2'
+        -   sum_w_lhePdfWeight36: 'df: df.sum_w*(df.LHEPdfWeight36)'
+        -   sum_ww_lhePdfWeight36: 'df: (df.sum_w*(df.LHEPdfWeight36))**2'
+        -   sum_w_lhePdfWeight37: 'df: df.sum_w*(df.LHEPdfWeight37)'
+        -   sum_ww_lhePdfWeight37: 'df: (df.sum_w*(df.LHEPdfWeight37))**2'
+        -   sum_w_lhePdfWeight38: 'df: df.sum_w*(df.LHEPdfWeight38)'
+        -   sum_ww_lhePdfWeight38: 'df: (df.sum_w*(df.LHEPdfWeight38))**2'
+        -   sum_w_lhePdfWeight39: 'df: df.sum_w*(df.LHEPdfWeight39)'
+        -   sum_ww_lhePdfWeight39: 'df: (df.sum_w*(df.LHEPdfWeight39))**2'
+        -   sum_w_lhePdfWeight40: 'df: df.sum_w*(df.LHEPdfWeight40)'
+        -   sum_ww_lhePdfWeight40: 'df: (df.sum_w*(df.LHEPdfWeight40))**2'
+        -   sum_w_lhePdfWeight41: 'df: df.sum_w*(df.LHEPdfWeight41)'
+        -   sum_ww_lhePdfWeight41: 'df: (df.sum_w*(df.LHEPdfWeight41))**2'
+        -   sum_w_lhePdfWeight42: 'df: df.sum_w*(df.LHEPdfWeight42)'
+        -   sum_ww_lhePdfWeight42: 'df: (df.sum_w*(df.LHEPdfWeight42))**2'
+        -   sum_w_lhePdfWeight43: 'df: df.sum_w*(df.LHEPdfWeight43)'
+        -   sum_ww_lhePdfWeight43: 'df: (df.sum_w*(df.LHEPdfWeight43))**2'
+        -   sum_w_lhePdfWeight44: 'df: df.sum_w*(df.LHEPdfWeight44)'
+        -   sum_ww_lhePdfWeight44: 'df: (df.sum_w*(df.LHEPdfWeight44))**2'
+        -   sum_w_lhePdfWeight45: 'df: df.sum_w*(df.LHEPdfWeight45)'
+        -   sum_ww_lhePdfWeight45: 'df: (df.sum_w*(df.LHEPdfWeight45))**2'
+        -   sum_w_lhePdfWeight46: 'df: df.sum_w*(df.LHEPdfWeight46)'
+        -   sum_ww_lhePdfWeight46: 'df: (df.sum_w*(df.LHEPdfWeight46))**2'
+        -   sum_w_lhePdfWeight47: 'df: df.sum_w*(df.LHEPdfWeight47)'
+        -   sum_ww_lhePdfWeight47: 'df: (df.sum_w*(df.LHEPdfWeight47))**2'
+        -   sum_w_lhePdfWeight48: 'df: df.sum_w*(df.LHEPdfWeight48)'
+        -   sum_ww_lhePdfWeight48: 'df: (df.sum_w*(df.LHEPdfWeight48))**2'
+        -   sum_w_lhePdfWeight49: 'df: df.sum_w*(df.LHEPdfWeight49)'
+        -   sum_ww_lhePdfWeight49: 'df: (df.sum_w*(df.LHEPdfWeight49))**2'
+        -   sum_w_lhePdfWeight50: 'df: df.sum_w*(df.LHEPdfWeight50)'
+        -   sum_ww_lhePdfWeight50: 'df: (df.sum_w*(df.LHEPdfWeight50))**2'
+        -   sum_w_lhePdfWeight51: 'df: df.sum_w*(df.LHEPdfWeight51)'
+        -   sum_ww_lhePdfWeight51: 'df: (df.sum_w*(df.LHEPdfWeight51))**2'
+        -   sum_w_lhePdfWeight52: 'df: df.sum_w*(df.LHEPdfWeight52)'
+        -   sum_ww_lhePdfWeight52: 'df: (df.sum_w*(df.LHEPdfWeight52))**2'
+        -   sum_w_lhePdfWeight53: 'df: df.sum_w*(df.LHEPdfWeight53)'
+        -   sum_ww_lhePdfWeight53: 'df: (df.sum_w*(df.LHEPdfWeight53))**2'
+        -   sum_w_lhePdfWeight54: 'df: df.sum_w*(df.LHEPdfWeight54)'
+        -   sum_ww_lhePdfWeight54: 'df: (df.sum_w*(df.LHEPdfWeight54))**2'
+        -   sum_w_lhePdfWeight55: 'df: df.sum_w*(df.LHEPdfWeight55)'
+        -   sum_ww_lhePdfWeight55: 'df: (df.sum_w*(df.LHEPdfWeight55))**2'
+        -   sum_w_lhePdfWeight56: 'df: df.sum_w*(df.LHEPdfWeight56)'
+        -   sum_ww_lhePdfWeight56: 'df: (df.sum_w*(df.LHEPdfWeight56))**2'
+        -   sum_w_lhePdfWeight57: 'df: df.sum_w*(df.LHEPdfWeight57)'
+        -   sum_ww_lhePdfWeight57: 'df: (df.sum_w*(df.LHEPdfWeight57))**2'
+        -   sum_w_lhePdfWeight58: 'df: df.sum_w*(df.LHEPdfWeight58)'
+        -   sum_ww_lhePdfWeight58: 'df: (df.sum_w*(df.LHEPdfWeight58))**2'
+        -   sum_w_lhePdfWeight59: 'df: df.sum_w*(df.LHEPdfWeight59)'
+        -   sum_ww_lhePdfWeight59: 'df: (df.sum_w*(df.LHEPdfWeight59))**2'
+        -   sum_w_lhePdfWeight60: 'df: df.sum_w*(df.LHEPdfWeight60)'
+        -   sum_ww_lhePdfWeight60: 'df: (df.sum_w*(df.LHEPdfWeight60))**2'
+        -   sum_w_lhePdfWeight61: 'df: df.sum_w*(df.LHEPdfWeight61)'
+        -   sum_ww_lhePdfWeight61: 'df: (df.sum_w*(df.LHEPdfWeight61))**2'
+        -   sum_w_lhePdfWeight62: 'df: df.sum_w*(df.LHEPdfWeight62)'
+        -   sum_ww_lhePdfWeight62: 'df: (df.sum_w*(df.LHEPdfWeight62))**2'
+        -   sum_w_lhePdfWeight63: 'df: df.sum_w*(df.LHEPdfWeight63)'
+        -   sum_ww_lhePdfWeight63: 'df: (df.sum_w*(df.LHEPdfWeight63))**2'
+        -   sum_w_lhePdfWeight64: 'df: df.sum_w*(df.LHEPdfWeight64)'
+        -   sum_ww_lhePdfWeight64: 'df: (df.sum_w*(df.LHEPdfWeight64))**2'
+        -   sum_w_lhePdfWeight65: 'df: df.sum_w*(df.LHEPdfWeight65)'
+        -   sum_ww_lhePdfWeight65: 'df: (df.sum_w*(df.LHEPdfWeight65))**2'
+        -   sum_w_lhePdfWeight66: 'df: df.sum_w*(df.LHEPdfWeight66)'
+        -   sum_ww_lhePdfWeight66: 'df: (df.sum_w*(df.LHEPdfWeight66))**2'
+        -   sum_w_lhePdfWeight67: 'df: df.sum_w*(df.LHEPdfWeight67)'
+        -   sum_ww_lhePdfWeight67: 'df: (df.sum_w*(df.LHEPdfWeight67))**2'
+        -   sum_w_lhePdfWeight68: 'df: df.sum_w*(df.LHEPdfWeight68)'
+        -   sum_ww_lhePdfWeight68: 'df: (df.sum_w*(df.LHEPdfWeight68))**2'
+        -   sum_w_lhePdfWeight69: 'df: df.sum_w*(df.LHEPdfWeight69)'
+        -   sum_ww_lhePdfWeight69: 'df: (df.sum_w*(df.LHEPdfWeight69))**2'
+        -   sum_w_lhePdfWeight70: 'df: df.sum_w*(df.LHEPdfWeight70)'
+        -   sum_ww_lhePdfWeight70: 'df: (df.sum_w*(df.LHEPdfWeight70))**2'
+        -   sum_w_lhePdfWeight71: 'df: df.sum_w*(df.LHEPdfWeight71)'
+        -   sum_ww_lhePdfWeight71: 'df: (df.sum_w*(df.LHEPdfWeight71))**2'
+        -   sum_w_lhePdfWeight72: 'df: df.sum_w*(df.LHEPdfWeight72)'
+        -   sum_ww_lhePdfWeight72: 'df: (df.sum_w*(df.LHEPdfWeight72))**2'
+        -   sum_w_lhePdfWeight73: 'df: df.sum_w*(df.LHEPdfWeight73)'
+        -   sum_ww_lhePdfWeight73: 'df: (df.sum_w*(df.LHEPdfWeight73))**2'
+        -   sum_w_lhePdfWeight74: 'df: df.sum_w*(df.LHEPdfWeight74)'
+        -   sum_ww_lhePdfWeight74: 'df: (df.sum_w*(df.LHEPdfWeight74))**2'
+        -   sum_w_lhePdfWeight75: 'df: df.sum_w*(df.LHEPdfWeight75)'
+        -   sum_ww_lhePdfWeight75: 'df: (df.sum_w*(df.LHEPdfWeight75))**2'
+        -   sum_w_lhePdfWeight76: 'df: df.sum_w*(df.LHEPdfWeight76)'
+        -   sum_ww_lhePdfWeight76: 'df: (df.sum_w*(df.LHEPdfWeight76))**2'
+        -   sum_w_lhePdfWeight77: 'df: df.sum_w*(df.LHEPdfWeight77)'
+        -   sum_ww_lhePdfWeight77: 'df: (df.sum_w*(df.LHEPdfWeight77))**2'
+        -   sum_w_lhePdfWeight78: 'df: df.sum_w*(df.LHEPdfWeight78)'
+        -   sum_ww_lhePdfWeight78: 'df: (df.sum_w*(df.LHEPdfWeight78))**2'
+        -   sum_w_lhePdfWeight79: 'df: df.sum_w*(df.LHEPdfWeight79)'
+        -   sum_ww_lhePdfWeight79: 'df: (df.sum_w*(df.LHEPdfWeight79))**2'
+        -   sum_w_lhePdfWeight80: 'df: df.sum_w*(df.LHEPdfWeight80)'
+        -   sum_ww_lhePdfWeight80: 'df: (df.sum_w*(df.LHEPdfWeight80))**2'
+        -   sum_w_lhePdfWeight81: 'df: df.sum_w*(df.LHEPdfWeight81)'
+        -   sum_ww_lhePdfWeight81: 'df: (df.sum_w*(df.LHEPdfWeight81))**2'
+        -   sum_w_lhePdfWeight82: 'df: df.sum_w*(df.LHEPdfWeight82)'
+        -   sum_ww_lhePdfWeight82: 'df: (df.sum_w*(df.LHEPdfWeight82))**2'
+        -   sum_w_lhePdfWeight83: 'df: df.sum_w*(df.LHEPdfWeight83)'
+        -   sum_ww_lhePdfWeight83: 'df: (df.sum_w*(df.LHEPdfWeight83))**2'
+        -   sum_w_lhePdfWeight84: 'df: df.sum_w*(df.LHEPdfWeight84)'
+        -   sum_ww_lhePdfWeight84: 'df: (df.sum_w*(df.LHEPdfWeight84))**2'
+        -   sum_w_lhePdfWeight85: 'df: df.sum_w*(df.LHEPdfWeight85)'
+        -   sum_ww_lhePdfWeight85: 'df: (df.sum_w*(df.LHEPdfWeight85))**2'
+        -   sum_w_lhePdfWeight86: 'df: df.sum_w*(df.LHEPdfWeight86)'
+        -   sum_ww_lhePdfWeight86: 'df: (df.sum_w*(df.LHEPdfWeight86))**2'
+        -   sum_w_lhePdfWeight87: 'df: df.sum_w*(df.LHEPdfWeight87)'
+        -   sum_ww_lhePdfWeight87: 'df: (df.sum_w*(df.LHEPdfWeight87))**2'
+        -   sum_w_lhePdfWeight88: 'df: df.sum_w*(df.LHEPdfWeight88)'
+        -   sum_ww_lhePdfWeight88: 'df: (df.sum_w*(df.LHEPdfWeight88))**2'
+        -   sum_w_lhePdfWeight89: 'df: df.sum_w*(df.LHEPdfWeight89)'
+        -   sum_ww_lhePdfWeight89: 'df: (df.sum_w*(df.LHEPdfWeight89))**2'
+        -   sum_w_lhePdfWeight90: 'df: df.sum_w*(df.LHEPdfWeight90)'
+        -   sum_ww_lhePdfWeight90: 'df: (df.sum_w*(df.LHEPdfWeight90))**2'
+        -   sum_w_lhePdfWeight91: 'df: df.sum_w*(df.LHEPdfWeight91)'
+        -   sum_ww_lhePdfWeight91: 'df: (df.sum_w*(df.LHEPdfWeight91))**2'
+        -   sum_w_lhePdfWeight92: 'df: df.sum_w*(df.LHEPdfWeight92)'
+        -   sum_ww_lhePdfWeight92: 'df: (df.sum_w*(df.LHEPdfWeight92))**2'
+        -   sum_w_lhePdfWeight93: 'df: df.sum_w*(df.LHEPdfWeight93)'
+        -   sum_ww_lhePdfWeight93: 'df: (df.sum_w*(df.LHEPdfWeight93))**2'
+        -   sum_w_lhePdfWeight94: 'df: df.sum_w*(df.LHEPdfWeight94)'
+        -   sum_ww_lhePdfWeight94: 'df: (df.sum_w*(df.LHEPdfWeight94))**2'
+        -   sum_w_lhePdfWeight95: 'df: df.sum_w*(df.LHEPdfWeight95)'
+        -   sum_ww_lhePdfWeight95: 'df: (df.sum_w*(df.LHEPdfWeight95))**2'
+        -   sum_w_lhePdfWeight96: 'df: df.sum_w*(df.LHEPdfWeight96)'
+        -   sum_ww_lhePdfWeight96: 'df: (df.sum_w*(df.LHEPdfWeight96))**2'
+        -   sum_w_lhePdfWeight97: 'df: df.sum_w*(df.LHEPdfWeight97)'
+        -   sum_ww_lhePdfWeight97: 'df: (df.sum_w*(df.LHEPdfWeight97))**2'
+        -   sum_w_lhePdfWeight98: 'df: df.sum_w*(df.LHEPdfWeight98)'
+        -   sum_ww_lhePdfWeight98: 'df: (df.sum_w*(df.LHEPdfWeight98))**2'
+        GenPartBoson_pt_Generator_id1_Generator_id2:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''GenPartBoson_pt'''
+        -   varname1: 'df: ''Generator_id1'''
+        -   varname2: 'df: ''Generator_id2'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   mass_window: 'df: (df.GenPartBoson_mass>=71.) & (df.GenPartBoson_mass<111.)'
+        -   large_pt: 'df: df.GenPartBoson_pt>=200.'
+        -   eta_restricted: 'df: (np.abs(df.LeadGenLepCandidate_pt)<2.4) & (np.abs(df.SecondGenLepCandidate_pt)<2.4)'
+        -   binvar0: 'df: df.GenPartBoson_pt_bin'
+        -   binvar1: 'df: df.Generator_id1_bin'
+        -   binvar2: 'df: df.Generator_id2_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_w_alphasUp: 'df: df.sum_w*(df.LHEPdfWeight101)'
+        -   sum_ww_alphasUp: 'df: (df.sum_w*(df.LHEPdfWeight101))**2'
+        -   sum_w_alphasDown: 'df: df.sum_w*(df.LHEPdfWeight102)'
+        -   sum_ww_alphasDown: 'df: (df.sum_w*(df.LHEPdfWeight102))**2'
+        -   sum_w_lheScaleWeight0: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight0: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight1: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight1: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight3: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight3: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight5: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight5: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight7: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight7: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight8: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight8: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lhePdfWeight0: 'df: df.sum_w*(df.LHEPdfWeight0)'
+        -   sum_ww_lhePdfWeight0: 'df: (df.sum_w*(df.LHEPdfWeight0))**2'
+        -   sum_w_lhePdfWeight1: 'df: df.sum_w*(df.LHEPdfWeight1)'
+        -   sum_ww_lhePdfWeight1: 'df: (df.sum_w*(df.LHEPdfWeight1))**2'
+        -   sum_w_lhePdfWeight2: 'df: df.sum_w*(df.LHEPdfWeight2)'
+        -   sum_ww_lhePdfWeight2: 'df: (df.sum_w*(df.LHEPdfWeight2))**2'
+        -   sum_w_lhePdfWeight3: 'df: df.sum_w*(df.LHEPdfWeight3)'
+        -   sum_ww_lhePdfWeight3: 'df: (df.sum_w*(df.LHEPdfWeight3))**2'
+        -   sum_w_lhePdfWeight4: 'df: df.sum_w*(df.LHEPdfWeight4)'
+        -   sum_ww_lhePdfWeight4: 'df: (df.sum_w*(df.LHEPdfWeight4))**2'
+        -   sum_w_lhePdfWeight5: 'df: df.sum_w*(df.LHEPdfWeight5)'
+        -   sum_ww_lhePdfWeight5: 'df: (df.sum_w*(df.LHEPdfWeight5))**2'
+        -   sum_w_lhePdfWeight6: 'df: df.sum_w*(df.LHEPdfWeight6)'
+        -   sum_ww_lhePdfWeight6: 'df: (df.sum_w*(df.LHEPdfWeight6))**2'
+        -   sum_w_lhePdfWeight7: 'df: df.sum_w*(df.LHEPdfWeight7)'
+        -   sum_ww_lhePdfWeight7: 'df: (df.sum_w*(df.LHEPdfWeight7))**2'
+        -   sum_w_lhePdfWeight8: 'df: df.sum_w*(df.LHEPdfWeight8)'
+        -   sum_ww_lhePdfWeight8: 'df: (df.sum_w*(df.LHEPdfWeight8))**2'
+        -   sum_w_lhePdfWeight9: 'df: df.sum_w*(df.LHEPdfWeight9)'
+        -   sum_ww_lhePdfWeight9: 'df: (df.sum_w*(df.LHEPdfWeight9))**2'
+        -   sum_w_lhePdfWeight10: 'df: df.sum_w*(df.LHEPdfWeight10)'
+        -   sum_ww_lhePdfWeight10: 'df: (df.sum_w*(df.LHEPdfWeight10))**2'
+        -   sum_w_lhePdfWeight11: 'df: df.sum_w*(df.LHEPdfWeight11)'
+        -   sum_ww_lhePdfWeight11: 'df: (df.sum_w*(df.LHEPdfWeight11))**2'
+        -   sum_w_lhePdfWeight12: 'df: df.sum_w*(df.LHEPdfWeight12)'
+        -   sum_ww_lhePdfWeight12: 'df: (df.sum_w*(df.LHEPdfWeight12))**2'
+        -   sum_w_lhePdfWeight13: 'df: df.sum_w*(df.LHEPdfWeight13)'
+        -   sum_ww_lhePdfWeight13: 'df: (df.sum_w*(df.LHEPdfWeight13))**2'
+        -   sum_w_lhePdfWeight14: 'df: df.sum_w*(df.LHEPdfWeight14)'
+        -   sum_ww_lhePdfWeight14: 'df: (df.sum_w*(df.LHEPdfWeight14))**2'
+        -   sum_w_lhePdfWeight15: 'df: df.sum_w*(df.LHEPdfWeight15)'
+        -   sum_ww_lhePdfWeight15: 'df: (df.sum_w*(df.LHEPdfWeight15))**2'
+        -   sum_w_lhePdfWeight16: 'df: df.sum_w*(df.LHEPdfWeight16)'
+        -   sum_ww_lhePdfWeight16: 'df: (df.sum_w*(df.LHEPdfWeight16))**2'
+        -   sum_w_lhePdfWeight17: 'df: df.sum_w*(df.LHEPdfWeight17)'
+        -   sum_ww_lhePdfWeight17: 'df: (df.sum_w*(df.LHEPdfWeight17))**2'
+        -   sum_w_lhePdfWeight18: 'df: df.sum_w*(df.LHEPdfWeight18)'
+        -   sum_ww_lhePdfWeight18: 'df: (df.sum_w*(df.LHEPdfWeight18))**2'
+        -   sum_w_lhePdfWeight19: 'df: df.sum_w*(df.LHEPdfWeight19)'
+        -   sum_ww_lhePdfWeight19: 'df: (df.sum_w*(df.LHEPdfWeight19))**2'
+        -   sum_w_lhePdfWeight20: 'df: df.sum_w*(df.LHEPdfWeight20)'
+        -   sum_ww_lhePdfWeight20: 'df: (df.sum_w*(df.LHEPdfWeight20))**2'
+        -   sum_w_lhePdfWeight21: 'df: df.sum_w*(df.LHEPdfWeight21)'
+        -   sum_ww_lhePdfWeight21: 'df: (df.sum_w*(df.LHEPdfWeight21))**2'
+        -   sum_w_lhePdfWeight22: 'df: df.sum_w*(df.LHEPdfWeight22)'
+        -   sum_ww_lhePdfWeight22: 'df: (df.sum_w*(df.LHEPdfWeight22))**2'
+        -   sum_w_lhePdfWeight23: 'df: df.sum_w*(df.LHEPdfWeight23)'
+        -   sum_ww_lhePdfWeight23: 'df: (df.sum_w*(df.LHEPdfWeight23))**2'
+        -   sum_w_lhePdfWeight24: 'df: df.sum_w*(df.LHEPdfWeight24)'
+        -   sum_ww_lhePdfWeight24: 'df: (df.sum_w*(df.LHEPdfWeight24))**2'
+        -   sum_w_lhePdfWeight25: 'df: df.sum_w*(df.LHEPdfWeight25)'
+        -   sum_ww_lhePdfWeight25: 'df: (df.sum_w*(df.LHEPdfWeight25))**2'
+        -   sum_w_lhePdfWeight26: 'df: df.sum_w*(df.LHEPdfWeight26)'
+        -   sum_ww_lhePdfWeight26: 'df: (df.sum_w*(df.LHEPdfWeight26))**2'
+        -   sum_w_lhePdfWeight27: 'df: df.sum_w*(df.LHEPdfWeight27)'
+        -   sum_ww_lhePdfWeight27: 'df: (df.sum_w*(df.LHEPdfWeight27))**2'
+        -   sum_w_lhePdfWeight28: 'df: df.sum_w*(df.LHEPdfWeight28)'
+        -   sum_ww_lhePdfWeight28: 'df: (df.sum_w*(df.LHEPdfWeight28))**2'
+        -   sum_w_lhePdfWeight29: 'df: df.sum_w*(df.LHEPdfWeight29)'
+        -   sum_ww_lhePdfWeight29: 'df: (df.sum_w*(df.LHEPdfWeight29))**2'
+        -   sum_w_lhePdfWeight30: 'df: df.sum_w*(df.LHEPdfWeight30)'
+        -   sum_ww_lhePdfWeight30: 'df: (df.sum_w*(df.LHEPdfWeight30))**2'
+        -   sum_w_lhePdfWeight31: 'df: df.sum_w*(df.LHEPdfWeight31)'
+        -   sum_ww_lhePdfWeight31: 'df: (df.sum_w*(df.LHEPdfWeight31))**2'
+        -   sum_w_lhePdfWeight32: 'df: df.sum_w*(df.LHEPdfWeight32)'
+        -   sum_ww_lhePdfWeight32: 'df: (df.sum_w*(df.LHEPdfWeight32))**2'
+        -   sum_w_lhePdfWeight33: 'df: df.sum_w*(df.LHEPdfWeight33)'
+        -   sum_ww_lhePdfWeight33: 'df: (df.sum_w*(df.LHEPdfWeight33))**2'
+        -   sum_w_lhePdfWeight34: 'df: df.sum_w*(df.LHEPdfWeight34)'
+        -   sum_ww_lhePdfWeight34: 'df: (df.sum_w*(df.LHEPdfWeight34))**2'
+        -   sum_w_lhePdfWeight35: 'df: df.sum_w*(df.LHEPdfWeight35)'
+        -   sum_ww_lhePdfWeight35: 'df: (df.sum_w*(df.LHEPdfWeight35))**2'
+        -   sum_w_lhePdfWeight36: 'df: df.sum_w*(df.LHEPdfWeight36)'
+        -   sum_ww_lhePdfWeight36: 'df: (df.sum_w*(df.LHEPdfWeight36))**2'
+        -   sum_w_lhePdfWeight37: 'df: df.sum_w*(df.LHEPdfWeight37)'
+        -   sum_ww_lhePdfWeight37: 'df: (df.sum_w*(df.LHEPdfWeight37))**2'
+        -   sum_w_lhePdfWeight38: 'df: df.sum_w*(df.LHEPdfWeight38)'
+        -   sum_ww_lhePdfWeight38: 'df: (df.sum_w*(df.LHEPdfWeight38))**2'
+        -   sum_w_lhePdfWeight39: 'df: df.sum_w*(df.LHEPdfWeight39)'
+        -   sum_ww_lhePdfWeight39: 'df: (df.sum_w*(df.LHEPdfWeight39))**2'
+        -   sum_w_lhePdfWeight40: 'df: df.sum_w*(df.LHEPdfWeight40)'
+        -   sum_ww_lhePdfWeight40: 'df: (df.sum_w*(df.LHEPdfWeight40))**2'
+        -   sum_w_lhePdfWeight41: 'df: df.sum_w*(df.LHEPdfWeight41)'
+        -   sum_ww_lhePdfWeight41: 'df: (df.sum_w*(df.LHEPdfWeight41))**2'
+        -   sum_w_lhePdfWeight42: 'df: df.sum_w*(df.LHEPdfWeight42)'
+        -   sum_ww_lhePdfWeight42: 'df: (df.sum_w*(df.LHEPdfWeight42))**2'
+        -   sum_w_lhePdfWeight43: 'df: df.sum_w*(df.LHEPdfWeight43)'
+        -   sum_ww_lhePdfWeight43: 'df: (df.sum_w*(df.LHEPdfWeight43))**2'
+        -   sum_w_lhePdfWeight44: 'df: df.sum_w*(df.LHEPdfWeight44)'
+        -   sum_ww_lhePdfWeight44: 'df: (df.sum_w*(df.LHEPdfWeight44))**2'
+        -   sum_w_lhePdfWeight45: 'df: df.sum_w*(df.LHEPdfWeight45)'
+        -   sum_ww_lhePdfWeight45: 'df: (df.sum_w*(df.LHEPdfWeight45))**2'
+        -   sum_w_lhePdfWeight46: 'df: df.sum_w*(df.LHEPdfWeight46)'
+        -   sum_ww_lhePdfWeight46: 'df: (df.sum_w*(df.LHEPdfWeight46))**2'
+        -   sum_w_lhePdfWeight47: 'df: df.sum_w*(df.LHEPdfWeight47)'
+        -   sum_ww_lhePdfWeight47: 'df: (df.sum_w*(df.LHEPdfWeight47))**2'
+        -   sum_w_lhePdfWeight48: 'df: df.sum_w*(df.LHEPdfWeight48)'
+        -   sum_ww_lhePdfWeight48: 'df: (df.sum_w*(df.LHEPdfWeight48))**2'
+        -   sum_w_lhePdfWeight49: 'df: df.sum_w*(df.LHEPdfWeight49)'
+        -   sum_ww_lhePdfWeight49: 'df: (df.sum_w*(df.LHEPdfWeight49))**2'
+        -   sum_w_lhePdfWeight50: 'df: df.sum_w*(df.LHEPdfWeight50)'
+        -   sum_ww_lhePdfWeight50: 'df: (df.sum_w*(df.LHEPdfWeight50))**2'
+        -   sum_w_lhePdfWeight51: 'df: df.sum_w*(df.LHEPdfWeight51)'
+        -   sum_ww_lhePdfWeight51: 'df: (df.sum_w*(df.LHEPdfWeight51))**2'
+        -   sum_w_lhePdfWeight52: 'df: df.sum_w*(df.LHEPdfWeight52)'
+        -   sum_ww_lhePdfWeight52: 'df: (df.sum_w*(df.LHEPdfWeight52))**2'
+        -   sum_w_lhePdfWeight53: 'df: df.sum_w*(df.LHEPdfWeight53)'
+        -   sum_ww_lhePdfWeight53: 'df: (df.sum_w*(df.LHEPdfWeight53))**2'
+        -   sum_w_lhePdfWeight54: 'df: df.sum_w*(df.LHEPdfWeight54)'
+        -   sum_ww_lhePdfWeight54: 'df: (df.sum_w*(df.LHEPdfWeight54))**2'
+        -   sum_w_lhePdfWeight55: 'df: df.sum_w*(df.LHEPdfWeight55)'
+        -   sum_ww_lhePdfWeight55: 'df: (df.sum_w*(df.LHEPdfWeight55))**2'
+        -   sum_w_lhePdfWeight56: 'df: df.sum_w*(df.LHEPdfWeight56)'
+        -   sum_ww_lhePdfWeight56: 'df: (df.sum_w*(df.LHEPdfWeight56))**2'
+        -   sum_w_lhePdfWeight57: 'df: df.sum_w*(df.LHEPdfWeight57)'
+        -   sum_ww_lhePdfWeight57: 'df: (df.sum_w*(df.LHEPdfWeight57))**2'
+        -   sum_w_lhePdfWeight58: 'df: df.sum_w*(df.LHEPdfWeight58)'
+        -   sum_ww_lhePdfWeight58: 'df: (df.sum_w*(df.LHEPdfWeight58))**2'
+        -   sum_w_lhePdfWeight59: 'df: df.sum_w*(df.LHEPdfWeight59)'
+        -   sum_ww_lhePdfWeight59: 'df: (df.sum_w*(df.LHEPdfWeight59))**2'
+        -   sum_w_lhePdfWeight60: 'df: df.sum_w*(df.LHEPdfWeight60)'
+        -   sum_ww_lhePdfWeight60: 'df: (df.sum_w*(df.LHEPdfWeight60))**2'
+        -   sum_w_lhePdfWeight61: 'df: df.sum_w*(df.LHEPdfWeight61)'
+        -   sum_ww_lhePdfWeight61: 'df: (df.sum_w*(df.LHEPdfWeight61))**2'
+        -   sum_w_lhePdfWeight62: 'df: df.sum_w*(df.LHEPdfWeight62)'
+        -   sum_ww_lhePdfWeight62: 'df: (df.sum_w*(df.LHEPdfWeight62))**2'
+        -   sum_w_lhePdfWeight63: 'df: df.sum_w*(df.LHEPdfWeight63)'
+        -   sum_ww_lhePdfWeight63: 'df: (df.sum_w*(df.LHEPdfWeight63))**2'
+        -   sum_w_lhePdfWeight64: 'df: df.sum_w*(df.LHEPdfWeight64)'
+        -   sum_ww_lhePdfWeight64: 'df: (df.sum_w*(df.LHEPdfWeight64))**2'
+        -   sum_w_lhePdfWeight65: 'df: df.sum_w*(df.LHEPdfWeight65)'
+        -   sum_ww_lhePdfWeight65: 'df: (df.sum_w*(df.LHEPdfWeight65))**2'
+        -   sum_w_lhePdfWeight66: 'df: df.sum_w*(df.LHEPdfWeight66)'
+        -   sum_ww_lhePdfWeight66: 'df: (df.sum_w*(df.LHEPdfWeight66))**2'
+        -   sum_w_lhePdfWeight67: 'df: df.sum_w*(df.LHEPdfWeight67)'
+        -   sum_ww_lhePdfWeight67: 'df: (df.sum_w*(df.LHEPdfWeight67))**2'
+        -   sum_w_lhePdfWeight68: 'df: df.sum_w*(df.LHEPdfWeight68)'
+        -   sum_ww_lhePdfWeight68: 'df: (df.sum_w*(df.LHEPdfWeight68))**2'
+        -   sum_w_lhePdfWeight69: 'df: df.sum_w*(df.LHEPdfWeight69)'
+        -   sum_ww_lhePdfWeight69: 'df: (df.sum_w*(df.LHEPdfWeight69))**2'
+        -   sum_w_lhePdfWeight70: 'df: df.sum_w*(df.LHEPdfWeight70)'
+        -   sum_ww_lhePdfWeight70: 'df: (df.sum_w*(df.LHEPdfWeight70))**2'
+        -   sum_w_lhePdfWeight71: 'df: df.sum_w*(df.LHEPdfWeight71)'
+        -   sum_ww_lhePdfWeight71: 'df: (df.sum_w*(df.LHEPdfWeight71))**2'
+        -   sum_w_lhePdfWeight72: 'df: df.sum_w*(df.LHEPdfWeight72)'
+        -   sum_ww_lhePdfWeight72: 'df: (df.sum_w*(df.LHEPdfWeight72))**2'
+        -   sum_w_lhePdfWeight73: 'df: df.sum_w*(df.LHEPdfWeight73)'
+        -   sum_ww_lhePdfWeight73: 'df: (df.sum_w*(df.LHEPdfWeight73))**2'
+        -   sum_w_lhePdfWeight74: 'df: df.sum_w*(df.LHEPdfWeight74)'
+        -   sum_ww_lhePdfWeight74: 'df: (df.sum_w*(df.LHEPdfWeight74))**2'
+        -   sum_w_lhePdfWeight75: 'df: df.sum_w*(df.LHEPdfWeight75)'
+        -   sum_ww_lhePdfWeight75: 'df: (df.sum_w*(df.LHEPdfWeight75))**2'
+        -   sum_w_lhePdfWeight76: 'df: df.sum_w*(df.LHEPdfWeight76)'
+        -   sum_ww_lhePdfWeight76: 'df: (df.sum_w*(df.LHEPdfWeight76))**2'
+        -   sum_w_lhePdfWeight77: 'df: df.sum_w*(df.LHEPdfWeight77)'
+        -   sum_ww_lhePdfWeight77: 'df: (df.sum_w*(df.LHEPdfWeight77))**2'
+        -   sum_w_lhePdfWeight78: 'df: df.sum_w*(df.LHEPdfWeight78)'
+        -   sum_ww_lhePdfWeight78: 'df: (df.sum_w*(df.LHEPdfWeight78))**2'
+        -   sum_w_lhePdfWeight79: 'df: df.sum_w*(df.LHEPdfWeight79)'
+        -   sum_ww_lhePdfWeight79: 'df: (df.sum_w*(df.LHEPdfWeight79))**2'
+        -   sum_w_lhePdfWeight80: 'df: df.sum_w*(df.LHEPdfWeight80)'
+        -   sum_ww_lhePdfWeight80: 'df: (df.sum_w*(df.LHEPdfWeight80))**2'
+        -   sum_w_lhePdfWeight81: 'df: df.sum_w*(df.LHEPdfWeight81)'
+        -   sum_ww_lhePdfWeight81: 'df: (df.sum_w*(df.LHEPdfWeight81))**2'
+        -   sum_w_lhePdfWeight82: 'df: df.sum_w*(df.LHEPdfWeight82)'
+        -   sum_ww_lhePdfWeight82: 'df: (df.sum_w*(df.LHEPdfWeight82))**2'
+        -   sum_w_lhePdfWeight83: 'df: df.sum_w*(df.LHEPdfWeight83)'
+        -   sum_ww_lhePdfWeight83: 'df: (df.sum_w*(df.LHEPdfWeight83))**2'
+        -   sum_w_lhePdfWeight84: 'df: df.sum_w*(df.LHEPdfWeight84)'
+        -   sum_ww_lhePdfWeight84: 'df: (df.sum_w*(df.LHEPdfWeight84))**2'
+        -   sum_w_lhePdfWeight85: 'df: df.sum_w*(df.LHEPdfWeight85)'
+        -   sum_ww_lhePdfWeight85: 'df: (df.sum_w*(df.LHEPdfWeight85))**2'
+        -   sum_w_lhePdfWeight86: 'df: df.sum_w*(df.LHEPdfWeight86)'
+        -   sum_ww_lhePdfWeight86: 'df: (df.sum_w*(df.LHEPdfWeight86))**2'
+        -   sum_w_lhePdfWeight87: 'df: df.sum_w*(df.LHEPdfWeight87)'
+        -   sum_ww_lhePdfWeight87: 'df: (df.sum_w*(df.LHEPdfWeight87))**2'
+        -   sum_w_lhePdfWeight88: 'df: df.sum_w*(df.LHEPdfWeight88)'
+        -   sum_ww_lhePdfWeight88: 'df: (df.sum_w*(df.LHEPdfWeight88))**2'
+        -   sum_w_lhePdfWeight89: 'df: df.sum_w*(df.LHEPdfWeight89)'
+        -   sum_ww_lhePdfWeight89: 'df: (df.sum_w*(df.LHEPdfWeight89))**2'
+        -   sum_w_lhePdfWeight90: 'df: df.sum_w*(df.LHEPdfWeight90)'
+        -   sum_ww_lhePdfWeight90: 'df: (df.sum_w*(df.LHEPdfWeight90))**2'
+        -   sum_w_lhePdfWeight91: 'df: df.sum_w*(df.LHEPdfWeight91)'
+        -   sum_ww_lhePdfWeight91: 'df: (df.sum_w*(df.LHEPdfWeight91))**2'
+        -   sum_w_lhePdfWeight92: 'df: df.sum_w*(df.LHEPdfWeight92)'
+        -   sum_ww_lhePdfWeight92: 'df: (df.sum_w*(df.LHEPdfWeight92))**2'
+        -   sum_w_lhePdfWeight93: 'df: df.sum_w*(df.LHEPdfWeight93)'
+        -   sum_ww_lhePdfWeight93: 'df: (df.sum_w*(df.LHEPdfWeight93))**2'
+        -   sum_w_lhePdfWeight94: 'df: df.sum_w*(df.LHEPdfWeight94)'
+        -   sum_ww_lhePdfWeight94: 'df: (df.sum_w*(df.LHEPdfWeight94))**2'
+        -   sum_w_lhePdfWeight95: 'df: df.sum_w*(df.LHEPdfWeight95)'
+        -   sum_ww_lhePdfWeight95: 'df: (df.sum_w*(df.LHEPdfWeight95))**2'
+        -   sum_w_lhePdfWeight96: 'df: df.sum_w*(df.LHEPdfWeight96)'
+        -   sum_ww_lhePdfWeight96: 'df: (df.sum_w*(df.LHEPdfWeight96))**2'
+        -   sum_w_lhePdfWeight97: 'df: df.sum_w*(df.LHEPdfWeight97)'
+        -   sum_ww_lhePdfWeight97: 'df: (df.sum_w*(df.LHEPdfWeight97))**2'
+        -   sum_w_lhePdfWeight98: 'df: df.sum_w*(df.LHEPdfWeight98)'
+        -   sum_ww_lhePdfWeight98: 'df: (df.sum_w*(df.LHEPdfWeight98))**2'
+        LeadGenLepCandidate_pt_Generator_id1_Generator_id2:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadGenLepCandidate_pt'''
+        -   varname1: 'df: ''Generator_id1'''
+        -   varname2: 'df: ''Generator_id2'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   mass_window: 'df: (df.GenPartBoson_mass>=71.) & (df.GenPartBoson_mass<111.)'
+        -   large_pt: 'df: df.GenPartBoson_pt>=200.'
+        -   eta_restricted: 'df: (np.abs(df.LeadGenLepCandidate_pt)<2.4) & (np.abs(df.SecondGenLepCandidate_pt)<2.4)'
+        -   binvar0: 'df: df.LeadGenLepCandidate_pt_bin'
+        -   binvar1: 'df: df.Generator_id1_bin'
+        -   binvar2: 'df: df.Generator_id2_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_w_alphasUp: 'df: df.sum_w*(df.LHEPdfWeight101)'
+        -   sum_ww_alphasUp: 'df: (df.sum_w*(df.LHEPdfWeight101))**2'
+        -   sum_w_alphasDown: 'df: df.sum_w*(df.LHEPdfWeight102)'
+        -   sum_ww_alphasDown: 'df: (df.sum_w*(df.LHEPdfWeight102))**2'
+        -   sum_w_lheScaleWeight0: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight0: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight1: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight1: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight3: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight3: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight5: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight5: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight7: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight7: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight8: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight8: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lhePdfWeight0: 'df: df.sum_w*(df.LHEPdfWeight0)'
+        -   sum_ww_lhePdfWeight0: 'df: (df.sum_w*(df.LHEPdfWeight0))**2'
+        -   sum_w_lhePdfWeight1: 'df: df.sum_w*(df.LHEPdfWeight1)'
+        -   sum_ww_lhePdfWeight1: 'df: (df.sum_w*(df.LHEPdfWeight1))**2'
+        -   sum_w_lhePdfWeight2: 'df: df.sum_w*(df.LHEPdfWeight2)'
+        -   sum_ww_lhePdfWeight2: 'df: (df.sum_w*(df.LHEPdfWeight2))**2'
+        -   sum_w_lhePdfWeight3: 'df: df.sum_w*(df.LHEPdfWeight3)'
+        -   sum_ww_lhePdfWeight3: 'df: (df.sum_w*(df.LHEPdfWeight3))**2'
+        -   sum_w_lhePdfWeight4: 'df: df.sum_w*(df.LHEPdfWeight4)'
+        -   sum_ww_lhePdfWeight4: 'df: (df.sum_w*(df.LHEPdfWeight4))**2'
+        -   sum_w_lhePdfWeight5: 'df: df.sum_w*(df.LHEPdfWeight5)'
+        -   sum_ww_lhePdfWeight5: 'df: (df.sum_w*(df.LHEPdfWeight5))**2'
+        -   sum_w_lhePdfWeight6: 'df: df.sum_w*(df.LHEPdfWeight6)'
+        -   sum_ww_lhePdfWeight6: 'df: (df.sum_w*(df.LHEPdfWeight6))**2'
+        -   sum_w_lhePdfWeight7: 'df: df.sum_w*(df.LHEPdfWeight7)'
+        -   sum_ww_lhePdfWeight7: 'df: (df.sum_w*(df.LHEPdfWeight7))**2'
+        -   sum_w_lhePdfWeight8: 'df: df.sum_w*(df.LHEPdfWeight8)'
+        -   sum_ww_lhePdfWeight8: 'df: (df.sum_w*(df.LHEPdfWeight8))**2'
+        -   sum_w_lhePdfWeight9: 'df: df.sum_w*(df.LHEPdfWeight9)'
+        -   sum_ww_lhePdfWeight9: 'df: (df.sum_w*(df.LHEPdfWeight9))**2'
+        -   sum_w_lhePdfWeight10: 'df: df.sum_w*(df.LHEPdfWeight10)'
+        -   sum_ww_lhePdfWeight10: 'df: (df.sum_w*(df.LHEPdfWeight10))**2'
+        -   sum_w_lhePdfWeight11: 'df: df.sum_w*(df.LHEPdfWeight11)'
+        -   sum_ww_lhePdfWeight11: 'df: (df.sum_w*(df.LHEPdfWeight11))**2'
+        -   sum_w_lhePdfWeight12: 'df: df.sum_w*(df.LHEPdfWeight12)'
+        -   sum_ww_lhePdfWeight12: 'df: (df.sum_w*(df.LHEPdfWeight12))**2'
+        -   sum_w_lhePdfWeight13: 'df: df.sum_w*(df.LHEPdfWeight13)'
+        -   sum_ww_lhePdfWeight13: 'df: (df.sum_w*(df.LHEPdfWeight13))**2'
+        -   sum_w_lhePdfWeight14: 'df: df.sum_w*(df.LHEPdfWeight14)'
+        -   sum_ww_lhePdfWeight14: 'df: (df.sum_w*(df.LHEPdfWeight14))**2'
+        -   sum_w_lhePdfWeight15: 'df: df.sum_w*(df.LHEPdfWeight15)'
+        -   sum_ww_lhePdfWeight15: 'df: (df.sum_w*(df.LHEPdfWeight15))**2'
+        -   sum_w_lhePdfWeight16: 'df: df.sum_w*(df.LHEPdfWeight16)'
+        -   sum_ww_lhePdfWeight16: 'df: (df.sum_w*(df.LHEPdfWeight16))**2'
+        -   sum_w_lhePdfWeight17: 'df: df.sum_w*(df.LHEPdfWeight17)'
+        -   sum_ww_lhePdfWeight17: 'df: (df.sum_w*(df.LHEPdfWeight17))**2'
+        -   sum_w_lhePdfWeight18: 'df: df.sum_w*(df.LHEPdfWeight18)'
+        -   sum_ww_lhePdfWeight18: 'df: (df.sum_w*(df.LHEPdfWeight18))**2'
+        -   sum_w_lhePdfWeight19: 'df: df.sum_w*(df.LHEPdfWeight19)'
+        -   sum_ww_lhePdfWeight19: 'df: (df.sum_w*(df.LHEPdfWeight19))**2'
+        -   sum_w_lhePdfWeight20: 'df: df.sum_w*(df.LHEPdfWeight20)'
+        -   sum_ww_lhePdfWeight20: 'df: (df.sum_w*(df.LHEPdfWeight20))**2'
+        -   sum_w_lhePdfWeight21: 'df: df.sum_w*(df.LHEPdfWeight21)'
+        -   sum_ww_lhePdfWeight21: 'df: (df.sum_w*(df.LHEPdfWeight21))**2'
+        -   sum_w_lhePdfWeight22: 'df: df.sum_w*(df.LHEPdfWeight22)'
+        -   sum_ww_lhePdfWeight22: 'df: (df.sum_w*(df.LHEPdfWeight22))**2'
+        -   sum_w_lhePdfWeight23: 'df: df.sum_w*(df.LHEPdfWeight23)'
+        -   sum_ww_lhePdfWeight23: 'df: (df.sum_w*(df.LHEPdfWeight23))**2'
+        -   sum_w_lhePdfWeight24: 'df: df.sum_w*(df.LHEPdfWeight24)'
+        -   sum_ww_lhePdfWeight24: 'df: (df.sum_w*(df.LHEPdfWeight24))**2'
+        -   sum_w_lhePdfWeight25: 'df: df.sum_w*(df.LHEPdfWeight25)'
+        -   sum_ww_lhePdfWeight25: 'df: (df.sum_w*(df.LHEPdfWeight25))**2'
+        -   sum_w_lhePdfWeight26: 'df: df.sum_w*(df.LHEPdfWeight26)'
+        -   sum_ww_lhePdfWeight26: 'df: (df.sum_w*(df.LHEPdfWeight26))**2'
+        -   sum_w_lhePdfWeight27: 'df: df.sum_w*(df.LHEPdfWeight27)'
+        -   sum_ww_lhePdfWeight27: 'df: (df.sum_w*(df.LHEPdfWeight27))**2'
+        -   sum_w_lhePdfWeight28: 'df: df.sum_w*(df.LHEPdfWeight28)'
+        -   sum_ww_lhePdfWeight28: 'df: (df.sum_w*(df.LHEPdfWeight28))**2'
+        -   sum_w_lhePdfWeight29: 'df: df.sum_w*(df.LHEPdfWeight29)'
+        -   sum_ww_lhePdfWeight29: 'df: (df.sum_w*(df.LHEPdfWeight29))**2'
+        -   sum_w_lhePdfWeight30: 'df: df.sum_w*(df.LHEPdfWeight30)'
+        -   sum_ww_lhePdfWeight30: 'df: (df.sum_w*(df.LHEPdfWeight30))**2'
+        -   sum_w_lhePdfWeight31: 'df: df.sum_w*(df.LHEPdfWeight31)'
+        -   sum_ww_lhePdfWeight31: 'df: (df.sum_w*(df.LHEPdfWeight31))**2'
+        -   sum_w_lhePdfWeight32: 'df: df.sum_w*(df.LHEPdfWeight32)'
+        -   sum_ww_lhePdfWeight32: 'df: (df.sum_w*(df.LHEPdfWeight32))**2'
+        -   sum_w_lhePdfWeight33: 'df: df.sum_w*(df.LHEPdfWeight33)'
+        -   sum_ww_lhePdfWeight33: 'df: (df.sum_w*(df.LHEPdfWeight33))**2'
+        -   sum_w_lhePdfWeight34: 'df: df.sum_w*(df.LHEPdfWeight34)'
+        -   sum_ww_lhePdfWeight34: 'df: (df.sum_w*(df.LHEPdfWeight34))**2'
+        -   sum_w_lhePdfWeight35: 'df: df.sum_w*(df.LHEPdfWeight35)'
+        -   sum_ww_lhePdfWeight35: 'df: (df.sum_w*(df.LHEPdfWeight35))**2'
+        -   sum_w_lhePdfWeight36: 'df: df.sum_w*(df.LHEPdfWeight36)'
+        -   sum_ww_lhePdfWeight36: 'df: (df.sum_w*(df.LHEPdfWeight36))**2'
+        -   sum_w_lhePdfWeight37: 'df: df.sum_w*(df.LHEPdfWeight37)'
+        -   sum_ww_lhePdfWeight37: 'df: (df.sum_w*(df.LHEPdfWeight37))**2'
+        -   sum_w_lhePdfWeight38: 'df: df.sum_w*(df.LHEPdfWeight38)'
+        -   sum_ww_lhePdfWeight38: 'df: (df.sum_w*(df.LHEPdfWeight38))**2'
+        -   sum_w_lhePdfWeight39: 'df: df.sum_w*(df.LHEPdfWeight39)'
+        -   sum_ww_lhePdfWeight39: 'df: (df.sum_w*(df.LHEPdfWeight39))**2'
+        -   sum_w_lhePdfWeight40: 'df: df.sum_w*(df.LHEPdfWeight40)'
+        -   sum_ww_lhePdfWeight40: 'df: (df.sum_w*(df.LHEPdfWeight40))**2'
+        -   sum_w_lhePdfWeight41: 'df: df.sum_w*(df.LHEPdfWeight41)'
+        -   sum_ww_lhePdfWeight41: 'df: (df.sum_w*(df.LHEPdfWeight41))**2'
+        -   sum_w_lhePdfWeight42: 'df: df.sum_w*(df.LHEPdfWeight42)'
+        -   sum_ww_lhePdfWeight42: 'df: (df.sum_w*(df.LHEPdfWeight42))**2'
+        -   sum_w_lhePdfWeight43: 'df: df.sum_w*(df.LHEPdfWeight43)'
+        -   sum_ww_lhePdfWeight43: 'df: (df.sum_w*(df.LHEPdfWeight43))**2'
+        -   sum_w_lhePdfWeight44: 'df: df.sum_w*(df.LHEPdfWeight44)'
+        -   sum_ww_lhePdfWeight44: 'df: (df.sum_w*(df.LHEPdfWeight44))**2'
+        -   sum_w_lhePdfWeight45: 'df: df.sum_w*(df.LHEPdfWeight45)'
+        -   sum_ww_lhePdfWeight45: 'df: (df.sum_w*(df.LHEPdfWeight45))**2'
+        -   sum_w_lhePdfWeight46: 'df: df.sum_w*(df.LHEPdfWeight46)'
+        -   sum_ww_lhePdfWeight46: 'df: (df.sum_w*(df.LHEPdfWeight46))**2'
+        -   sum_w_lhePdfWeight47: 'df: df.sum_w*(df.LHEPdfWeight47)'
+        -   sum_ww_lhePdfWeight47: 'df: (df.sum_w*(df.LHEPdfWeight47))**2'
+        -   sum_w_lhePdfWeight48: 'df: df.sum_w*(df.LHEPdfWeight48)'
+        -   sum_ww_lhePdfWeight48: 'df: (df.sum_w*(df.LHEPdfWeight48))**2'
+        -   sum_w_lhePdfWeight49: 'df: df.sum_w*(df.LHEPdfWeight49)'
+        -   sum_ww_lhePdfWeight49: 'df: (df.sum_w*(df.LHEPdfWeight49))**2'
+        -   sum_w_lhePdfWeight50: 'df: df.sum_w*(df.LHEPdfWeight50)'
+        -   sum_ww_lhePdfWeight50: 'df: (df.sum_w*(df.LHEPdfWeight50))**2'
+        -   sum_w_lhePdfWeight51: 'df: df.sum_w*(df.LHEPdfWeight51)'
+        -   sum_ww_lhePdfWeight51: 'df: (df.sum_w*(df.LHEPdfWeight51))**2'
+        -   sum_w_lhePdfWeight52: 'df: df.sum_w*(df.LHEPdfWeight52)'
+        -   sum_ww_lhePdfWeight52: 'df: (df.sum_w*(df.LHEPdfWeight52))**2'
+        -   sum_w_lhePdfWeight53: 'df: df.sum_w*(df.LHEPdfWeight53)'
+        -   sum_ww_lhePdfWeight53: 'df: (df.sum_w*(df.LHEPdfWeight53))**2'
+        -   sum_w_lhePdfWeight54: 'df: df.sum_w*(df.LHEPdfWeight54)'
+        -   sum_ww_lhePdfWeight54: 'df: (df.sum_w*(df.LHEPdfWeight54))**2'
+        -   sum_w_lhePdfWeight55: 'df: df.sum_w*(df.LHEPdfWeight55)'
+        -   sum_ww_lhePdfWeight55: 'df: (df.sum_w*(df.LHEPdfWeight55))**2'
+        -   sum_w_lhePdfWeight56: 'df: df.sum_w*(df.LHEPdfWeight56)'
+        -   sum_ww_lhePdfWeight56: 'df: (df.sum_w*(df.LHEPdfWeight56))**2'
+        -   sum_w_lhePdfWeight57: 'df: df.sum_w*(df.LHEPdfWeight57)'
+        -   sum_ww_lhePdfWeight57: 'df: (df.sum_w*(df.LHEPdfWeight57))**2'
+        -   sum_w_lhePdfWeight58: 'df: df.sum_w*(df.LHEPdfWeight58)'
+        -   sum_ww_lhePdfWeight58: 'df: (df.sum_w*(df.LHEPdfWeight58))**2'
+        -   sum_w_lhePdfWeight59: 'df: df.sum_w*(df.LHEPdfWeight59)'
+        -   sum_ww_lhePdfWeight59: 'df: (df.sum_w*(df.LHEPdfWeight59))**2'
+        -   sum_w_lhePdfWeight60: 'df: df.sum_w*(df.LHEPdfWeight60)'
+        -   sum_ww_lhePdfWeight60: 'df: (df.sum_w*(df.LHEPdfWeight60))**2'
+        -   sum_w_lhePdfWeight61: 'df: df.sum_w*(df.LHEPdfWeight61)'
+        -   sum_ww_lhePdfWeight61: 'df: (df.sum_w*(df.LHEPdfWeight61))**2'
+        -   sum_w_lhePdfWeight62: 'df: df.sum_w*(df.LHEPdfWeight62)'
+        -   sum_ww_lhePdfWeight62: 'df: (df.sum_w*(df.LHEPdfWeight62))**2'
+        -   sum_w_lhePdfWeight63: 'df: df.sum_w*(df.LHEPdfWeight63)'
+        -   sum_ww_lhePdfWeight63: 'df: (df.sum_w*(df.LHEPdfWeight63))**2'
+        -   sum_w_lhePdfWeight64: 'df: df.sum_w*(df.LHEPdfWeight64)'
+        -   sum_ww_lhePdfWeight64: 'df: (df.sum_w*(df.LHEPdfWeight64))**2'
+        -   sum_w_lhePdfWeight65: 'df: df.sum_w*(df.LHEPdfWeight65)'
+        -   sum_ww_lhePdfWeight65: 'df: (df.sum_w*(df.LHEPdfWeight65))**2'
+        -   sum_w_lhePdfWeight66: 'df: df.sum_w*(df.LHEPdfWeight66)'
+        -   sum_ww_lhePdfWeight66: 'df: (df.sum_w*(df.LHEPdfWeight66))**2'
+        -   sum_w_lhePdfWeight67: 'df: df.sum_w*(df.LHEPdfWeight67)'
+        -   sum_ww_lhePdfWeight67: 'df: (df.sum_w*(df.LHEPdfWeight67))**2'
+        -   sum_w_lhePdfWeight68: 'df: df.sum_w*(df.LHEPdfWeight68)'
+        -   sum_ww_lhePdfWeight68: 'df: (df.sum_w*(df.LHEPdfWeight68))**2'
+        -   sum_w_lhePdfWeight69: 'df: df.sum_w*(df.LHEPdfWeight69)'
+        -   sum_ww_lhePdfWeight69: 'df: (df.sum_w*(df.LHEPdfWeight69))**2'
+        -   sum_w_lhePdfWeight70: 'df: df.sum_w*(df.LHEPdfWeight70)'
+        -   sum_ww_lhePdfWeight70: 'df: (df.sum_w*(df.LHEPdfWeight70))**2'
+        -   sum_w_lhePdfWeight71: 'df: df.sum_w*(df.LHEPdfWeight71)'
+        -   sum_ww_lhePdfWeight71: 'df: (df.sum_w*(df.LHEPdfWeight71))**2'
+        -   sum_w_lhePdfWeight72: 'df: df.sum_w*(df.LHEPdfWeight72)'
+        -   sum_ww_lhePdfWeight72: 'df: (df.sum_w*(df.LHEPdfWeight72))**2'
+        -   sum_w_lhePdfWeight73: 'df: df.sum_w*(df.LHEPdfWeight73)'
+        -   sum_ww_lhePdfWeight73: 'df: (df.sum_w*(df.LHEPdfWeight73))**2'
+        -   sum_w_lhePdfWeight74: 'df: df.sum_w*(df.LHEPdfWeight74)'
+        -   sum_ww_lhePdfWeight74: 'df: (df.sum_w*(df.LHEPdfWeight74))**2'
+        -   sum_w_lhePdfWeight75: 'df: df.sum_w*(df.LHEPdfWeight75)'
+        -   sum_ww_lhePdfWeight75: 'df: (df.sum_w*(df.LHEPdfWeight75))**2'
+        -   sum_w_lhePdfWeight76: 'df: df.sum_w*(df.LHEPdfWeight76)'
+        -   sum_ww_lhePdfWeight76: 'df: (df.sum_w*(df.LHEPdfWeight76))**2'
+        -   sum_w_lhePdfWeight77: 'df: df.sum_w*(df.LHEPdfWeight77)'
+        -   sum_ww_lhePdfWeight77: 'df: (df.sum_w*(df.LHEPdfWeight77))**2'
+        -   sum_w_lhePdfWeight78: 'df: df.sum_w*(df.LHEPdfWeight78)'
+        -   sum_ww_lhePdfWeight78: 'df: (df.sum_w*(df.LHEPdfWeight78))**2'
+        -   sum_w_lhePdfWeight79: 'df: df.sum_w*(df.LHEPdfWeight79)'
+        -   sum_ww_lhePdfWeight79: 'df: (df.sum_w*(df.LHEPdfWeight79))**2'
+        -   sum_w_lhePdfWeight80: 'df: df.sum_w*(df.LHEPdfWeight80)'
+        -   sum_ww_lhePdfWeight80: 'df: (df.sum_w*(df.LHEPdfWeight80))**2'
+        -   sum_w_lhePdfWeight81: 'df: df.sum_w*(df.LHEPdfWeight81)'
+        -   sum_ww_lhePdfWeight81: 'df: (df.sum_w*(df.LHEPdfWeight81))**2'
+        -   sum_w_lhePdfWeight82: 'df: df.sum_w*(df.LHEPdfWeight82)'
+        -   sum_ww_lhePdfWeight82: 'df: (df.sum_w*(df.LHEPdfWeight82))**2'
+        -   sum_w_lhePdfWeight83: 'df: df.sum_w*(df.LHEPdfWeight83)'
+        -   sum_ww_lhePdfWeight83: 'df: (df.sum_w*(df.LHEPdfWeight83))**2'
+        -   sum_w_lhePdfWeight84: 'df: df.sum_w*(df.LHEPdfWeight84)'
+        -   sum_ww_lhePdfWeight84: 'df: (df.sum_w*(df.LHEPdfWeight84))**2'
+        -   sum_w_lhePdfWeight85: 'df: df.sum_w*(df.LHEPdfWeight85)'
+        -   sum_ww_lhePdfWeight85: 'df: (df.sum_w*(df.LHEPdfWeight85))**2'
+        -   sum_w_lhePdfWeight86: 'df: df.sum_w*(df.LHEPdfWeight86)'
+        -   sum_ww_lhePdfWeight86: 'df: (df.sum_w*(df.LHEPdfWeight86))**2'
+        -   sum_w_lhePdfWeight87: 'df: df.sum_w*(df.LHEPdfWeight87)'
+        -   sum_ww_lhePdfWeight87: 'df: (df.sum_w*(df.LHEPdfWeight87))**2'
+        -   sum_w_lhePdfWeight88: 'df: df.sum_w*(df.LHEPdfWeight88)'
+        -   sum_ww_lhePdfWeight88: 'df: (df.sum_w*(df.LHEPdfWeight88))**2'
+        -   sum_w_lhePdfWeight89: 'df: df.sum_w*(df.LHEPdfWeight89)'
+        -   sum_ww_lhePdfWeight89: 'df: (df.sum_w*(df.LHEPdfWeight89))**2'
+        -   sum_w_lhePdfWeight90: 'df: df.sum_w*(df.LHEPdfWeight90)'
+        -   sum_ww_lhePdfWeight90: 'df: (df.sum_w*(df.LHEPdfWeight90))**2'
+        -   sum_w_lhePdfWeight91: 'df: df.sum_w*(df.LHEPdfWeight91)'
+        -   sum_ww_lhePdfWeight91: 'df: (df.sum_w*(df.LHEPdfWeight91))**2'
+        -   sum_w_lhePdfWeight92: 'df: df.sum_w*(df.LHEPdfWeight92)'
+        -   sum_ww_lhePdfWeight92: 'df: (df.sum_w*(df.LHEPdfWeight92))**2'
+        -   sum_w_lhePdfWeight93: 'df: df.sum_w*(df.LHEPdfWeight93)'
+        -   sum_ww_lhePdfWeight93: 'df: (df.sum_w*(df.LHEPdfWeight93))**2'
+        -   sum_w_lhePdfWeight94: 'df: df.sum_w*(df.LHEPdfWeight94)'
+        -   sum_ww_lhePdfWeight94: 'df: (df.sum_w*(df.LHEPdfWeight94))**2'
+        -   sum_w_lhePdfWeight95: 'df: df.sum_w*(df.LHEPdfWeight95)'
+        -   sum_ww_lhePdfWeight95: 'df: (df.sum_w*(df.LHEPdfWeight95))**2'
+        -   sum_w_lhePdfWeight96: 'df: df.sum_w*(df.LHEPdfWeight96)'
+        -   sum_ww_lhePdfWeight96: 'df: (df.sum_w*(df.LHEPdfWeight96))**2'
+        -   sum_w_lhePdfWeight97: 'df: df.sum_w*(df.LHEPdfWeight97)'
+        -   sum_ww_lhePdfWeight97: 'df: (df.sum_w*(df.LHEPdfWeight97))**2'
+        -   sum_w_lhePdfWeight98: 'df: df.sum_w*(df.LHEPdfWeight98)'
+        -   sum_ww_lhePdfWeight98: 'df: (df.sum_w*(df.LHEPdfWeight98))**2'
+        LeadGenLepCandidate_eta_Generator_id1_Generator_id2:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadGenLepCandidate_eta'''
+        -   varname1: 'df: ''Generator_id1'''
+        -   varname2: 'df: ''Generator_id2'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   mass_window: 'df: (df.GenPartBoson_mass>=71.) & (df.GenPartBoson_mass<111.)'
+        -   large_pt: 'df: df.GenPartBoson_pt>=200.'
+        -   eta_restricted: 'df: (np.abs(df.LeadGenLepCandidate_pt)<2.4) & (np.abs(df.SecondGenLepCandidate_pt)<2.4)'
+        -   binvar0: 'df: df.LeadGenLepCandidate_eta_bin'
+        -   binvar1: 'df: df.Generator_id1_bin'
+        -   binvar2: 'df: df.Generator_id2_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_w_alphasUp: 'df: df.sum_w*(df.LHEPdfWeight101)'
+        -   sum_ww_alphasUp: 'df: (df.sum_w*(df.LHEPdfWeight101))**2'
+        -   sum_w_alphasDown: 'df: df.sum_w*(df.LHEPdfWeight102)'
+        -   sum_ww_alphasDown: 'df: (df.sum_w*(df.LHEPdfWeight102))**2'
+        -   sum_w_lheScaleWeight0: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight0: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight1: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight1: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight3: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight3: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight5: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight5: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight7: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight7: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight8: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight8: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lhePdfWeight0: 'df: df.sum_w*(df.LHEPdfWeight0)'
+        -   sum_ww_lhePdfWeight0: 'df: (df.sum_w*(df.LHEPdfWeight0))**2'
+        -   sum_w_lhePdfWeight1: 'df: df.sum_w*(df.LHEPdfWeight1)'
+        -   sum_ww_lhePdfWeight1: 'df: (df.sum_w*(df.LHEPdfWeight1))**2'
+        -   sum_w_lhePdfWeight2: 'df: df.sum_w*(df.LHEPdfWeight2)'
+        -   sum_ww_lhePdfWeight2: 'df: (df.sum_w*(df.LHEPdfWeight2))**2'
+        -   sum_w_lhePdfWeight3: 'df: df.sum_w*(df.LHEPdfWeight3)'
+        -   sum_ww_lhePdfWeight3: 'df: (df.sum_w*(df.LHEPdfWeight3))**2'
+        -   sum_w_lhePdfWeight4: 'df: df.sum_w*(df.LHEPdfWeight4)'
+        -   sum_ww_lhePdfWeight4: 'df: (df.sum_w*(df.LHEPdfWeight4))**2'
+        -   sum_w_lhePdfWeight5: 'df: df.sum_w*(df.LHEPdfWeight5)'
+        -   sum_ww_lhePdfWeight5: 'df: (df.sum_w*(df.LHEPdfWeight5))**2'
+        -   sum_w_lhePdfWeight6: 'df: df.sum_w*(df.LHEPdfWeight6)'
+        -   sum_ww_lhePdfWeight6: 'df: (df.sum_w*(df.LHEPdfWeight6))**2'
+        -   sum_w_lhePdfWeight7: 'df: df.sum_w*(df.LHEPdfWeight7)'
+        -   sum_ww_lhePdfWeight7: 'df: (df.sum_w*(df.LHEPdfWeight7))**2'
+        -   sum_w_lhePdfWeight8: 'df: df.sum_w*(df.LHEPdfWeight8)'
+        -   sum_ww_lhePdfWeight8: 'df: (df.sum_w*(df.LHEPdfWeight8))**2'
+        -   sum_w_lhePdfWeight9: 'df: df.sum_w*(df.LHEPdfWeight9)'
+        -   sum_ww_lhePdfWeight9: 'df: (df.sum_w*(df.LHEPdfWeight9))**2'
+        -   sum_w_lhePdfWeight10: 'df: df.sum_w*(df.LHEPdfWeight10)'
+        -   sum_ww_lhePdfWeight10: 'df: (df.sum_w*(df.LHEPdfWeight10))**2'
+        -   sum_w_lhePdfWeight11: 'df: df.sum_w*(df.LHEPdfWeight11)'
+        -   sum_ww_lhePdfWeight11: 'df: (df.sum_w*(df.LHEPdfWeight11))**2'
+        -   sum_w_lhePdfWeight12: 'df: df.sum_w*(df.LHEPdfWeight12)'
+        -   sum_ww_lhePdfWeight12: 'df: (df.sum_w*(df.LHEPdfWeight12))**2'
+        -   sum_w_lhePdfWeight13: 'df: df.sum_w*(df.LHEPdfWeight13)'
+        -   sum_ww_lhePdfWeight13: 'df: (df.sum_w*(df.LHEPdfWeight13))**2'
+        -   sum_w_lhePdfWeight14: 'df: df.sum_w*(df.LHEPdfWeight14)'
+        -   sum_ww_lhePdfWeight14: 'df: (df.sum_w*(df.LHEPdfWeight14))**2'
+        -   sum_w_lhePdfWeight15: 'df: df.sum_w*(df.LHEPdfWeight15)'
+        -   sum_ww_lhePdfWeight15: 'df: (df.sum_w*(df.LHEPdfWeight15))**2'
+        -   sum_w_lhePdfWeight16: 'df: df.sum_w*(df.LHEPdfWeight16)'
+        -   sum_ww_lhePdfWeight16: 'df: (df.sum_w*(df.LHEPdfWeight16))**2'
+        -   sum_w_lhePdfWeight17: 'df: df.sum_w*(df.LHEPdfWeight17)'
+        -   sum_ww_lhePdfWeight17: 'df: (df.sum_w*(df.LHEPdfWeight17))**2'
+        -   sum_w_lhePdfWeight18: 'df: df.sum_w*(df.LHEPdfWeight18)'
+        -   sum_ww_lhePdfWeight18: 'df: (df.sum_w*(df.LHEPdfWeight18))**2'
+        -   sum_w_lhePdfWeight19: 'df: df.sum_w*(df.LHEPdfWeight19)'
+        -   sum_ww_lhePdfWeight19: 'df: (df.sum_w*(df.LHEPdfWeight19))**2'
+        -   sum_w_lhePdfWeight20: 'df: df.sum_w*(df.LHEPdfWeight20)'
+        -   sum_ww_lhePdfWeight20: 'df: (df.sum_w*(df.LHEPdfWeight20))**2'
+        -   sum_w_lhePdfWeight21: 'df: df.sum_w*(df.LHEPdfWeight21)'
+        -   sum_ww_lhePdfWeight21: 'df: (df.sum_w*(df.LHEPdfWeight21))**2'
+        -   sum_w_lhePdfWeight22: 'df: df.sum_w*(df.LHEPdfWeight22)'
+        -   sum_ww_lhePdfWeight22: 'df: (df.sum_w*(df.LHEPdfWeight22))**2'
+        -   sum_w_lhePdfWeight23: 'df: df.sum_w*(df.LHEPdfWeight23)'
+        -   sum_ww_lhePdfWeight23: 'df: (df.sum_w*(df.LHEPdfWeight23))**2'
+        -   sum_w_lhePdfWeight24: 'df: df.sum_w*(df.LHEPdfWeight24)'
+        -   sum_ww_lhePdfWeight24: 'df: (df.sum_w*(df.LHEPdfWeight24))**2'
+        -   sum_w_lhePdfWeight25: 'df: df.sum_w*(df.LHEPdfWeight25)'
+        -   sum_ww_lhePdfWeight25: 'df: (df.sum_w*(df.LHEPdfWeight25))**2'
+        -   sum_w_lhePdfWeight26: 'df: df.sum_w*(df.LHEPdfWeight26)'
+        -   sum_ww_lhePdfWeight26: 'df: (df.sum_w*(df.LHEPdfWeight26))**2'
+        -   sum_w_lhePdfWeight27: 'df: df.sum_w*(df.LHEPdfWeight27)'
+        -   sum_ww_lhePdfWeight27: 'df: (df.sum_w*(df.LHEPdfWeight27))**2'
+        -   sum_w_lhePdfWeight28: 'df: df.sum_w*(df.LHEPdfWeight28)'
+        -   sum_ww_lhePdfWeight28: 'df: (df.sum_w*(df.LHEPdfWeight28))**2'
+        -   sum_w_lhePdfWeight29: 'df: df.sum_w*(df.LHEPdfWeight29)'
+        -   sum_ww_lhePdfWeight29: 'df: (df.sum_w*(df.LHEPdfWeight29))**2'
+        -   sum_w_lhePdfWeight30: 'df: df.sum_w*(df.LHEPdfWeight30)'
+        -   sum_ww_lhePdfWeight30: 'df: (df.sum_w*(df.LHEPdfWeight30))**2'
+        -   sum_w_lhePdfWeight31: 'df: df.sum_w*(df.LHEPdfWeight31)'
+        -   sum_ww_lhePdfWeight31: 'df: (df.sum_w*(df.LHEPdfWeight31))**2'
+        -   sum_w_lhePdfWeight32: 'df: df.sum_w*(df.LHEPdfWeight32)'
+        -   sum_ww_lhePdfWeight32: 'df: (df.sum_w*(df.LHEPdfWeight32))**2'
+        -   sum_w_lhePdfWeight33: 'df: df.sum_w*(df.LHEPdfWeight33)'
+        -   sum_ww_lhePdfWeight33: 'df: (df.sum_w*(df.LHEPdfWeight33))**2'
+        -   sum_w_lhePdfWeight34: 'df: df.sum_w*(df.LHEPdfWeight34)'
+        -   sum_ww_lhePdfWeight34: 'df: (df.sum_w*(df.LHEPdfWeight34))**2'
+        -   sum_w_lhePdfWeight35: 'df: df.sum_w*(df.LHEPdfWeight35)'
+        -   sum_ww_lhePdfWeight35: 'df: (df.sum_w*(df.LHEPdfWeight35))**2'
+        -   sum_w_lhePdfWeight36: 'df: df.sum_w*(df.LHEPdfWeight36)'
+        -   sum_ww_lhePdfWeight36: 'df: (df.sum_w*(df.LHEPdfWeight36))**2'
+        -   sum_w_lhePdfWeight37: 'df: df.sum_w*(df.LHEPdfWeight37)'
+        -   sum_ww_lhePdfWeight37: 'df: (df.sum_w*(df.LHEPdfWeight37))**2'
+        -   sum_w_lhePdfWeight38: 'df: df.sum_w*(df.LHEPdfWeight38)'
+        -   sum_ww_lhePdfWeight38: 'df: (df.sum_w*(df.LHEPdfWeight38))**2'
+        -   sum_w_lhePdfWeight39: 'df: df.sum_w*(df.LHEPdfWeight39)'
+        -   sum_ww_lhePdfWeight39: 'df: (df.sum_w*(df.LHEPdfWeight39))**2'
+        -   sum_w_lhePdfWeight40: 'df: df.sum_w*(df.LHEPdfWeight40)'
+        -   sum_ww_lhePdfWeight40: 'df: (df.sum_w*(df.LHEPdfWeight40))**2'
+        -   sum_w_lhePdfWeight41: 'df: df.sum_w*(df.LHEPdfWeight41)'
+        -   sum_ww_lhePdfWeight41: 'df: (df.sum_w*(df.LHEPdfWeight41))**2'
+        -   sum_w_lhePdfWeight42: 'df: df.sum_w*(df.LHEPdfWeight42)'
+        -   sum_ww_lhePdfWeight42: 'df: (df.sum_w*(df.LHEPdfWeight42))**2'
+        -   sum_w_lhePdfWeight43: 'df: df.sum_w*(df.LHEPdfWeight43)'
+        -   sum_ww_lhePdfWeight43: 'df: (df.sum_w*(df.LHEPdfWeight43))**2'
+        -   sum_w_lhePdfWeight44: 'df: df.sum_w*(df.LHEPdfWeight44)'
+        -   sum_ww_lhePdfWeight44: 'df: (df.sum_w*(df.LHEPdfWeight44))**2'
+        -   sum_w_lhePdfWeight45: 'df: df.sum_w*(df.LHEPdfWeight45)'
+        -   sum_ww_lhePdfWeight45: 'df: (df.sum_w*(df.LHEPdfWeight45))**2'
+        -   sum_w_lhePdfWeight46: 'df: df.sum_w*(df.LHEPdfWeight46)'
+        -   sum_ww_lhePdfWeight46: 'df: (df.sum_w*(df.LHEPdfWeight46))**2'
+        -   sum_w_lhePdfWeight47: 'df: df.sum_w*(df.LHEPdfWeight47)'
+        -   sum_ww_lhePdfWeight47: 'df: (df.sum_w*(df.LHEPdfWeight47))**2'
+        -   sum_w_lhePdfWeight48: 'df: df.sum_w*(df.LHEPdfWeight48)'
+        -   sum_ww_lhePdfWeight48: 'df: (df.sum_w*(df.LHEPdfWeight48))**2'
+        -   sum_w_lhePdfWeight49: 'df: df.sum_w*(df.LHEPdfWeight49)'
+        -   sum_ww_lhePdfWeight49: 'df: (df.sum_w*(df.LHEPdfWeight49))**2'
+        -   sum_w_lhePdfWeight50: 'df: df.sum_w*(df.LHEPdfWeight50)'
+        -   sum_ww_lhePdfWeight50: 'df: (df.sum_w*(df.LHEPdfWeight50))**2'
+        -   sum_w_lhePdfWeight51: 'df: df.sum_w*(df.LHEPdfWeight51)'
+        -   sum_ww_lhePdfWeight51: 'df: (df.sum_w*(df.LHEPdfWeight51))**2'
+        -   sum_w_lhePdfWeight52: 'df: df.sum_w*(df.LHEPdfWeight52)'
+        -   sum_ww_lhePdfWeight52: 'df: (df.sum_w*(df.LHEPdfWeight52))**2'
+        -   sum_w_lhePdfWeight53: 'df: df.sum_w*(df.LHEPdfWeight53)'
+        -   sum_ww_lhePdfWeight53: 'df: (df.sum_w*(df.LHEPdfWeight53))**2'
+        -   sum_w_lhePdfWeight54: 'df: df.sum_w*(df.LHEPdfWeight54)'
+        -   sum_ww_lhePdfWeight54: 'df: (df.sum_w*(df.LHEPdfWeight54))**2'
+        -   sum_w_lhePdfWeight55: 'df: df.sum_w*(df.LHEPdfWeight55)'
+        -   sum_ww_lhePdfWeight55: 'df: (df.sum_w*(df.LHEPdfWeight55))**2'
+        -   sum_w_lhePdfWeight56: 'df: df.sum_w*(df.LHEPdfWeight56)'
+        -   sum_ww_lhePdfWeight56: 'df: (df.sum_w*(df.LHEPdfWeight56))**2'
+        -   sum_w_lhePdfWeight57: 'df: df.sum_w*(df.LHEPdfWeight57)'
+        -   sum_ww_lhePdfWeight57: 'df: (df.sum_w*(df.LHEPdfWeight57))**2'
+        -   sum_w_lhePdfWeight58: 'df: df.sum_w*(df.LHEPdfWeight58)'
+        -   sum_ww_lhePdfWeight58: 'df: (df.sum_w*(df.LHEPdfWeight58))**2'
+        -   sum_w_lhePdfWeight59: 'df: df.sum_w*(df.LHEPdfWeight59)'
+        -   sum_ww_lhePdfWeight59: 'df: (df.sum_w*(df.LHEPdfWeight59))**2'
+        -   sum_w_lhePdfWeight60: 'df: df.sum_w*(df.LHEPdfWeight60)'
+        -   sum_ww_lhePdfWeight60: 'df: (df.sum_w*(df.LHEPdfWeight60))**2'
+        -   sum_w_lhePdfWeight61: 'df: df.sum_w*(df.LHEPdfWeight61)'
+        -   sum_ww_lhePdfWeight61: 'df: (df.sum_w*(df.LHEPdfWeight61))**2'
+        -   sum_w_lhePdfWeight62: 'df: df.sum_w*(df.LHEPdfWeight62)'
+        -   sum_ww_lhePdfWeight62: 'df: (df.sum_w*(df.LHEPdfWeight62))**2'
+        -   sum_w_lhePdfWeight63: 'df: df.sum_w*(df.LHEPdfWeight63)'
+        -   sum_ww_lhePdfWeight63: 'df: (df.sum_w*(df.LHEPdfWeight63))**2'
+        -   sum_w_lhePdfWeight64: 'df: df.sum_w*(df.LHEPdfWeight64)'
+        -   sum_ww_lhePdfWeight64: 'df: (df.sum_w*(df.LHEPdfWeight64))**2'
+        -   sum_w_lhePdfWeight65: 'df: df.sum_w*(df.LHEPdfWeight65)'
+        -   sum_ww_lhePdfWeight65: 'df: (df.sum_w*(df.LHEPdfWeight65))**2'
+        -   sum_w_lhePdfWeight66: 'df: df.sum_w*(df.LHEPdfWeight66)'
+        -   sum_ww_lhePdfWeight66: 'df: (df.sum_w*(df.LHEPdfWeight66))**2'
+        -   sum_w_lhePdfWeight67: 'df: df.sum_w*(df.LHEPdfWeight67)'
+        -   sum_ww_lhePdfWeight67: 'df: (df.sum_w*(df.LHEPdfWeight67))**2'
+        -   sum_w_lhePdfWeight68: 'df: df.sum_w*(df.LHEPdfWeight68)'
+        -   sum_ww_lhePdfWeight68: 'df: (df.sum_w*(df.LHEPdfWeight68))**2'
+        -   sum_w_lhePdfWeight69: 'df: df.sum_w*(df.LHEPdfWeight69)'
+        -   sum_ww_lhePdfWeight69: 'df: (df.sum_w*(df.LHEPdfWeight69))**2'
+        -   sum_w_lhePdfWeight70: 'df: df.sum_w*(df.LHEPdfWeight70)'
+        -   sum_ww_lhePdfWeight70: 'df: (df.sum_w*(df.LHEPdfWeight70))**2'
+        -   sum_w_lhePdfWeight71: 'df: df.sum_w*(df.LHEPdfWeight71)'
+        -   sum_ww_lhePdfWeight71: 'df: (df.sum_w*(df.LHEPdfWeight71))**2'
+        -   sum_w_lhePdfWeight72: 'df: df.sum_w*(df.LHEPdfWeight72)'
+        -   sum_ww_lhePdfWeight72: 'df: (df.sum_w*(df.LHEPdfWeight72))**2'
+        -   sum_w_lhePdfWeight73: 'df: df.sum_w*(df.LHEPdfWeight73)'
+        -   sum_ww_lhePdfWeight73: 'df: (df.sum_w*(df.LHEPdfWeight73))**2'
+        -   sum_w_lhePdfWeight74: 'df: df.sum_w*(df.LHEPdfWeight74)'
+        -   sum_ww_lhePdfWeight74: 'df: (df.sum_w*(df.LHEPdfWeight74))**2'
+        -   sum_w_lhePdfWeight75: 'df: df.sum_w*(df.LHEPdfWeight75)'
+        -   sum_ww_lhePdfWeight75: 'df: (df.sum_w*(df.LHEPdfWeight75))**2'
+        -   sum_w_lhePdfWeight76: 'df: df.sum_w*(df.LHEPdfWeight76)'
+        -   sum_ww_lhePdfWeight76: 'df: (df.sum_w*(df.LHEPdfWeight76))**2'
+        -   sum_w_lhePdfWeight77: 'df: df.sum_w*(df.LHEPdfWeight77)'
+        -   sum_ww_lhePdfWeight77: 'df: (df.sum_w*(df.LHEPdfWeight77))**2'
+        -   sum_w_lhePdfWeight78: 'df: df.sum_w*(df.LHEPdfWeight78)'
+        -   sum_ww_lhePdfWeight78: 'df: (df.sum_w*(df.LHEPdfWeight78))**2'
+        -   sum_w_lhePdfWeight79: 'df: df.sum_w*(df.LHEPdfWeight79)'
+        -   sum_ww_lhePdfWeight79: 'df: (df.sum_w*(df.LHEPdfWeight79))**2'
+        -   sum_w_lhePdfWeight80: 'df: df.sum_w*(df.LHEPdfWeight80)'
+        -   sum_ww_lhePdfWeight80: 'df: (df.sum_w*(df.LHEPdfWeight80))**2'
+        -   sum_w_lhePdfWeight81: 'df: df.sum_w*(df.LHEPdfWeight81)'
+        -   sum_ww_lhePdfWeight81: 'df: (df.sum_w*(df.LHEPdfWeight81))**2'
+        -   sum_w_lhePdfWeight82: 'df: df.sum_w*(df.LHEPdfWeight82)'
+        -   sum_ww_lhePdfWeight82: 'df: (df.sum_w*(df.LHEPdfWeight82))**2'
+        -   sum_w_lhePdfWeight83: 'df: df.sum_w*(df.LHEPdfWeight83)'
+        -   sum_ww_lhePdfWeight83: 'df: (df.sum_w*(df.LHEPdfWeight83))**2'
+        -   sum_w_lhePdfWeight84: 'df: df.sum_w*(df.LHEPdfWeight84)'
+        -   sum_ww_lhePdfWeight84: 'df: (df.sum_w*(df.LHEPdfWeight84))**2'
+        -   sum_w_lhePdfWeight85: 'df: df.sum_w*(df.LHEPdfWeight85)'
+        -   sum_ww_lhePdfWeight85: 'df: (df.sum_w*(df.LHEPdfWeight85))**2'
+        -   sum_w_lhePdfWeight86: 'df: df.sum_w*(df.LHEPdfWeight86)'
+        -   sum_ww_lhePdfWeight86: 'df: (df.sum_w*(df.LHEPdfWeight86))**2'
+        -   sum_w_lhePdfWeight87: 'df: df.sum_w*(df.LHEPdfWeight87)'
+        -   sum_ww_lhePdfWeight87: 'df: (df.sum_w*(df.LHEPdfWeight87))**2'
+        -   sum_w_lhePdfWeight88: 'df: df.sum_w*(df.LHEPdfWeight88)'
+        -   sum_ww_lhePdfWeight88: 'df: (df.sum_w*(df.LHEPdfWeight88))**2'
+        -   sum_w_lhePdfWeight89: 'df: df.sum_w*(df.LHEPdfWeight89)'
+        -   sum_ww_lhePdfWeight89: 'df: (df.sum_w*(df.LHEPdfWeight89))**2'
+        -   sum_w_lhePdfWeight90: 'df: df.sum_w*(df.LHEPdfWeight90)'
+        -   sum_ww_lhePdfWeight90: 'df: (df.sum_w*(df.LHEPdfWeight90))**2'
+        -   sum_w_lhePdfWeight91: 'df: df.sum_w*(df.LHEPdfWeight91)'
+        -   sum_ww_lhePdfWeight91: 'df: (df.sum_w*(df.LHEPdfWeight91))**2'
+        -   sum_w_lhePdfWeight92: 'df: df.sum_w*(df.LHEPdfWeight92)'
+        -   sum_ww_lhePdfWeight92: 'df: (df.sum_w*(df.LHEPdfWeight92))**2'
+        -   sum_w_lhePdfWeight93: 'df: df.sum_w*(df.LHEPdfWeight93)'
+        -   sum_ww_lhePdfWeight93: 'df: (df.sum_w*(df.LHEPdfWeight93))**2'
+        -   sum_w_lhePdfWeight94: 'df: df.sum_w*(df.LHEPdfWeight94)'
+        -   sum_ww_lhePdfWeight94: 'df: (df.sum_w*(df.LHEPdfWeight94))**2'
+        -   sum_w_lhePdfWeight95: 'df: df.sum_w*(df.LHEPdfWeight95)'
+        -   sum_ww_lhePdfWeight95: 'df: (df.sum_w*(df.LHEPdfWeight95))**2'
+        -   sum_w_lhePdfWeight96: 'df: df.sum_w*(df.LHEPdfWeight96)'
+        -   sum_ww_lhePdfWeight96: 'df: (df.sum_w*(df.LHEPdfWeight96))**2'
+        -   sum_w_lhePdfWeight97: 'df: df.sum_w*(df.LHEPdfWeight97)'
+        -   sum_ww_lhePdfWeight97: 'df: (df.sum_w*(df.LHEPdfWeight97))**2'
+        -   sum_w_lhePdfWeight98: 'df: df.sum_w*(df.LHEPdfWeight98)'
+        -   sum_ww_lhePdfWeight98: 'df: (df.sum_w*(df.LHEPdfWeight98))**2'
+        SecondGenLepCandidate_pt_Generator_id1_Generator_id2:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondGenLepCandidate_pt'''
+        -   varname1: 'df: ''Generator_id1'''
+        -   varname2: 'df: ''Generator_id2'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   mass_window: 'df: (df.GenPartBoson_mass>=71.) & (df.GenPartBoson_mass<111.)'
+        -   large_pt: 'df: df.GenPartBoson_pt>=200.'
+        -   eta_restricted: 'df: (np.abs(df.LeadGenLepCandidate_pt)<2.4) & (np.abs(df.SecondGenLepCandidate_pt)<2.4)'
+        -   binvar0: 'df: df.SecondGenLepCandidate_pt_bin'
+        -   binvar1: 'df: df.Generator_id1_bin'
+        -   binvar2: 'df: df.Generator_id2_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_w_alphasUp: 'df: df.sum_w*(df.LHEPdfWeight101)'
+        -   sum_ww_alphasUp: 'df: (df.sum_w*(df.LHEPdfWeight101))**2'
+        -   sum_w_alphasDown: 'df: df.sum_w*(df.LHEPdfWeight102)'
+        -   sum_ww_alphasDown: 'df: (df.sum_w*(df.LHEPdfWeight102))**2'
+        -   sum_w_lheScaleWeight0: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight0: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight1: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight1: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight3: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight3: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight5: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight5: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight7: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight7: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight8: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight8: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lhePdfWeight0: 'df: df.sum_w*(df.LHEPdfWeight0)'
+        -   sum_ww_lhePdfWeight0: 'df: (df.sum_w*(df.LHEPdfWeight0))**2'
+        -   sum_w_lhePdfWeight1: 'df: df.sum_w*(df.LHEPdfWeight1)'
+        -   sum_ww_lhePdfWeight1: 'df: (df.sum_w*(df.LHEPdfWeight1))**2'
+        -   sum_w_lhePdfWeight2: 'df: df.sum_w*(df.LHEPdfWeight2)'
+        -   sum_ww_lhePdfWeight2: 'df: (df.sum_w*(df.LHEPdfWeight2))**2'
+        -   sum_w_lhePdfWeight3: 'df: df.sum_w*(df.LHEPdfWeight3)'
+        -   sum_ww_lhePdfWeight3: 'df: (df.sum_w*(df.LHEPdfWeight3))**2'
+        -   sum_w_lhePdfWeight4: 'df: df.sum_w*(df.LHEPdfWeight4)'
+        -   sum_ww_lhePdfWeight4: 'df: (df.sum_w*(df.LHEPdfWeight4))**2'
+        -   sum_w_lhePdfWeight5: 'df: df.sum_w*(df.LHEPdfWeight5)'
+        -   sum_ww_lhePdfWeight5: 'df: (df.sum_w*(df.LHEPdfWeight5))**2'
+        -   sum_w_lhePdfWeight6: 'df: df.sum_w*(df.LHEPdfWeight6)'
+        -   sum_ww_lhePdfWeight6: 'df: (df.sum_w*(df.LHEPdfWeight6))**2'
+        -   sum_w_lhePdfWeight7: 'df: df.sum_w*(df.LHEPdfWeight7)'
+        -   sum_ww_lhePdfWeight7: 'df: (df.sum_w*(df.LHEPdfWeight7))**2'
+        -   sum_w_lhePdfWeight8: 'df: df.sum_w*(df.LHEPdfWeight8)'
+        -   sum_ww_lhePdfWeight8: 'df: (df.sum_w*(df.LHEPdfWeight8))**2'
+        -   sum_w_lhePdfWeight9: 'df: df.sum_w*(df.LHEPdfWeight9)'
+        -   sum_ww_lhePdfWeight9: 'df: (df.sum_w*(df.LHEPdfWeight9))**2'
+        -   sum_w_lhePdfWeight10: 'df: df.sum_w*(df.LHEPdfWeight10)'
+        -   sum_ww_lhePdfWeight10: 'df: (df.sum_w*(df.LHEPdfWeight10))**2'
+        -   sum_w_lhePdfWeight11: 'df: df.sum_w*(df.LHEPdfWeight11)'
+        -   sum_ww_lhePdfWeight11: 'df: (df.sum_w*(df.LHEPdfWeight11))**2'
+        -   sum_w_lhePdfWeight12: 'df: df.sum_w*(df.LHEPdfWeight12)'
+        -   sum_ww_lhePdfWeight12: 'df: (df.sum_w*(df.LHEPdfWeight12))**2'
+        -   sum_w_lhePdfWeight13: 'df: df.sum_w*(df.LHEPdfWeight13)'
+        -   sum_ww_lhePdfWeight13: 'df: (df.sum_w*(df.LHEPdfWeight13))**2'
+        -   sum_w_lhePdfWeight14: 'df: df.sum_w*(df.LHEPdfWeight14)'
+        -   sum_ww_lhePdfWeight14: 'df: (df.sum_w*(df.LHEPdfWeight14))**2'
+        -   sum_w_lhePdfWeight15: 'df: df.sum_w*(df.LHEPdfWeight15)'
+        -   sum_ww_lhePdfWeight15: 'df: (df.sum_w*(df.LHEPdfWeight15))**2'
+        -   sum_w_lhePdfWeight16: 'df: df.sum_w*(df.LHEPdfWeight16)'
+        -   sum_ww_lhePdfWeight16: 'df: (df.sum_w*(df.LHEPdfWeight16))**2'
+        -   sum_w_lhePdfWeight17: 'df: df.sum_w*(df.LHEPdfWeight17)'
+        -   sum_ww_lhePdfWeight17: 'df: (df.sum_w*(df.LHEPdfWeight17))**2'
+        -   sum_w_lhePdfWeight18: 'df: df.sum_w*(df.LHEPdfWeight18)'
+        -   sum_ww_lhePdfWeight18: 'df: (df.sum_w*(df.LHEPdfWeight18))**2'
+        -   sum_w_lhePdfWeight19: 'df: df.sum_w*(df.LHEPdfWeight19)'
+        -   sum_ww_lhePdfWeight19: 'df: (df.sum_w*(df.LHEPdfWeight19))**2'
+        -   sum_w_lhePdfWeight20: 'df: df.sum_w*(df.LHEPdfWeight20)'
+        -   sum_ww_lhePdfWeight20: 'df: (df.sum_w*(df.LHEPdfWeight20))**2'
+        -   sum_w_lhePdfWeight21: 'df: df.sum_w*(df.LHEPdfWeight21)'
+        -   sum_ww_lhePdfWeight21: 'df: (df.sum_w*(df.LHEPdfWeight21))**2'
+        -   sum_w_lhePdfWeight22: 'df: df.sum_w*(df.LHEPdfWeight22)'
+        -   sum_ww_lhePdfWeight22: 'df: (df.sum_w*(df.LHEPdfWeight22))**2'
+        -   sum_w_lhePdfWeight23: 'df: df.sum_w*(df.LHEPdfWeight23)'
+        -   sum_ww_lhePdfWeight23: 'df: (df.sum_w*(df.LHEPdfWeight23))**2'
+        -   sum_w_lhePdfWeight24: 'df: df.sum_w*(df.LHEPdfWeight24)'
+        -   sum_ww_lhePdfWeight24: 'df: (df.sum_w*(df.LHEPdfWeight24))**2'
+        -   sum_w_lhePdfWeight25: 'df: df.sum_w*(df.LHEPdfWeight25)'
+        -   sum_ww_lhePdfWeight25: 'df: (df.sum_w*(df.LHEPdfWeight25))**2'
+        -   sum_w_lhePdfWeight26: 'df: df.sum_w*(df.LHEPdfWeight26)'
+        -   sum_ww_lhePdfWeight26: 'df: (df.sum_w*(df.LHEPdfWeight26))**2'
+        -   sum_w_lhePdfWeight27: 'df: df.sum_w*(df.LHEPdfWeight27)'
+        -   sum_ww_lhePdfWeight27: 'df: (df.sum_w*(df.LHEPdfWeight27))**2'
+        -   sum_w_lhePdfWeight28: 'df: df.sum_w*(df.LHEPdfWeight28)'
+        -   sum_ww_lhePdfWeight28: 'df: (df.sum_w*(df.LHEPdfWeight28))**2'
+        -   sum_w_lhePdfWeight29: 'df: df.sum_w*(df.LHEPdfWeight29)'
+        -   sum_ww_lhePdfWeight29: 'df: (df.sum_w*(df.LHEPdfWeight29))**2'
+        -   sum_w_lhePdfWeight30: 'df: df.sum_w*(df.LHEPdfWeight30)'
+        -   sum_ww_lhePdfWeight30: 'df: (df.sum_w*(df.LHEPdfWeight30))**2'
+        -   sum_w_lhePdfWeight31: 'df: df.sum_w*(df.LHEPdfWeight31)'
+        -   sum_ww_lhePdfWeight31: 'df: (df.sum_w*(df.LHEPdfWeight31))**2'
+        -   sum_w_lhePdfWeight32: 'df: df.sum_w*(df.LHEPdfWeight32)'
+        -   sum_ww_lhePdfWeight32: 'df: (df.sum_w*(df.LHEPdfWeight32))**2'
+        -   sum_w_lhePdfWeight33: 'df: df.sum_w*(df.LHEPdfWeight33)'
+        -   sum_ww_lhePdfWeight33: 'df: (df.sum_w*(df.LHEPdfWeight33))**2'
+        -   sum_w_lhePdfWeight34: 'df: df.sum_w*(df.LHEPdfWeight34)'
+        -   sum_ww_lhePdfWeight34: 'df: (df.sum_w*(df.LHEPdfWeight34))**2'
+        -   sum_w_lhePdfWeight35: 'df: df.sum_w*(df.LHEPdfWeight35)'
+        -   sum_ww_lhePdfWeight35: 'df: (df.sum_w*(df.LHEPdfWeight35))**2'
+        -   sum_w_lhePdfWeight36: 'df: df.sum_w*(df.LHEPdfWeight36)'
+        -   sum_ww_lhePdfWeight36: 'df: (df.sum_w*(df.LHEPdfWeight36))**2'
+        -   sum_w_lhePdfWeight37: 'df: df.sum_w*(df.LHEPdfWeight37)'
+        -   sum_ww_lhePdfWeight37: 'df: (df.sum_w*(df.LHEPdfWeight37))**2'
+        -   sum_w_lhePdfWeight38: 'df: df.sum_w*(df.LHEPdfWeight38)'
+        -   sum_ww_lhePdfWeight38: 'df: (df.sum_w*(df.LHEPdfWeight38))**2'
+        -   sum_w_lhePdfWeight39: 'df: df.sum_w*(df.LHEPdfWeight39)'
+        -   sum_ww_lhePdfWeight39: 'df: (df.sum_w*(df.LHEPdfWeight39))**2'
+        -   sum_w_lhePdfWeight40: 'df: df.sum_w*(df.LHEPdfWeight40)'
+        -   sum_ww_lhePdfWeight40: 'df: (df.sum_w*(df.LHEPdfWeight40))**2'
+        -   sum_w_lhePdfWeight41: 'df: df.sum_w*(df.LHEPdfWeight41)'
+        -   sum_ww_lhePdfWeight41: 'df: (df.sum_w*(df.LHEPdfWeight41))**2'
+        -   sum_w_lhePdfWeight42: 'df: df.sum_w*(df.LHEPdfWeight42)'
+        -   sum_ww_lhePdfWeight42: 'df: (df.sum_w*(df.LHEPdfWeight42))**2'
+        -   sum_w_lhePdfWeight43: 'df: df.sum_w*(df.LHEPdfWeight43)'
+        -   sum_ww_lhePdfWeight43: 'df: (df.sum_w*(df.LHEPdfWeight43))**2'
+        -   sum_w_lhePdfWeight44: 'df: df.sum_w*(df.LHEPdfWeight44)'
+        -   sum_ww_lhePdfWeight44: 'df: (df.sum_w*(df.LHEPdfWeight44))**2'
+        -   sum_w_lhePdfWeight45: 'df: df.sum_w*(df.LHEPdfWeight45)'
+        -   sum_ww_lhePdfWeight45: 'df: (df.sum_w*(df.LHEPdfWeight45))**2'
+        -   sum_w_lhePdfWeight46: 'df: df.sum_w*(df.LHEPdfWeight46)'
+        -   sum_ww_lhePdfWeight46: 'df: (df.sum_w*(df.LHEPdfWeight46))**2'
+        -   sum_w_lhePdfWeight47: 'df: df.sum_w*(df.LHEPdfWeight47)'
+        -   sum_ww_lhePdfWeight47: 'df: (df.sum_w*(df.LHEPdfWeight47))**2'
+        -   sum_w_lhePdfWeight48: 'df: df.sum_w*(df.LHEPdfWeight48)'
+        -   sum_ww_lhePdfWeight48: 'df: (df.sum_w*(df.LHEPdfWeight48))**2'
+        -   sum_w_lhePdfWeight49: 'df: df.sum_w*(df.LHEPdfWeight49)'
+        -   sum_ww_lhePdfWeight49: 'df: (df.sum_w*(df.LHEPdfWeight49))**2'
+        -   sum_w_lhePdfWeight50: 'df: df.sum_w*(df.LHEPdfWeight50)'
+        -   sum_ww_lhePdfWeight50: 'df: (df.sum_w*(df.LHEPdfWeight50))**2'
+        -   sum_w_lhePdfWeight51: 'df: df.sum_w*(df.LHEPdfWeight51)'
+        -   sum_ww_lhePdfWeight51: 'df: (df.sum_w*(df.LHEPdfWeight51))**2'
+        -   sum_w_lhePdfWeight52: 'df: df.sum_w*(df.LHEPdfWeight52)'
+        -   sum_ww_lhePdfWeight52: 'df: (df.sum_w*(df.LHEPdfWeight52))**2'
+        -   sum_w_lhePdfWeight53: 'df: df.sum_w*(df.LHEPdfWeight53)'
+        -   sum_ww_lhePdfWeight53: 'df: (df.sum_w*(df.LHEPdfWeight53))**2'
+        -   sum_w_lhePdfWeight54: 'df: df.sum_w*(df.LHEPdfWeight54)'
+        -   sum_ww_lhePdfWeight54: 'df: (df.sum_w*(df.LHEPdfWeight54))**2'
+        -   sum_w_lhePdfWeight55: 'df: df.sum_w*(df.LHEPdfWeight55)'
+        -   sum_ww_lhePdfWeight55: 'df: (df.sum_w*(df.LHEPdfWeight55))**2'
+        -   sum_w_lhePdfWeight56: 'df: df.sum_w*(df.LHEPdfWeight56)'
+        -   sum_ww_lhePdfWeight56: 'df: (df.sum_w*(df.LHEPdfWeight56))**2'
+        -   sum_w_lhePdfWeight57: 'df: df.sum_w*(df.LHEPdfWeight57)'
+        -   sum_ww_lhePdfWeight57: 'df: (df.sum_w*(df.LHEPdfWeight57))**2'
+        -   sum_w_lhePdfWeight58: 'df: df.sum_w*(df.LHEPdfWeight58)'
+        -   sum_ww_lhePdfWeight58: 'df: (df.sum_w*(df.LHEPdfWeight58))**2'
+        -   sum_w_lhePdfWeight59: 'df: df.sum_w*(df.LHEPdfWeight59)'
+        -   sum_ww_lhePdfWeight59: 'df: (df.sum_w*(df.LHEPdfWeight59))**2'
+        -   sum_w_lhePdfWeight60: 'df: df.sum_w*(df.LHEPdfWeight60)'
+        -   sum_ww_lhePdfWeight60: 'df: (df.sum_w*(df.LHEPdfWeight60))**2'
+        -   sum_w_lhePdfWeight61: 'df: df.sum_w*(df.LHEPdfWeight61)'
+        -   sum_ww_lhePdfWeight61: 'df: (df.sum_w*(df.LHEPdfWeight61))**2'
+        -   sum_w_lhePdfWeight62: 'df: df.sum_w*(df.LHEPdfWeight62)'
+        -   sum_ww_lhePdfWeight62: 'df: (df.sum_w*(df.LHEPdfWeight62))**2'
+        -   sum_w_lhePdfWeight63: 'df: df.sum_w*(df.LHEPdfWeight63)'
+        -   sum_ww_lhePdfWeight63: 'df: (df.sum_w*(df.LHEPdfWeight63))**2'
+        -   sum_w_lhePdfWeight64: 'df: df.sum_w*(df.LHEPdfWeight64)'
+        -   sum_ww_lhePdfWeight64: 'df: (df.sum_w*(df.LHEPdfWeight64))**2'
+        -   sum_w_lhePdfWeight65: 'df: df.sum_w*(df.LHEPdfWeight65)'
+        -   sum_ww_lhePdfWeight65: 'df: (df.sum_w*(df.LHEPdfWeight65))**2'
+        -   sum_w_lhePdfWeight66: 'df: df.sum_w*(df.LHEPdfWeight66)'
+        -   sum_ww_lhePdfWeight66: 'df: (df.sum_w*(df.LHEPdfWeight66))**2'
+        -   sum_w_lhePdfWeight67: 'df: df.sum_w*(df.LHEPdfWeight67)'
+        -   sum_ww_lhePdfWeight67: 'df: (df.sum_w*(df.LHEPdfWeight67))**2'
+        -   sum_w_lhePdfWeight68: 'df: df.sum_w*(df.LHEPdfWeight68)'
+        -   sum_ww_lhePdfWeight68: 'df: (df.sum_w*(df.LHEPdfWeight68))**2'
+        -   sum_w_lhePdfWeight69: 'df: df.sum_w*(df.LHEPdfWeight69)'
+        -   sum_ww_lhePdfWeight69: 'df: (df.sum_w*(df.LHEPdfWeight69))**2'
+        -   sum_w_lhePdfWeight70: 'df: df.sum_w*(df.LHEPdfWeight70)'
+        -   sum_ww_lhePdfWeight70: 'df: (df.sum_w*(df.LHEPdfWeight70))**2'
+        -   sum_w_lhePdfWeight71: 'df: df.sum_w*(df.LHEPdfWeight71)'
+        -   sum_ww_lhePdfWeight71: 'df: (df.sum_w*(df.LHEPdfWeight71))**2'
+        -   sum_w_lhePdfWeight72: 'df: df.sum_w*(df.LHEPdfWeight72)'
+        -   sum_ww_lhePdfWeight72: 'df: (df.sum_w*(df.LHEPdfWeight72))**2'
+        -   sum_w_lhePdfWeight73: 'df: df.sum_w*(df.LHEPdfWeight73)'
+        -   sum_ww_lhePdfWeight73: 'df: (df.sum_w*(df.LHEPdfWeight73))**2'
+        -   sum_w_lhePdfWeight74: 'df: df.sum_w*(df.LHEPdfWeight74)'
+        -   sum_ww_lhePdfWeight74: 'df: (df.sum_w*(df.LHEPdfWeight74))**2'
+        -   sum_w_lhePdfWeight75: 'df: df.sum_w*(df.LHEPdfWeight75)'
+        -   sum_ww_lhePdfWeight75: 'df: (df.sum_w*(df.LHEPdfWeight75))**2'
+        -   sum_w_lhePdfWeight76: 'df: df.sum_w*(df.LHEPdfWeight76)'
+        -   sum_ww_lhePdfWeight76: 'df: (df.sum_w*(df.LHEPdfWeight76))**2'
+        -   sum_w_lhePdfWeight77: 'df: df.sum_w*(df.LHEPdfWeight77)'
+        -   sum_ww_lhePdfWeight77: 'df: (df.sum_w*(df.LHEPdfWeight77))**2'
+        -   sum_w_lhePdfWeight78: 'df: df.sum_w*(df.LHEPdfWeight78)'
+        -   sum_ww_lhePdfWeight78: 'df: (df.sum_w*(df.LHEPdfWeight78))**2'
+        -   sum_w_lhePdfWeight79: 'df: df.sum_w*(df.LHEPdfWeight79)'
+        -   sum_ww_lhePdfWeight79: 'df: (df.sum_w*(df.LHEPdfWeight79))**2'
+        -   sum_w_lhePdfWeight80: 'df: df.sum_w*(df.LHEPdfWeight80)'
+        -   sum_ww_lhePdfWeight80: 'df: (df.sum_w*(df.LHEPdfWeight80))**2'
+        -   sum_w_lhePdfWeight81: 'df: df.sum_w*(df.LHEPdfWeight81)'
+        -   sum_ww_lhePdfWeight81: 'df: (df.sum_w*(df.LHEPdfWeight81))**2'
+        -   sum_w_lhePdfWeight82: 'df: df.sum_w*(df.LHEPdfWeight82)'
+        -   sum_ww_lhePdfWeight82: 'df: (df.sum_w*(df.LHEPdfWeight82))**2'
+        -   sum_w_lhePdfWeight83: 'df: df.sum_w*(df.LHEPdfWeight83)'
+        -   sum_ww_lhePdfWeight83: 'df: (df.sum_w*(df.LHEPdfWeight83))**2'
+        -   sum_w_lhePdfWeight84: 'df: df.sum_w*(df.LHEPdfWeight84)'
+        -   sum_ww_lhePdfWeight84: 'df: (df.sum_w*(df.LHEPdfWeight84))**2'
+        -   sum_w_lhePdfWeight85: 'df: df.sum_w*(df.LHEPdfWeight85)'
+        -   sum_ww_lhePdfWeight85: 'df: (df.sum_w*(df.LHEPdfWeight85))**2'
+        -   sum_w_lhePdfWeight86: 'df: df.sum_w*(df.LHEPdfWeight86)'
+        -   sum_ww_lhePdfWeight86: 'df: (df.sum_w*(df.LHEPdfWeight86))**2'
+        -   sum_w_lhePdfWeight87: 'df: df.sum_w*(df.LHEPdfWeight87)'
+        -   sum_ww_lhePdfWeight87: 'df: (df.sum_w*(df.LHEPdfWeight87))**2'
+        -   sum_w_lhePdfWeight88: 'df: df.sum_w*(df.LHEPdfWeight88)'
+        -   sum_ww_lhePdfWeight88: 'df: (df.sum_w*(df.LHEPdfWeight88))**2'
+        -   sum_w_lhePdfWeight89: 'df: df.sum_w*(df.LHEPdfWeight89)'
+        -   sum_ww_lhePdfWeight89: 'df: (df.sum_w*(df.LHEPdfWeight89))**2'
+        -   sum_w_lhePdfWeight90: 'df: df.sum_w*(df.LHEPdfWeight90)'
+        -   sum_ww_lhePdfWeight90: 'df: (df.sum_w*(df.LHEPdfWeight90))**2'
+        -   sum_w_lhePdfWeight91: 'df: df.sum_w*(df.LHEPdfWeight91)'
+        -   sum_ww_lhePdfWeight91: 'df: (df.sum_w*(df.LHEPdfWeight91))**2'
+        -   sum_w_lhePdfWeight92: 'df: df.sum_w*(df.LHEPdfWeight92)'
+        -   sum_ww_lhePdfWeight92: 'df: (df.sum_w*(df.LHEPdfWeight92))**2'
+        -   sum_w_lhePdfWeight93: 'df: df.sum_w*(df.LHEPdfWeight93)'
+        -   sum_ww_lhePdfWeight93: 'df: (df.sum_w*(df.LHEPdfWeight93))**2'
+        -   sum_w_lhePdfWeight94: 'df: df.sum_w*(df.LHEPdfWeight94)'
+        -   sum_ww_lhePdfWeight94: 'df: (df.sum_w*(df.LHEPdfWeight94))**2'
+        -   sum_w_lhePdfWeight95: 'df: df.sum_w*(df.LHEPdfWeight95)'
+        -   sum_ww_lhePdfWeight95: 'df: (df.sum_w*(df.LHEPdfWeight95))**2'
+        -   sum_w_lhePdfWeight96: 'df: df.sum_w*(df.LHEPdfWeight96)'
+        -   sum_ww_lhePdfWeight96: 'df: (df.sum_w*(df.LHEPdfWeight96))**2'
+        -   sum_w_lhePdfWeight97: 'df: df.sum_w*(df.LHEPdfWeight97)'
+        -   sum_ww_lhePdfWeight97: 'df: (df.sum_w*(df.LHEPdfWeight97))**2'
+        -   sum_w_lhePdfWeight98: 'df: df.sum_w*(df.LHEPdfWeight98)'
+        -   sum_ww_lhePdfWeight98: 'df: (df.sum_w*(df.LHEPdfWeight98))**2'
+        SecondGenLepCandidate_eta_Generator_id1_Generator_id2:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondGenLepCandidate_eta'''
+        -   varname1: 'df: ''Generator_id1'''
+        -   varname2: 'df: ''Generator_id2'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   mass_window: 'df: (df.GenPartBoson_mass>=71.) & (df.GenPartBoson_mass<111.)'
+        -   large_pt: 'df: df.GenPartBoson_pt>=200.'
+        -   eta_restricted: 'df: (np.abs(df.LeadGenLepCandidate_pt)<2.4) & (np.abs(df.SecondGenLepCandidate_pt)<2.4)'
+        -   binvar0: 'df: df.SecondGenLepCandidate_eta_bin'
+        -   binvar1: 'df: df.Generator_id1_bin'
+        -   binvar2: 'df: df.Generator_id2_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_w_alphasUp: 'df: df.sum_w*(df.LHEPdfWeight101)'
+        -   sum_ww_alphasUp: 'df: (df.sum_w*(df.LHEPdfWeight101))**2'
+        -   sum_w_alphasDown: 'df: df.sum_w*(df.LHEPdfWeight102)'
+        -   sum_ww_alphasDown: 'df: (df.sum_w*(df.LHEPdfWeight102))**2'
+        -   sum_w_lheScaleWeight0: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight0: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight0, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight1: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight1: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight1, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight3: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight3: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight3, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight5: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight5: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight5, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight7: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight7: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight7, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lheScaleWeight8: 'df: df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0)))'
+        -   sum_ww_lheScaleWeight8: 'df: (df.sum_w*(np.where(~(df.parent.str.contains(''ZJetsTo'')
+                | df.parent.str.contains(''WJetsTo'') | df.parent.str.contains(''DYJetsTo'')
+                | df.parent.str.contains(''GStarJetsTo'')), df.LHEScaleWeight8, np.ones_like(df.LHEScaleWeight0))))**2'
+        -   sum_w_lhePdfWeight0: 'df: df.sum_w*(df.LHEPdfWeight0)'
+        -   sum_ww_lhePdfWeight0: 'df: (df.sum_w*(df.LHEPdfWeight0))**2'
+        -   sum_w_lhePdfWeight1: 'df: df.sum_w*(df.LHEPdfWeight1)'
+        -   sum_ww_lhePdfWeight1: 'df: (df.sum_w*(df.LHEPdfWeight1))**2'
+        -   sum_w_lhePdfWeight2: 'df: df.sum_w*(df.LHEPdfWeight2)'
+        -   sum_ww_lhePdfWeight2: 'df: (df.sum_w*(df.LHEPdfWeight2))**2'
+        -   sum_w_lhePdfWeight3: 'df: df.sum_w*(df.LHEPdfWeight3)'
+        -   sum_ww_lhePdfWeight3: 'df: (df.sum_w*(df.LHEPdfWeight3))**2'
+        -   sum_w_lhePdfWeight4: 'df: df.sum_w*(df.LHEPdfWeight4)'
+        -   sum_ww_lhePdfWeight4: 'df: (df.sum_w*(df.LHEPdfWeight4))**2'
+        -   sum_w_lhePdfWeight5: 'df: df.sum_w*(df.LHEPdfWeight5)'
+        -   sum_ww_lhePdfWeight5: 'df: (df.sum_w*(df.LHEPdfWeight5))**2'
+        -   sum_w_lhePdfWeight6: 'df: df.sum_w*(df.LHEPdfWeight6)'
+        -   sum_ww_lhePdfWeight6: 'df: (df.sum_w*(df.LHEPdfWeight6))**2'
+        -   sum_w_lhePdfWeight7: 'df: df.sum_w*(df.LHEPdfWeight7)'
+        -   sum_ww_lhePdfWeight7: 'df: (df.sum_w*(df.LHEPdfWeight7))**2'
+        -   sum_w_lhePdfWeight8: 'df: df.sum_w*(df.LHEPdfWeight8)'
+        -   sum_ww_lhePdfWeight8: 'df: (df.sum_w*(df.LHEPdfWeight8))**2'
+        -   sum_w_lhePdfWeight9: 'df: df.sum_w*(df.LHEPdfWeight9)'
+        -   sum_ww_lhePdfWeight9: 'df: (df.sum_w*(df.LHEPdfWeight9))**2'
+        -   sum_w_lhePdfWeight10: 'df: df.sum_w*(df.LHEPdfWeight10)'
+        -   sum_ww_lhePdfWeight10: 'df: (df.sum_w*(df.LHEPdfWeight10))**2'
+        -   sum_w_lhePdfWeight11: 'df: df.sum_w*(df.LHEPdfWeight11)'
+        -   sum_ww_lhePdfWeight11: 'df: (df.sum_w*(df.LHEPdfWeight11))**2'
+        -   sum_w_lhePdfWeight12: 'df: df.sum_w*(df.LHEPdfWeight12)'
+        -   sum_ww_lhePdfWeight12: 'df: (df.sum_w*(df.LHEPdfWeight12))**2'
+        -   sum_w_lhePdfWeight13: 'df: df.sum_w*(df.LHEPdfWeight13)'
+        -   sum_ww_lhePdfWeight13: 'df: (df.sum_w*(df.LHEPdfWeight13))**2'
+        -   sum_w_lhePdfWeight14: 'df: df.sum_w*(df.LHEPdfWeight14)'
+        -   sum_ww_lhePdfWeight14: 'df: (df.sum_w*(df.LHEPdfWeight14))**2'
+        -   sum_w_lhePdfWeight15: 'df: df.sum_w*(df.LHEPdfWeight15)'
+        -   sum_ww_lhePdfWeight15: 'df: (df.sum_w*(df.LHEPdfWeight15))**2'
+        -   sum_w_lhePdfWeight16: 'df: df.sum_w*(df.LHEPdfWeight16)'
+        -   sum_ww_lhePdfWeight16: 'df: (df.sum_w*(df.LHEPdfWeight16))**2'
+        -   sum_w_lhePdfWeight17: 'df: df.sum_w*(df.LHEPdfWeight17)'
+        -   sum_ww_lhePdfWeight17: 'df: (df.sum_w*(df.LHEPdfWeight17))**2'
+        -   sum_w_lhePdfWeight18: 'df: df.sum_w*(df.LHEPdfWeight18)'
+        -   sum_ww_lhePdfWeight18: 'df: (df.sum_w*(df.LHEPdfWeight18))**2'
+        -   sum_w_lhePdfWeight19: 'df: df.sum_w*(df.LHEPdfWeight19)'
+        -   sum_ww_lhePdfWeight19: 'df: (df.sum_w*(df.LHEPdfWeight19))**2'
+        -   sum_w_lhePdfWeight20: 'df: df.sum_w*(df.LHEPdfWeight20)'
+        -   sum_ww_lhePdfWeight20: 'df: (df.sum_w*(df.LHEPdfWeight20))**2'
+        -   sum_w_lhePdfWeight21: 'df: df.sum_w*(df.LHEPdfWeight21)'
+        -   sum_ww_lhePdfWeight21: 'df: (df.sum_w*(df.LHEPdfWeight21))**2'
+        -   sum_w_lhePdfWeight22: 'df: df.sum_w*(df.LHEPdfWeight22)'
+        -   sum_ww_lhePdfWeight22: 'df: (df.sum_w*(df.LHEPdfWeight22))**2'
+        -   sum_w_lhePdfWeight23: 'df: df.sum_w*(df.LHEPdfWeight23)'
+        -   sum_ww_lhePdfWeight23: 'df: (df.sum_w*(df.LHEPdfWeight23))**2'
+        -   sum_w_lhePdfWeight24: 'df: df.sum_w*(df.LHEPdfWeight24)'
+        -   sum_ww_lhePdfWeight24: 'df: (df.sum_w*(df.LHEPdfWeight24))**2'
+        -   sum_w_lhePdfWeight25: 'df: df.sum_w*(df.LHEPdfWeight25)'
+        -   sum_ww_lhePdfWeight25: 'df: (df.sum_w*(df.LHEPdfWeight25))**2'
+        -   sum_w_lhePdfWeight26: 'df: df.sum_w*(df.LHEPdfWeight26)'
+        -   sum_ww_lhePdfWeight26: 'df: (df.sum_w*(df.LHEPdfWeight26))**2'
+        -   sum_w_lhePdfWeight27: 'df: df.sum_w*(df.LHEPdfWeight27)'
+        -   sum_ww_lhePdfWeight27: 'df: (df.sum_w*(df.LHEPdfWeight27))**2'
+        -   sum_w_lhePdfWeight28: 'df: df.sum_w*(df.LHEPdfWeight28)'
+        -   sum_ww_lhePdfWeight28: 'df: (df.sum_w*(df.LHEPdfWeight28))**2'
+        -   sum_w_lhePdfWeight29: 'df: df.sum_w*(df.LHEPdfWeight29)'
+        -   sum_ww_lhePdfWeight29: 'df: (df.sum_w*(df.LHEPdfWeight29))**2'
+        -   sum_w_lhePdfWeight30: 'df: df.sum_w*(df.LHEPdfWeight30)'
+        -   sum_ww_lhePdfWeight30: 'df: (df.sum_w*(df.LHEPdfWeight30))**2'
+        -   sum_w_lhePdfWeight31: 'df: df.sum_w*(df.LHEPdfWeight31)'
+        -   sum_ww_lhePdfWeight31: 'df: (df.sum_w*(df.LHEPdfWeight31))**2'
+        -   sum_w_lhePdfWeight32: 'df: df.sum_w*(df.LHEPdfWeight32)'
+        -   sum_ww_lhePdfWeight32: 'df: (df.sum_w*(df.LHEPdfWeight32))**2'
+        -   sum_w_lhePdfWeight33: 'df: df.sum_w*(df.LHEPdfWeight33)'
+        -   sum_ww_lhePdfWeight33: 'df: (df.sum_w*(df.LHEPdfWeight33))**2'
+        -   sum_w_lhePdfWeight34: 'df: df.sum_w*(df.LHEPdfWeight34)'
+        -   sum_ww_lhePdfWeight34: 'df: (df.sum_w*(df.LHEPdfWeight34))**2'
+        -   sum_w_lhePdfWeight35: 'df: df.sum_w*(df.LHEPdfWeight35)'
+        -   sum_ww_lhePdfWeight35: 'df: (df.sum_w*(df.LHEPdfWeight35))**2'
+        -   sum_w_lhePdfWeight36: 'df: df.sum_w*(df.LHEPdfWeight36)'
+        -   sum_ww_lhePdfWeight36: 'df: (df.sum_w*(df.LHEPdfWeight36))**2'
+        -   sum_w_lhePdfWeight37: 'df: df.sum_w*(df.LHEPdfWeight37)'
+        -   sum_ww_lhePdfWeight37: 'df: (df.sum_w*(df.LHEPdfWeight37))**2'
+        -   sum_w_lhePdfWeight38: 'df: df.sum_w*(df.LHEPdfWeight38)'
+        -   sum_ww_lhePdfWeight38: 'df: (df.sum_w*(df.LHEPdfWeight38))**2'
+        -   sum_w_lhePdfWeight39: 'df: df.sum_w*(df.LHEPdfWeight39)'
+        -   sum_ww_lhePdfWeight39: 'df: (df.sum_w*(df.LHEPdfWeight39))**2'
+        -   sum_w_lhePdfWeight40: 'df: df.sum_w*(df.LHEPdfWeight40)'
+        -   sum_ww_lhePdfWeight40: 'df: (df.sum_w*(df.LHEPdfWeight40))**2'
+        -   sum_w_lhePdfWeight41: 'df: df.sum_w*(df.LHEPdfWeight41)'
+        -   sum_ww_lhePdfWeight41: 'df: (df.sum_w*(df.LHEPdfWeight41))**2'
+        -   sum_w_lhePdfWeight42: 'df: df.sum_w*(df.LHEPdfWeight42)'
+        -   sum_ww_lhePdfWeight42: 'df: (df.sum_w*(df.LHEPdfWeight42))**2'
+        -   sum_w_lhePdfWeight43: 'df: df.sum_w*(df.LHEPdfWeight43)'
+        -   sum_ww_lhePdfWeight43: 'df: (df.sum_w*(df.LHEPdfWeight43))**2'
+        -   sum_w_lhePdfWeight44: 'df: df.sum_w*(df.LHEPdfWeight44)'
+        -   sum_ww_lhePdfWeight44: 'df: (df.sum_w*(df.LHEPdfWeight44))**2'
+        -   sum_w_lhePdfWeight45: 'df: df.sum_w*(df.LHEPdfWeight45)'
+        -   sum_ww_lhePdfWeight45: 'df: (df.sum_w*(df.LHEPdfWeight45))**2'
+        -   sum_w_lhePdfWeight46: 'df: df.sum_w*(df.LHEPdfWeight46)'
+        -   sum_ww_lhePdfWeight46: 'df: (df.sum_w*(df.LHEPdfWeight46))**2'
+        -   sum_w_lhePdfWeight47: 'df: df.sum_w*(df.LHEPdfWeight47)'
+        -   sum_ww_lhePdfWeight47: 'df: (df.sum_w*(df.LHEPdfWeight47))**2'
+        -   sum_w_lhePdfWeight48: 'df: df.sum_w*(df.LHEPdfWeight48)'
+        -   sum_ww_lhePdfWeight48: 'df: (df.sum_w*(df.LHEPdfWeight48))**2'
+        -   sum_w_lhePdfWeight49: 'df: df.sum_w*(df.LHEPdfWeight49)'
+        -   sum_ww_lhePdfWeight49: 'df: (df.sum_w*(df.LHEPdfWeight49))**2'
+        -   sum_w_lhePdfWeight50: 'df: df.sum_w*(df.LHEPdfWeight50)'
+        -   sum_ww_lhePdfWeight50: 'df: (df.sum_w*(df.LHEPdfWeight50))**2'
+        -   sum_w_lhePdfWeight51: 'df: df.sum_w*(df.LHEPdfWeight51)'
+        -   sum_ww_lhePdfWeight51: 'df: (df.sum_w*(df.LHEPdfWeight51))**2'
+        -   sum_w_lhePdfWeight52: 'df: df.sum_w*(df.LHEPdfWeight52)'
+        -   sum_ww_lhePdfWeight52: 'df: (df.sum_w*(df.LHEPdfWeight52))**2'
+        -   sum_w_lhePdfWeight53: 'df: df.sum_w*(df.LHEPdfWeight53)'
+        -   sum_ww_lhePdfWeight53: 'df: (df.sum_w*(df.LHEPdfWeight53))**2'
+        -   sum_w_lhePdfWeight54: 'df: df.sum_w*(df.LHEPdfWeight54)'
+        -   sum_ww_lhePdfWeight54: 'df: (df.sum_w*(df.LHEPdfWeight54))**2'
+        -   sum_w_lhePdfWeight55: 'df: df.sum_w*(df.LHEPdfWeight55)'
+        -   sum_ww_lhePdfWeight55: 'df: (df.sum_w*(df.LHEPdfWeight55))**2'
+        -   sum_w_lhePdfWeight56: 'df: df.sum_w*(df.LHEPdfWeight56)'
+        -   sum_ww_lhePdfWeight56: 'df: (df.sum_w*(df.LHEPdfWeight56))**2'
+        -   sum_w_lhePdfWeight57: 'df: df.sum_w*(df.LHEPdfWeight57)'
+        -   sum_ww_lhePdfWeight57: 'df: (df.sum_w*(df.LHEPdfWeight57))**2'
+        -   sum_w_lhePdfWeight58: 'df: df.sum_w*(df.LHEPdfWeight58)'
+        -   sum_ww_lhePdfWeight58: 'df: (df.sum_w*(df.LHEPdfWeight58))**2'
+        -   sum_w_lhePdfWeight59: 'df: df.sum_w*(df.LHEPdfWeight59)'
+        -   sum_ww_lhePdfWeight59: 'df: (df.sum_w*(df.LHEPdfWeight59))**2'
+        -   sum_w_lhePdfWeight60: 'df: df.sum_w*(df.LHEPdfWeight60)'
+        -   sum_ww_lhePdfWeight60: 'df: (df.sum_w*(df.LHEPdfWeight60))**2'
+        -   sum_w_lhePdfWeight61: 'df: df.sum_w*(df.LHEPdfWeight61)'
+        -   sum_ww_lhePdfWeight61: 'df: (df.sum_w*(df.LHEPdfWeight61))**2'
+        -   sum_w_lhePdfWeight62: 'df: df.sum_w*(df.LHEPdfWeight62)'
+        -   sum_ww_lhePdfWeight62: 'df: (df.sum_w*(df.LHEPdfWeight62))**2'
+        -   sum_w_lhePdfWeight63: 'df: df.sum_w*(df.LHEPdfWeight63)'
+        -   sum_ww_lhePdfWeight63: 'df: (df.sum_w*(df.LHEPdfWeight63))**2'
+        -   sum_w_lhePdfWeight64: 'df: df.sum_w*(df.LHEPdfWeight64)'
+        -   sum_ww_lhePdfWeight64: 'df: (df.sum_w*(df.LHEPdfWeight64))**2'
+        -   sum_w_lhePdfWeight65: 'df: df.sum_w*(df.LHEPdfWeight65)'
+        -   sum_ww_lhePdfWeight65: 'df: (df.sum_w*(df.LHEPdfWeight65))**2'
+        -   sum_w_lhePdfWeight66: 'df: df.sum_w*(df.LHEPdfWeight66)'
+        -   sum_ww_lhePdfWeight66: 'df: (df.sum_w*(df.LHEPdfWeight66))**2'
+        -   sum_w_lhePdfWeight67: 'df: df.sum_w*(df.LHEPdfWeight67)'
+        -   sum_ww_lhePdfWeight67: 'df: (df.sum_w*(df.LHEPdfWeight67))**2'
+        -   sum_w_lhePdfWeight68: 'df: df.sum_w*(df.LHEPdfWeight68)'
+        -   sum_ww_lhePdfWeight68: 'df: (df.sum_w*(df.LHEPdfWeight68))**2'
+        -   sum_w_lhePdfWeight69: 'df: df.sum_w*(df.LHEPdfWeight69)'
+        -   sum_ww_lhePdfWeight69: 'df: (df.sum_w*(df.LHEPdfWeight69))**2'
+        -   sum_w_lhePdfWeight70: 'df: df.sum_w*(df.LHEPdfWeight70)'
+        -   sum_ww_lhePdfWeight70: 'df: (df.sum_w*(df.LHEPdfWeight70))**2'
+        -   sum_w_lhePdfWeight71: 'df: df.sum_w*(df.LHEPdfWeight71)'
+        -   sum_ww_lhePdfWeight71: 'df: (df.sum_w*(df.LHEPdfWeight71))**2'
+        -   sum_w_lhePdfWeight72: 'df: df.sum_w*(df.LHEPdfWeight72)'
+        -   sum_ww_lhePdfWeight72: 'df: (df.sum_w*(df.LHEPdfWeight72))**2'
+        -   sum_w_lhePdfWeight73: 'df: df.sum_w*(df.LHEPdfWeight73)'
+        -   sum_ww_lhePdfWeight73: 'df: (df.sum_w*(df.LHEPdfWeight73))**2'
+        -   sum_w_lhePdfWeight74: 'df: df.sum_w*(df.LHEPdfWeight74)'
+        -   sum_ww_lhePdfWeight74: 'df: (df.sum_w*(df.LHEPdfWeight74))**2'
+        -   sum_w_lhePdfWeight75: 'df: df.sum_w*(df.LHEPdfWeight75)'
+        -   sum_ww_lhePdfWeight75: 'df: (df.sum_w*(df.LHEPdfWeight75))**2'
+        -   sum_w_lhePdfWeight76: 'df: df.sum_w*(df.LHEPdfWeight76)'
+        -   sum_ww_lhePdfWeight76: 'df: (df.sum_w*(df.LHEPdfWeight76))**2'
+        -   sum_w_lhePdfWeight77: 'df: df.sum_w*(df.LHEPdfWeight77)'
+        -   sum_ww_lhePdfWeight77: 'df: (df.sum_w*(df.LHEPdfWeight77))**2'
+        -   sum_w_lhePdfWeight78: 'df: df.sum_w*(df.LHEPdfWeight78)'
+        -   sum_ww_lhePdfWeight78: 'df: (df.sum_w*(df.LHEPdfWeight78))**2'
+        -   sum_w_lhePdfWeight79: 'df: df.sum_w*(df.LHEPdfWeight79)'
+        -   sum_ww_lhePdfWeight79: 'df: (df.sum_w*(df.LHEPdfWeight79))**2'
+        -   sum_w_lhePdfWeight80: 'df: df.sum_w*(df.LHEPdfWeight80)'
+        -   sum_ww_lhePdfWeight80: 'df: (df.sum_w*(df.LHEPdfWeight80))**2'
+        -   sum_w_lhePdfWeight81: 'df: df.sum_w*(df.LHEPdfWeight81)'
+        -   sum_ww_lhePdfWeight81: 'df: (df.sum_w*(df.LHEPdfWeight81))**2'
+        -   sum_w_lhePdfWeight82: 'df: df.sum_w*(df.LHEPdfWeight82)'
+        -   sum_ww_lhePdfWeight82: 'df: (df.sum_w*(df.LHEPdfWeight82))**2'
+        -   sum_w_lhePdfWeight83: 'df: df.sum_w*(df.LHEPdfWeight83)'
+        -   sum_ww_lhePdfWeight83: 'df: (df.sum_w*(df.LHEPdfWeight83))**2'
+        -   sum_w_lhePdfWeight84: 'df: df.sum_w*(df.LHEPdfWeight84)'
+        -   sum_ww_lhePdfWeight84: 'df: (df.sum_w*(df.LHEPdfWeight84))**2'
+        -   sum_w_lhePdfWeight85: 'df: df.sum_w*(df.LHEPdfWeight85)'
+        -   sum_ww_lhePdfWeight85: 'df: (df.sum_w*(df.LHEPdfWeight85))**2'
+        -   sum_w_lhePdfWeight86: 'df: df.sum_w*(df.LHEPdfWeight86)'
+        -   sum_ww_lhePdfWeight86: 'df: (df.sum_w*(df.LHEPdfWeight86))**2'
+        -   sum_w_lhePdfWeight87: 'df: df.sum_w*(df.LHEPdfWeight87)'
+        -   sum_ww_lhePdfWeight87: 'df: (df.sum_w*(df.LHEPdfWeight87))**2'
+        -   sum_w_lhePdfWeight88: 'df: df.sum_w*(df.LHEPdfWeight88)'
+        -   sum_ww_lhePdfWeight88: 'df: (df.sum_w*(df.LHEPdfWeight88))**2'
+        -   sum_w_lhePdfWeight89: 'df: df.sum_w*(df.LHEPdfWeight89)'
+        -   sum_ww_lhePdfWeight89: 'df: (df.sum_w*(df.LHEPdfWeight89))**2'
+        -   sum_w_lhePdfWeight90: 'df: df.sum_w*(df.LHEPdfWeight90)'
+        -   sum_ww_lhePdfWeight90: 'df: (df.sum_w*(df.LHEPdfWeight90))**2'
+        -   sum_w_lhePdfWeight91: 'df: df.sum_w*(df.LHEPdfWeight91)'
+        -   sum_ww_lhePdfWeight91: 'df: (df.sum_w*(df.LHEPdfWeight91))**2'
+        -   sum_w_lhePdfWeight92: 'df: df.sum_w*(df.LHEPdfWeight92)'
+        -   sum_ww_lhePdfWeight92: 'df: (df.sum_w*(df.LHEPdfWeight92))**2'
+        -   sum_w_lhePdfWeight93: 'df: df.sum_w*(df.LHEPdfWeight93)'
+        -   sum_ww_lhePdfWeight93: 'df: (df.sum_w*(df.LHEPdfWeight93))**2'
+        -   sum_w_lhePdfWeight94: 'df: df.sum_w*(df.LHEPdfWeight94)'
+        -   sum_ww_lhePdfWeight94: 'df: (df.sum_w*(df.LHEPdfWeight94))**2'
+        -   sum_w_lhePdfWeight95: 'df: df.sum_w*(df.LHEPdfWeight95)'
+        -   sum_ww_lhePdfWeight95: 'df: (df.sum_w*(df.LHEPdfWeight95))**2'
+        -   sum_w_lhePdfWeight96: 'df: df.sum_w*(df.LHEPdfWeight96)'
+        -   sum_ww_lhePdfWeight96: 'df: (df.sum_w*(df.LHEPdfWeight96))**2'
+        -   sum_w_lhePdfWeight97: 'df: df.sum_w*(df.LHEPdfWeight97)'
+        -   sum_ww_lhePdfWeight97: 'df: (df.sum_w*(df.LHEPdfWeight97))**2'
+        -   sum_w_lhePdfWeight98: 'df: df.sum_w*(df.LHEPdfWeight98)'
+        -   sum_ww_lhePdfWeight98: 'df: (df.sum_w*(df.LHEPdfWeight98))**2'
+files:
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00000.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00001.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00002.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00003.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00004.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00005.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00006.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00007.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00008.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00009.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00010.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00011.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00012.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00013.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00014.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00015.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00016.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00017.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00018.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00019.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00020.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00021.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00022.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00023.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00024.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00025.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00026.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00027.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00028.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00029.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00030.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00031.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00032.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00033.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00034.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00035.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00036.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00037.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00038.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00039.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00040.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00041.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00042.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00043.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00044.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00045.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00046.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00047.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00048.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00049.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00050.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00051.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00052.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00053.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00054.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00055.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00056.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00057.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00058.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00059.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00060.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00061.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00062.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00063.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00064.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00065.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00066.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00067.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00068.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00069.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00070.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00071.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00072.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00073.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00074.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00075.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00076.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00077.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00078.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00079.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00080.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00081.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00082.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00083.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00084.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00085.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00086.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00087.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00088.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00089.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00090.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00091.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00092.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00093.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00094.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00095.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00096.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00097.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00098.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00099.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00100.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00101.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00102.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00103.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00104.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00105.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00106.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00107.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00108.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00109.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00110.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00111.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00112.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00113.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00114.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00115.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00116.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00117.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00118.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00119.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00120.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00121.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00122.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00123.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00124.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00125.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00126.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00127.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00128.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00129.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00130.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00131.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00132.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00133.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00134.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00135.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00136.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00137.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00138.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00139.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00140.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00141.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00142.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00143.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00144.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00145.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00146.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00147.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00148.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00149.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00150.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00151.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00152.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00153.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00154.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00155.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00156.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00157.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00158.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00159.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00160.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00161.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00162.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00163.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00164.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00165.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00166.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00167.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00168.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00169.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00170.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00171.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00172.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00173.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00174.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00175.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00176.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00177.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00178.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00179.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00180.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00181.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00182.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00183.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00184.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00185.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00186.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00187.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00188.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00189.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00190.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00191.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00192.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00193.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00194.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00195.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00196.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00197.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00198.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00199.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00200.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00201.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00202.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00203.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00204.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00205.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00206.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00207.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00208.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00209.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00210.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00211.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00212.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00213.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00214.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00215.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00216.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00217.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00218.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00219.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00220.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00221.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00222.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00223.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00224.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00225.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00226.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00227.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00228.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00229.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00230.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00231.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00232.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00233.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00234.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00235.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00236.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00237.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00238.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00239.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00240.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00241.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00242.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00243.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00244.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00245.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00246.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00247.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00248.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00249.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00250.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00251.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00252.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00253.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00254.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00255.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00256.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00257.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00258.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00259.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00260.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00261.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00262.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00263.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00264.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00265.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00266.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00267.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00268.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00269.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00270.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00271.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00272.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00273.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00274.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00275.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00276.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00277.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00278.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/2019/06_Jun/14_gstar/MC/result_00279.h5

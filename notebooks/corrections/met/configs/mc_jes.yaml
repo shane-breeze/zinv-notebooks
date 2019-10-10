@@ -1,0 +1,118 @@
+query:
+    groupby:
+    - table
+    - varname0
+    - varname1
+    - selection
+    - parent
+    - binvar0
+    - binvar1
+    tables:
+        jesTotal10: Events_jesTotal10
+        jesTotal20: Events_jesTotal20
+        jesTotal30: Events_jesTotal30
+        jesTotal40: Events_jesTotal40
+        jesTotal50: Events_jesTotal50
+        jesTotal60: Events_jesTotal60
+        jesTotal70: Events_jesTotal70
+        jesTotal80: Events_jesTotal80
+        jesTotal90: Events_jesTotal90
+    aliases: {}
+    eval:
+    -   ZCand_px: 'df: np.where(df.nMuonSelection==2, df.LeadMuonSelection_pt*np.cos(df.LeadMuonSelection_phi)+df.SecondMuonSelection_pt*np.cos(df.SecondMuonSelection_phi),
+            np.zeros_like(df.nMuonSelection)) + np.where(df.nElectronSelection==2,
+            df.LeadElectronSelection_pt*np.cos(df.LeadElectronSelection_phi)+df.SecondElectronSelection_pt*np.cos(df.SecondElectronSelection_phi),
+            np.zeros_like(df.nMuonSelection))'
+    -   ZCand_py: 'df: np.where(df.nMuonSelection==2, df.LeadMuonSelection_pt*np.sin(df.LeadMuonSelection_phi)+df.SecondMuonSelection_pt*np.sin(df.SecondMuonSelection_phi),
+            np.zeros_like(df.nElectronSelection)) + np.where(df.nElectronSelection==2,
+            df.LeadElectronSelection_pt*np.sin(df.LeadElectronSelection_phi)+df.SecondElectronSelection_pt*np.sin(df.SecondElectronSelection_phi),
+            np.zeros_like(df.nElectronSelection))'
+    -   ZCand_pt: 'df: np.sqrt(df.ZCand_px**2 + df.ZCand_py**2)'
+    -   ZCand_phi: 'df: np.arctan2(df.ZCand_py, df.ZCand_px)'
+    -   METnoX_ptParaZCandCent: 'df: df.METnoX_pt*np.cos(df.METnoX_phi-df.ZCand_phi)
+            - df.ZCand_pt'
+    -   METnoX_ptPerpZCandCent: 'df: df.METnoX_pt*np.sin(df.METnoX_phi-df.ZCand_phi)'
+    -   ZCand_pt_bin: 'df: np.floor(df.ZCand_pt/5.)*5.'
+    -   METnoX_ptParaZCandCent_bin: 'df: np.floor(df.METnoX_ptParaZCandCent/10.)*10.'
+    -   METnoX_ptPerpZCandCent_bin: 'df: np.floor(df.METnoX_ptPerpZCandCent/10.)*10.'
+    -   parent: 'df: np.where( df.parent.isin([''WJetsToLNu'', ''DYJetsToLL'']), np.where(
+            df.parent==''WJetsToLNu'', np.where( df.LeptonIsElectron, np.full_like(df.parent,
+            ''WJetsToENu''), np.where( df.LeptonIsMuon, np.full_like(df.parent, ''WJetsToMuNu''),
+            np.where( df.LeptonIsTau, np.full_like(df.parent, ''WJetsToTauNu''), np.full_like(df.parent,
+            ''WJetsToLNu''),),),), np.where( df.parent==''DYJetsToLL'', np.where(
+            df.LeptonIsElectron, np.full_like(df.parent, ''DYJetsToEE''), np.where(
+            df.LeptonIsMuon, np.full_like(df.parent, ''DYJetsToMuMu''), np.where(
+            df.LeptonIsTau, np.where( df.nGenTauL==0, np.full_like(df.parent, ''DYJetsToTauHTauH''),
+            np.where( df.nGenTauL==1, np.full_like(df.parent, ''DYJetsToTauHTauL''),
+            np.where( df.nGenTauL==2, np.full_like(df.parent, ''DYJetsToTauLTauL''),
+            np.full_like(df.parent, ''DYJetsToTauTau''),),),), np.full_like(df.parent,
+            ''DYJetsToLL''),),),), df.parent,),), df.parent,)'
+    -   Weight_DoubleMuon: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauSelectionIdTight)*(df.WeightMETTrig)'
+    -   Weight_DoubleElectron: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightElectronSelectionIdIsoTight)*(df.WeightElectronSelectionReco)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronVetoNoSelectionReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauSelectionIdTight)*(df.WeightSingleElectronTrig)'
+    -   Weight_DoubleMuonMu: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauSelectionIdTight)*(df.WeightSingleMuonTrig)'
+    cutflows:
+        DoubleMuon:
+            selection_name: DoubleMuon
+            selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
+                & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) &
+                (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
+                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
+                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+            weight: df.Weight_DoubleMuon
+            hists:
+            - ZCand_pt_METnoX_ptParaZCandCent
+            - ZCand_pt_METnoX_ptPerpZCandCent
+        DoubleElectron:
+            selection_name: DoubleElectron
+            selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
+                & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) &
+                (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
+                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
+                & (nElectronSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+            weight: df.Weight_DoubleElectron
+            hists:
+            - ZCand_pt_METnoX_ptParaZCandCent
+            - ZCand_pt_METnoX_ptPerpZCandCent
+        DoubleMuonMu:
+            selection_name: DoubleMuonMu
+            selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
+                & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) &
+                (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
+                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
+                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+            weight: df.Weight_DoubleMuonMu
+            hists:
+            - ZCand_pt_METnoX_ptParaZCandCent
+            - ZCand_pt_METnoX_ptPerpZCandCent
+    hists:
+        ZCand_pt_METnoX_ptParaZCandCent:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''ZCand_pt'''
+        -   varname1: 'df: ''METnoX_ptParaZCandCent'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.ZCand_pt_bin'
+        -   binvar1: 'df: df.METnoX_ptParaZCandCent_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_wZCand_pt: 'df: df.sum_w*df.ZCand_pt'
+        ZCand_pt_METnoX_ptPerpZCandCent:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''ZCand_pt'''
+        -   varname1: 'df: ''METnoX_ptPerpZCandCent'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.ZCand_pt_bin'
+        -   binvar1: 'df: df.METnoX_ptPerpZCandCent_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        -   sum_wZCand_pt: 'df: df.sum_w*df.ZCand_pt'
+files: []
