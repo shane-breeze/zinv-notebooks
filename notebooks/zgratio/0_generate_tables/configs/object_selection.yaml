@@ -35,12 +35,25 @@ MuonVeto:
         - "ev, source, nsig: np.abs(ev.Muon.pfRelIso04_all)<0.25"
         - "ev, source, nsig: np.abs(ev.Muon.dxy)<0.5"
         - "ev, source, nsig: np.abs(ev.Muon.dz)<1.0"
-MuonSelection:
+MuonSelectionTight:
     original: "Muon"
     selections:
         - "ev, source, nsig: ev.Muon_ptShift(ev, source, nsig)>30."
         - "ev, source, nsig: np.abs(ev.Muon.eta)<2.4"
         - "ev, source, nsig: np.abs(ev.Muon.pfRelIso04_all)<0.15"
+        - "ev, source, nsig: ev.Muon.tightId>=1"
+MuonSelectionHightPt:
+    original: "Muon"
+    selections:
+        - "ev, source, nsig: ev.Muon_ptShift(ev, source, nsig)>30."
+        - "ev, source, nsig: np.abs(ev.Muon.eta)<2.4"
+        - "ev, source, nsig: ev.Muon.highPtId>=1"
+MuonSelection:
+    original: "Muon"
+    selections:
+        - "ev, source, nsig: ev.Muon_ptShift(ev, source, nsig)>30."
+        - "ev, source, nsig: np.abs(ev.Muon.eta)<2.4"
+        - "ev, source, nsig: ((ev.Muon.tightId>=1) & (np.abs(ev.Muon.pfRelIso04_all)<0.15)) | (ev.Muon.highPtId>=1)"
         - "ev, source, nsig: ev.Muon.tightId>=1"
 ElectronVeto:
     original: "Electron"
@@ -66,10 +79,21 @@ PhotonVeto:
         - "ev, source, nsig: np.abs(ev.Photon.eta)<2.5"
         - "ev, source, nsig: ev.Photon.cutBased>=1"
         - "ev, source, nsig: ~ev.Photon.pixelSeed"
+PhotonSelectionDropSieieChiso:
+    original: "Photon"
+    selections:
+        - "ev, source, nsig: ev.Photon_ptShift(ev, source, nsig)>25."
+        - "ev, source, nsig: np.abs(ev.Photon.eta)<1.45"
+        - "ev, source, nsig: (ev.Photon.vidNestedWPBitmap & 3)>=3"
+        - "ev, source, nsig: ((ev.Photon.vidNestedWPBitmap & 12)>>2)>=3"
+        - "ev, source, nsig: ((ev.Photon.vidNestedWPBitmap & 48)>>4)>=3"
+        - "ev, source, nsig: ((ev.Photon.vidNestedWPBitmap & 3072)>>10)>=3"
+        - "ev, source, nsig: ((ev.Photon.vidNestedWPBitmap & 12288)>>12)>=3"
+        - "ev, source, nsig: ~ev.Photon.pixelSeed"
 PhotonSelection:
     original: "Photon"
     selections:
-        - "ev, source, nsig: ev.Photon_ptShift(ev, source, nsig)>165."
+        - "ev, source, nsig: ev.Photon_ptShift(ev, source, nsig)>25."
         - "ev, source, nsig: np.abs(ev.Photon.eta)<1.45"
         - "ev, source, nsig: ev.Photon.cutBased>=3"
         - "ev, source, nsig: ~ev.Photon.pixelSeed"

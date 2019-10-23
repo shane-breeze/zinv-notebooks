@@ -39,7 +39,7 @@ def get_parent(das):
 xrd_redir = "root://xrootd-cms.infn.it//"
 
 def main():
-    with open("data_v2.txt", 'r') as f:
+    with open("mc_v2.txt", 'r') as f:
         datain = f.read()
 
     datasets, tasks = [], []
@@ -62,7 +62,7 @@ def main():
             "kwargs": {"param": None},
         } for p in files])
 
-        isdata = True
+        isdata = False
         tree = "Events"
         xsec = None
 
@@ -80,7 +80,7 @@ def main():
         })
 
     #results = pysge.local_submit(tasks)
-    results = pysge.mp_submit(tasks, 6)
+    results = pysge.mp_submit(tasks, 8)
     #results = pysge.sge_submit(tasks, "dasq", "_ccsp_temp")
 
     all_files_results = {}
@@ -116,7 +116,7 @@ def main():
             "xsection": d["xsection"],
         })
 
-    with open("data_v2.yaml", 'w') as f:
+    with open("mc_v2.yaml", 'w') as f:
         yaml.dump(new_datasets, f, indent=4)
 
 if __name__ == "__main__":

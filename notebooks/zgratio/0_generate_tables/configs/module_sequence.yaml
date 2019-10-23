@@ -158,6 +158,17 @@ sequence:
       module: "zinv.modules.readers.WeightObjects"
       args:
           correctors:
+              - name: "muonIdHighPt"
+                collection: "Muon"
+                binning_variables:
+                    - "ev, source, nsig: ev.Muon_tunepRelPt*ev.Muon_ptShift(ev, source, nsig)"
+                    - "ev, source, nsig: ev.Muon_eta"
+                weighted_paths:
+                    - [19.7, "http://www.hep.ph.ic.ac.uk/~sdb15/Analysis/ZinvWidth/data/muons/legacy/muon_sf_id_runBCDEF.csv"]
+                    - [16.2, "http://www.hep.ph.ic.ac.uk/~sdb15/Analysis/ZinvWidth/data/muons/legacy/muon_sf_id_runGH.csv"]
+                selection: [0, "NUM_HighPtID_DEN_genTracks", "pair_newTuneP_probe_pt_eta"]
+                add_syst: "ev, source, nsig: awk.JaggedArray.zeros_like(ev.Muon.eta)"
+                nuisances: ["muonIdHighPtStat", "muonIdHightPtSyst", "muonPtScale"]
               - name: "muonIdTight"
                 collection: "Muon"
                 binning_variables:
@@ -180,6 +191,17 @@ sequence:
                 selection: [0, "NUM_LooseID_DEN_genTracks", "pt_eta"]
                 add_syst: "ev, source, nsig: awk.JaggedArray.zeros_like(ev.Muon.eta)"
                 nuisances: ["muonIdLooseStat", "muonIdLooseSyst", "muonPtScale"]
+              - name: "muonIsoHighPt"
+                collection: "Muon"
+                binning_variables:
+                    - "ev, source, nsig: ev.Muon_tunepRelPt*ev.Muon_ptShift(ev, source, nsig)"
+                    - "ev, source, nsig: ev.Muon.eta"
+                weighted_paths:
+                    - [19.7, "http://www.hep.ph.ic.ac.uk/~sdb15/Analysis/ZinvWidth/data/muons/legacy/muon_sf_iso_runBCDEF.csv"]
+                    - [16.2, "http://www.hep.ph.ic.ac.uk/~sdb15/Analysis/ZinvWidth/data/muons/legacy/muon_sf_iso_runGH.csv"]
+                selection: [0, "NUM_LooseRelTkIso_DEN_HighPtIDandIPCut", "pair_newTuneP_probe_pt_eta"]
+                add_syst: "ev, source, nsig: awk.JaggedArray.zeros_like(ev.Muon.eta)"
+                nuisances: ["muonIsoHighPtStat", "muonIsoHighPtSyst", "muonPtScale"]
               - name: "muonIsoTight"
                 collection: "Muon"
                 binning_variables:

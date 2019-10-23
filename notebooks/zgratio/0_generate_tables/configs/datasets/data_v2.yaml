@@ -1,4 +1,4 @@
--   name: SingleMuon
+-   name: SingleMuon_Run2016B_v1
     parent: SingleMuon
     isdata: true
     nevents: 2789243
@@ -14,7 +14,7 @@
     DAS: /SingleMuon/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleMuon
+-   name: SingleMuon_Run2016B_v2
     parent: SingleMuon
     isdata: true
     nevents: 158145722
@@ -158,7 +158,7 @@
     DAS: /SingleMuon/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleMuon
+-   name: SingleMuon_Run2016C_v1
     parent: SingleMuon
     isdata: true
     nevents: 67441308
@@ -232,7 +232,7 @@
     DAS: /SingleMuon/Run2016C-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleMuon
+-   name: SingleMuon_Run2016D_v1
     parent: SingleMuon
     isdata: true
     nevents: 98017996
@@ -334,7 +334,7 @@
     DAS: /SingleMuon/Run2016D-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleMuon
+-   name: SingleMuon_Run2016E_v1
     parent: SingleMuon
     isdata: true
     nevents: 90984718
@@ -424,7 +424,7 @@
     DAS: /SingleMuon/Run2016E-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleMuon
+-   name: SingleMuon_Run2016F_v1
     parent: SingleMuon
     isdata: true
     nevents: 65489554
@@ -490,7 +490,7 @@
     DAS: /SingleMuon/Run2016F-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleMuon
+-   name: SingleMuon_Run2016G_v1
     parent: SingleMuon
     isdata: true
     nevents: 149912248
@@ -630,7 +630,7 @@
     DAS: /SingleMuon/Run2016G-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleMuon
+-   name: SingleMuon_Run2016H_v1
     parent: SingleMuon
     isdata: true
     nevents: 174035164
@@ -840,7 +840,7 @@
     DAS: /SingleMuon/Run2016H-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016B_v1
     parent: SingleElectron
     isdata: true
     nevents: 1422819
@@ -852,7 +852,7 @@
     DAS: /SingleElectron/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016B_v2
     parent: SingleElectron
     isdata: true
     nevents: 246440440
@@ -1120,7 +1120,7 @@
     DAS: /SingleElectron/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016C_v1
     parent: SingleElectron
     isdata: true
     nevents: 97259854
@@ -1232,7 +1232,7 @@
     DAS: /SingleElectron/Run2016C-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016D_v1
     parent: SingleElectron
     isdata: true
     nevents: 148167727
@@ -1382,7 +1382,7 @@
     DAS: /SingleElectron/Run2016D-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016E_v1
     parent: SingleElectron
     isdata: true
     nevents: 117321545
@@ -1518,7 +1518,7 @@
     DAS: /SingleElectron/Run2016E-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016F_v1
     parent: SingleElectron
     isdata: true
     nevents: 70593532
@@ -1590,7 +1590,7 @@
     DAS: /SingleElectron/Run2016F-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016G_v1
     parent: SingleElectron
     isdata: true
     nevents: 153363109
@@ -1748,7 +1748,7 @@
     DAS: /SingleElectron/Run2016G-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SingleElectron
+-   name: SingleElectron_Run2016H_v1
     parent: SingleElectron
     isdata: true
     nevents: 129021893
@@ -1876,7 +1876,7 @@
     DAS: /SingleElectron/Run2016H-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016B_v1
     parent: SinglePhoton
     isdata: true
     nevents: 13119462
@@ -1900,7 +1900,7 @@
     DAS: /SinglePhoton/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016B_v2
     parent: SinglePhoton
     isdata: true
     nevents: 56878553
@@ -1976,7 +1976,7 @@
     DAS: /SinglePhoton/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016C_v1
     parent: SinglePhoton
     isdata: true
     nevents: 23147235
@@ -2018,7 +2018,7 @@
     DAS: /SinglePhoton/Run2016C-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016D_v1
     parent: SinglePhoton
     isdata: true
     nevents: 29801360
@@ -2058,7 +2058,7 @@
     DAS: /SinglePhoton/Run2016D-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016E_v1
     parent: SinglePhoton
     isdata: true
     nevents: 22322869
@@ -2104,7 +2104,7 @@
     DAS: /SinglePhoton/Run2016E-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016F_v1
     parent: SinglePhoton
     isdata: true
     nevents: 14666906
@@ -2132,7 +2132,7 @@
     DAS: /SinglePhoton/Run2016F-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016G_v1
     parent: SinglePhoton
     isdata: true
     nevents: 33288854
@@ -2178,7 +2178,7 @@
     DAS: /SinglePhoton/Run2016G-Nano14Dec2018-v1/NANOAOD
     tree: Events
     xsection: null
--   name: SinglePhoton
+-   name: SinglePhoton_Run2016H_v1
     parent: SinglePhoton
     isdata: true
     nevents: 35035661

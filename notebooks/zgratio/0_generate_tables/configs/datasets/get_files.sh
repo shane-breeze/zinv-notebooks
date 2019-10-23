@@ -1,6 +1,6 @@
 #!/bin/bash
-outpath="data_v2.txt"
-for daspath in $(cat data.txt); do
+outpath="mv_v2.txt"
+for daspath in $(cat mc.txt); do
     echo $daspath
     files=$(dasgoclient --query "file dataset=${daspath}")
     summary=$(dasgoclient --query "summary dataset=${daspath}")
