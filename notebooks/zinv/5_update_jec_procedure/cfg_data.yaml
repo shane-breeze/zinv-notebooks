@@ -1,0 +1,3 @@
+convert_table_to_fixed:
+    func: "zquery:convert_table_to_fixed"
+    args: ["Event", "Jet", "Electron", "Muon", "Tau", "Photon"]
