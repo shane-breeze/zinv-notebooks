@@ -30,6 +30,10 @@ def parse_args():
         "--verbose", "-v", default=False, action="store_true",
         help="Verbose print out whilst running",
     )
+    parser.add_argument(
+        "--print-modules", default=False, action="store_true",
+        help="Print available modules",
+    )
     return parser.parse_args()
 
 def open_config(path):
@@ -75,8 +79,11 @@ def main():
     options = parse_args()
 
     cfg = open_config(options.cfg)
+    if options.print_modules:
+        print(cfg.keys())
+        return
+
     paths = get_list_of_files(options.paths, options.njobs)
-    print(paths)
     tasks = create_tasks(
         cfg, options.modules.split(","), paths, verbose=options.verbose,
     )
