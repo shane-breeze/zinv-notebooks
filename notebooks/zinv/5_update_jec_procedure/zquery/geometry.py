@@ -31,7 +31,7 @@ def deltar(deta, dphi):
     return np.sqrt(deta**2 + bound_phi(dphi)**2)
 
 @nb.njit
-def radial_to_cartesian2d(pt, phi)
+def radial_to_cartesian2d(pt, phi):
     return pt*np.cos(phi), pt*np.sin(phi)
 
 @nb.njit
