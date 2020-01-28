@@ -1,3 +1,108 @@
 convert_table_to_fixed:
-    func: "zquery:convert_table_to_fixed"
-    args: ["Event", "Jet", "Electron", "Muon", "Tau", "Photon"]
+    func: "zquery.analysis_functions:convert_table_to_fixed"
+    args: ["Event", "Jet", "Electron", "Muon", "Tau", "Photon", "IsoTrack"]
+query_leptons_and_photons:
+    func: "zquery.analysis_functions:basic_query"
+    args:
+        - input: "Electron"
+          output: "ElectronVeto"
+          query: "(Electron_pt>10.) & (abs(Electron_eta)<2.5) & (Electron_cutBased>=1) & (Electron_convVeto) & (abs(Electron_dxy)<0.118) & (abs(Electron_dz)<0.822)"
+        - input: "ElectronVeto"
+          output: "ElectronSelection"
+          query: "(Electron_pt>30.) & (abs(Electron_eta)<2.4) & (Electron_cutBased>=4) & (Electron_convVeto) & (((abs(Electron_eta)<=1.479) & (abs(Electron_dxy)<0.05) & (abs(Electron_dz)<0.1)) | ((abs(Electron_eta)>1.479) & (abs(Electron_dxy)<0.1) & (abs(Electron_dz)<0.2)))"
+        - input: "Muon"
+          output: "MuonVeto"
+          query: "(Muon_pt>10.) & (abs(Muon_eta)<2.5) & (abs(Muon_pfRelIso04_all)<0.25) & (abs(Muon_dxy)<0.5) & (abs(Muon_dz)<1.0)"
+        - input: "MuonVeto"
+          output: "MuonSelection"
+          query: "(Muon_pt>30.) & (abs(Muon_eta)<2.4) & (abs(Muon_pfRelIso04_all)<0.15) & (Muon_tightId>=1)"
+        - input: "Photon"
+          output: "PhotonVeto"
+          query: "(Photon_pt>25.) & (abs(Photon_eta)<2.5) & (Photon_cutBased>=1) & (~Photon_pixelSeed)"
+        - input: "PhotonVeto"
+          output: "PhotonSelection"
+          query: "(Photon_pt>165.) & (abs(Photon_eta)<1.45) & (Photon_cutBased>=3)"
+tau_cross_cleaning:
+    func: "zquery.analysis_functions:object_cross_cleaning"
+    args:
+        - input: "Tau"
+          output: "TauClean"
+          columns: "Tau_{}"
+          distance: 0.4
+          references:
+              - table: "MuonVeto"
+                columns: "Muon_{}"
+              - table: "ElectronVeto"
+                columns: "Electron_{}"
+query_taus:
+    func: "zquery.analysis_functions:basic_query"
+    args:
+        - input: "TauClean"
+          output: "TauVeto"
+          query: "(Tau_pt>20.) & (abs(Tau_eta)<2.3) & (Tau_idMVAoldDM>=1)"
+        - input: "TauVeto"
+          output: "TauSelection"
+          query: "(Tau_pt>40.) & (abs(Tau_eta)<2.3) & (Tau_idMVAoldDM>=8)"
+calculate_metnox:
+    func: "zquery.analysis_functions:shift_2dvector"
+    kwargs:
+        input: "Event"
+        output: "EventExtended"
+        args:
+        - variables: {"pt": "MET_pt", "phi": "MET_phi"}
+          output_variables: {"pt": "METnoX_pt", "phi": "METnoX_phi"}
+          shifters:
+              - table: "MuonSelection"
+                variables: {"pt": "Muon_pt", "phi": "Muon_phi"}
+              - table: "ElectronSelection"
+                variables: {"pt": "Electron_pt", "phi": "Electron_phi"}
+calculate_jet_dphi_metnox:
+    func: "zquery.analysis_functions:object_cross_dphi"
+    args:
+        - left: {table: "Jet", variable: "Jet_phi"}
+          right: {table: "EventExtended", variable: "METnoX_phi"}
+          output_variable: "Jet_dPhiMETnoX"
+jet_cross_cleaning:
+    func: "zquery.analysis_functions:object_cross_cleaning"
+    args:
+        - input: "Jet"
+          output: "JetClean"
+          columns: "Jet_{}"
+          distance: 0.4
+          references:
+              - table: "MuonVeto"
+                columns: "Muon_{}"
+              - table: "ElectronVeto"
+                columns: "Electron_{}"
+              - table: "TauVeto"
+                columns: "Tau_{}"
+query_jets:
+    func: "zquery.analysis_functions:basic_query"
+    args:
+        - input: "JetClean"
+          output: "JetVeto"
+          query: "Jet_jetId>=1"
+        - input: "JetVeto"
+          output: "JetSelection"
+          query: "abs(Jet_eta)<2.4"
+        - input: "JetVeto"
+          output: "JetBVeto"
+          query: "Jet_btagCSVV2>0.8484"
+        - input: "JetSelection"
+          output: "JetBSelection"
+          query: "Jet_btagCSVV2>0.8484"
+        - input: "JetVeto"
+          output: "JetFwdSelection"
+          query: "abs(Jet_eta)>=2.4"
+calculate_mindphi:
+    func: "zquery.analysis_functions:mindphi"
+    args:
+        - input: {table: "JetSelection", variable: "Jet_dPhiMETnoX"}
+          nobj: 4
+          output: {table: "EventExtended", variable: "Min4JetSelection_dphiMETnoX"}
+calculate_dcalomet:
+    func: "zquery.analysis_functions:basic_eval"
+    args:
+        - input: "EventExtended"
+          eval: "MET_dptCaloMET = abs(MET_pt - CaloMET_pt)/METnoX_pt"
+          output: "EventExtended"
