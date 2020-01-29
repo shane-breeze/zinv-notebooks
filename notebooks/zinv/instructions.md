@@ -18,7 +18,7 @@ This may take a while to install all the dependencies.
 We will also be working with ipython notebooks, best dealt with jupyterlab (already installed). Run the following commands to setup jupyterlab extensions
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
-#jupyter labextension install jupyter_vim # vim bindings in jupyterlab
+#jupyter labextension install jupyterlab_vim # vim bindings in jupyterlab
 ```
 
 To open up the notebooks, either open a local jupyterlab instance or a headless version and SSH tunnel to it. To open it locally run
