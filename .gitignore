@@ -1,4 +1,5 @@
 *.h5
+_ccsp_temp
 
 # Custom
 externals/
@@ -107,3 +108,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# VS code
+.vscode/
