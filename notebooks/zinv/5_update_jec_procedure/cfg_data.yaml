@@ -1,60 +1,125 @@
-convert_table_to_fixed:
-    func: "zquery.analysis_functions:convert_table_to_fixed"
-    args: ["Event", "Jet", "Electron", "Muon", "Tau", "Photon", "IsoTrack"]
+create_hdf_from_root:
+    func: "zquery.analysis_functions:create_hdf_from_root"
+    args:
+        - tree: "Events"
+          outtree: "Event"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/Data"
+          dataset_cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/paths_data.yaml"
+          iterate_kwargs:
+              branches: [
+                  "run", "luminosityBlock", "event",
+                  "Pileup_*", "PV_*",
+                  "fixedGridRhoFastJet*",
+                  "RawMET_*", "MET_*", "CaloMET_*", "TkMET_*", "PuppiMET_*",
+                  "HLT_*", "Flag_*",
+              ]
+              entrysteps: "4 GB"
+        - tree: "Events"
+          outtree: "Jet"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/Data"
+          dataset_cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/paths_data.yaml"
+          iterate_kwargs:
+              branches: ["Jet_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "Muon"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/Data"
+          dataset_cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/paths_data.yaml"
+          iterate_kwargs:
+              branches: ["Muon_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "Electron"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/Data"
+          dataset_cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/paths_data.yaml"
+          iterate_kwargs:
+              branches: ["Electron_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "Tau"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/Data"
+          dataset_cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/paths_data.yaml"
+          iterate_kwargs:
+              branches: ["Tau_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "IsoTrack"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/Data"
+          dataset_cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/paths_data.yaml"
+          iterate_kwargs:
+              branches: ["IsoTrack_*"]
+              entrysteps: "4 GB"
+              flatten: True
+trigger_and_flag_checker:
+    func: "zquery.analysis_functions:basic_eval"
+    args:
+        - input: "Event"
+          evals:
+              - "METTriggered = (HLT_PFMETNoMu90_PFMHTNoMu90_IDTight) | (HLT_PFMETNoMu100_PFMHTNoMu100_IDTight) | (HLT_PFMETNoMu110_PFMHTNoMu110_IDTight) | (HLT_PFMETNoMu120_PFMHTNoMu120_IDTight) | (HLT_PFMET170_NotCleaned & (run<276282)) | (HLT_PFMET170_BeamHaloCleaned & (run<276282)) | (HLT_PFMET170_HBHECleaned) | (HLT_PFMET170_HBHE_BeamHaloCleaned) | (HLT_MET75_IsoTrk50)"
+              - "SingleMuonTriggered = (HLT_IsoMu24) | (HLT_IsoTkMu24)"
+              - "SingleElectronTriggered = (HLT_Ele27_WPTight_Gsf) | (HLT_Ele115_CaloIdVT_GsfTrkIdT)"
+              - "Flag_METFilters = (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter) & (Flag_BadPFMuonFilter) & (Flag_eeBadScFilter)"
+          output: "Event"
 query_leptons_and_photons:
-    func: "zquery.analysis_functions:basic_query"
+    func: "zquery.analysis_functions:basic_eval"
     args:
         - input: "Electron"
-          output: "ElectronVeto"
-          query: "(Electron_pt>10.) & (abs(Electron_eta)<2.5) & (Electron_cutBased>=1) & (Electron_convVeto) & (abs(Electron_dxy)<0.118) & (abs(Electron_dz)<0.822)"
-        - input: "ElectronVeto"
-          output: "ElectronSelection"
-          query: "(Electron_pt>30.) & (abs(Electron_eta)<2.4) & (Electron_cutBased>=4) & (Electron_convVeto) & (((abs(Electron_eta)<=1.479) & (abs(Electron_dxy)<0.05) & (abs(Electron_dz)<0.1)) | ((abs(Electron_eta)>1.479) & (abs(Electron_dxy)<0.1) & (abs(Electron_dz)<0.2)))"
+          evals:
+              - "Electron_veto = (Electron_pt>10.) & (abs(Electron_eta)<2.5) & (Electron_cutBased>=1) & (Electron_convVeto) & (abs(Electron_dxy)<0.118) & (abs(Electron_dz)<0.822)"
+              - "Electron_selection = (Electron_veto) & (Electron_pt>30.) & (abs(Electron_eta)<2.4) & (Electron_cutBased>=4) & (Electron_convVeto) & (((abs(Electron_eta)<=1.479) & (abs(Electron_dxy)<0.05) & (abs(Electron_dz)<0.1)) | ((abs(Electron_eta)>1.479) & (abs(Electron_dxy)<0.1) & (abs(Electron_dz)<0.2)))"
+          output: "Electron"
         - input: "Muon"
-          output: "MuonVeto"
-          query: "(Muon_pt>10.) & (abs(Muon_eta)<2.5) & (abs(Muon_pfRelIso04_all)<0.25) & (abs(Muon_dxy)<0.5) & (abs(Muon_dz)<1.0)"
-        - input: "MuonVeto"
-          output: "MuonSelection"
-          query: "(Muon_pt>30.) & (abs(Muon_eta)<2.4) & (abs(Muon_pfRelIso04_all)<0.15) & (Muon_tightId>=1)"
+          evals:
+              - "Muon_veto = (Muon_pt>10.) & (abs(Muon_eta)<2.5) & (abs(Muon_pfRelIso04_all)<0.25) & (abs(Muon_dxy)<0.5) & (abs(Muon_dz)<1.0)"
+              - "Muon_selection = (Muon_veto) & (Muon_pt>30.) & (abs(Muon_eta)<2.4) & (abs(Muon_pfRelIso04_all)<0.15) & (Muon_tightId>=1)"
+          output: "Muon"
         - input: "Photon"
-          output: "PhotonVeto"
-          query: "(Photon_pt>25.) & (abs(Photon_eta)<2.5) & (Photon_cutBased>=1) & (~Photon_pixelSeed)"
-        - input: "PhotonVeto"
-          output: "PhotonSelection"
-          query: "(Photon_pt>165.) & (abs(Photon_eta)<1.45) & (Photon_cutBased>=3)"
+          evals:
+              - "Photon_veto = (Photon_pt>25.) & (abs(Photon_eta)<2.5) & (Photon_cutBased>=1) & (~Photon_pixelSeed)"
+              - "Photon_selection = (Photon_veto) & (Photon_pt>165.) & (abs(Photon_eta)<1.45) & (Photon_cutBased>=3)"
+          output: "Photon"
+isotrack_cross_cleaning:
+    func: "zquery.analysis_functions:object_cross_cleaning"
+    args:
+        - input: {"table": "IsoTrack", "variable": "IsoTrack_{}"}
+          output: {"table": "IsoTrack", "variable": "IsoTrack_xclean"}
+          distance: 0.4
+          references:
+              - {"table": "Muon", "query": "Muon_veto", "variable": "Muon_{}"}
+              - {"table": "Electron", "query": "Electron_veto", "variable": "Electron_{}"}
 tau_cross_cleaning:
     func: "zquery.analysis_functions:object_cross_cleaning"
     args:
-        - input: "Tau"
-          output: "TauClean"
-          columns: "Tau_{}"
+        - input: {"table": "Tau", "variable": "Tau_{}"}
+          output: {"table": "Tau", "variable": "Tau_xclean"}
           distance: 0.4
           references:
-              - table: "MuonVeto"
-                columns: "Muon_{}"
-              - table: "ElectronVeto"
-                columns: "Electron_{}"
+              - {"table": "Muon", "query": "Muon_veto", "variable": "Muon_{}"}
+              - {"table": "Electron", "query": "Electron_veto", "variable": "Electron_{}"}
 query_taus:
-    func: "zquery.analysis_functions:basic_query"
+    func: "zquery.analysis_functions:basic_eval"
     args:
-        - input: "TauClean"
-          output: "TauVeto"
-          query: "(Tau_pt>20.) & (abs(Tau_eta)<2.3) & (Tau_idMVAoldDM>=1)"
-        - input: "TauVeto"
-          output: "TauSelection"
-          query: "(Tau_pt>40.) & (abs(Tau_eta)<2.3) & (Tau_idMVAoldDM>=8)"
+        - input: "Tau"
+          evals:
+              - "Tau_veto = (Tau_xclean) & (Tau_pt>20.) & (abs(Tau_eta)<2.3) & (Tau_idMVAoldDM>=1)"
+              - "Tau_selection = (Tau_veto) & (Tau_pt>40.) & (abs(Tau_eta)<2.3) & (Tau_idMVAoldDM>=8)"
+          output: "Tau"
 calculate_metnox:
     func: "zquery.analysis_functions:shift_2dvector"
     kwargs:
         input: "Event"
-        output: "EventExtended"
+        output: "Event"
         args:
         - variables: {"pt": "MET_pt", "phi": "MET_phi"}
           output_variables: {"pt": "METnoX_pt", "phi": "METnoX_phi"}
           shifters:
-              - table: "MuonSelection"
+              - table: {"name": "Muon", "query": "Muon_selection"}
                 variables: {"pt": "Muon_pt", "phi": "Muon_phi"}
-              - table: "ElectronSelection"
+              - table: {"name": "Electron", "query": "Electron_selection"}
                 variables: {"pt": "Electron_pt", "phi": "Electron_phi"}
 calculate_jet_dphi_metnox:
     func: "zquery.analysis_functions:object_cross_dphi"
@@ -65,35 +130,36 @@ calculate_jet_dphi_metnox:
 jet_cross_cleaning:
     func: "zquery.analysis_functions:object_cross_cleaning"
     args:
-        - input: "Jet"
-          output: "JetClean"
-          columns: "Jet_{}"
+        - input: {"table": "Jet", "variable": "Jet_{}"}
+          output: {"table": "Jet", "variable": "Jet_xclean"}
           distance: 0.4
           references:
-              - table: "MuonVeto"
-                columns: "Muon_{}"
-              - table: "ElectronVeto"
-                columns: "Electron_{}"
-              - table: "TauVeto"
-                columns: "Tau_{}"
+              - {"table": "Muon", "query": "Muon_veto", "variable": "Muon_{}"}
+              - {"table": "Electron", "query": "Electron_veto", "variable": "Electron_{}"}
+              - {"table": "Tau", "query": "Tau_veto", "variable": "Tau_{}"}
 query_jets:
     func: "zquery.analysis_functions:basic_query"
     args:
         - input: "JetClean"
           output: "JetVeto"
           query: "Jet_jetId>=1"
+          order: "Jet_pt"
         - input: "JetVeto"
           output: "JetSelection"
           query: "abs(Jet_eta)<2.4"
+          order: "Jet_pt"
         - input: "JetVeto"
           output: "JetBVeto"
           query: "Jet_btagCSVV2>0.8484"
+          order: "Jet_pt"
         - input: "JetSelection"
           output: "JetBSelection"
           query: "Jet_btagCSVV2>0.8484"
+          order: "Jet_pt"
         - input: "JetVeto"
           output: "JetFwdSelection"
           query: "abs(Jet_eta)>=2.4"
+          order: "Jet_pt"
 calculate_mindphi:
     func: "zquery.analysis_functions:mindphi"
     args:
@@ -104,5 +170,27 @@ calculate_dcalomet:
     func: "zquery.analysis_functions:basic_eval"
     args:
         - input: "EventExtended"
-          eval: "MET_dptCaloMET = abs(MET_pt - CaloMET_pt)/METnoX_pt"
+          evals:
+              - "MET_dptCaloMET = abs(MET_pt - CaloMET_pt)/METnoX_pt"
           output: "EventExtended"
+groupby_objects:
+    func: "zquery.analysis_functions:object_groupby"
+    args:
+        - input: {"table": "JetSelection", "variables": ["Jet_chHEF", "Jet_neHEF"]}
+          query: "object_id==0"
+          agg: "min"
+          fillna: 0.
+          dtype: {"LeadJetSelection_chHEF": "float32", "LeadJetSelection_neHEF": "float32"}
+          output: {"table": "EventExtended", "variables": ["LeadJetSelection_chHEF", "LeadJetSelection_neHEF"]}
+        - input: {"table": "MuonVeto", "variables": ["Muon_pt"]}
+          query: "object_id>0"
+          agg: "count"
+          fillna: 0
+          dtype: {"nMuonVeto": "int32"}
+          output: {"table": "EventExtended", "variables": ["nMuonVeto"]}
+        - input: {"table": "MuonSelection", "variables": ["Muon_pt"]}
+          query: "object_id>0"
+          agg: "count"
+          fillna: 0
+          dtype: {"nMuonSelection": "int32"}
+          output: {"table": "EventExtended", "variables": ["nMuonSelection"]}

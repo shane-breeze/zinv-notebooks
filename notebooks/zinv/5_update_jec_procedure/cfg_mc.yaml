@@ -1,6 +1,99 @@
-convert_table_to_fixed:
-    func: "zquery.analysis_functions:convert_table_to_fixed"
-    args: ["Event", "Jet", "Electron", "Muon", "Tau", "Photon", "IsoTrack", "LHEPdfWeight", "LHEScaleWeight"]
+create_hdf_from_root:
+    func: "zquery.analysis_functions:create_hdf_from_root"
+    args:
+        - tree: "Events"
+          outtree: "Event"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: [
+                  "run", "luminosityBlock", "event",
+                  "Pileup_*", "PV_*",
+                  "fixedGridRhoFastJet*",
+                  "RawMET_*", "MET_*", "CaloMET_*", "TkMET_*", "PuppiMET_*",
+                  "HLT_*", "Flag_*",
+                  "genWeight", "Generator_*", "GenMET_*",
+              ]
+              entrysteps: "4 GB"
+        - tree: "Events"
+          outtree: "Jet"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["Jet_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "Muon"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["Muon_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "Electron"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["Electron_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "Tau"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["Tau_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "IsoTrack"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["IsoTrack_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "GenPart"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["GenPart_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "GenDressedLepton"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["GenDressedLepton_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "LHEPart"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["LHEPart_*"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "LHEPdfWeight"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["LHEPdfWeight"]
+              entrysteps: "4 GB"
+              flatten: True
+        - tree: "Events"
+          outtree: "LHEScaleWeight"
+          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          iterate_kwargs:
+              branches: ["LHEScaleWeight"]
+              entrysteps: "4 GB"
+              flatten: True
+trigger_and_flag_checker:
+    func: "zquery.analysis_functions:basic_eval"
+    args:
+        - input: "Event"
+          evals:
+              - "METTriggered = (HLT_PFMETNoMu90_PFMHTNoMu90_IDTight) | (HLT_PFMETNoMu100_PFMHTNoMu100_IDTight) | (HLT_PFMETNoMu110_PFMHTNoMu110_IDTight) | (HLT_PFMETNoMu120_PFMHTNoMu120_IDTight) | (HLT_PFMET170_NotCleaned) | (HLT_PFMET170_BeamHaloCleaned) | (HLT_PFMET170_HBHECleaned) | (HLT_PFMET170_HBHE_BeamHaloCleaned) | (HLT_MET75_IsoTrk50)"
+              - "SingleMuonTriggered = (HLT_IsoMu24) | (HLT_IsoTkMu24)"
+              - "SingleElectronTriggered = (HLT_Ele27_WPTight_Gsf) | (HLT_Ele115_CaloIdVT_GsfTrkIdT)"
+              - "Flag_METFilters = (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter) & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter) & (Flag_BadPFMuonFilter)"
+          output: "EventExtended"
 query_leptons_and_photons:
     func: "zquery.analysis_functions:basic_query"
     args:
@@ -22,6 +115,18 @@ query_leptons_and_photons:
         - input: "PhotonVeto"
           output: "PhotonSelection"
           query: "(Photon_pt>165.) & (abs(Photon_eta)<1.45) & (Photon_cutBased>=3)"
+isotrack_cross_cleaning:
+    func: "zquery.analysis_functions:object_cross_cleaning"
+    args:
+        - input: "IsoTrack"
+          output: "IsoTrackClean"
+          columns: "IsoTrack_{}"
+          distance: 0.4
+          references:
+              - table: "MuonVeto"
+                columns: "Muon_{}"
+              - table: "ElectronVeto"
+                columns: "Electron_{}"
 tau_cross_cleaning:
     func: "zquery.analysis_functions:object_cross_cleaning"
     args:
@@ -46,7 +151,7 @@ query_taus:
 calculate_metnox:
     func: "zquery.analysis_functions:shift_2dvector"
     kwargs:
-        input: "Event"
+        input: "EventExtended"
         output: "EventExtended"
         args:
         - variables: {"pt": "MET_pt", "phi": "MET_phi"}
@@ -76,11 +181,26 @@ calculate_metnox:
                 variables: {"pt": "-Jet_pt_sigmaJERUp", "phi": "Jet_phi"}
         - variables: {"pt": "METnoX_pt", "phi": "METnoX_phi"}
           relative: True
-          output_variables: {"pt": "METnoX_pt_sigmaJERUp", "phi": "METnoX_phi_sigmaJERUp"}
           output_variables: {"pt": "METnoX_pt_sigmaJERDown", "phi": "METnoX_phi_sigmaJERDown"}
           shifters:
               - table: "Jet"
                 variables: {"pt": "-Jet_pt_sigmaJERDown", "phi": "Jet_phi"}
+copy_met_shifts:
+    func: "zquery.analysis_functions:basic_eval"
+    args:
+        - input: "EventExtended"
+          evals:
+              - "METnoX_pt_sigmaUESUp = MET_pt_sigmaUESUp"
+              - "METnoX_pt_sigmaUESDown = MET_pt_sigmaUESDown"
+              - "METnoX_phi_sigmaUESUp = MET_phi_sigmaUESUp"
+              - "METnoX_phi_sigmaUESDown = MET_phi_sigmaUESDown"
+              - "Min4JetSelection_dphiMETnoX_sigmaJESUp = MET_phi_sigmaJESUp"
+              - "Min4JetSelection_dphiMETnoX_sigmaJESDown = MET_phi_sigmaJESDown"
+              - "Min4JetSelection_dphiMETnoX_sigmaJERUp = MET_phi_sigmaJERUp"
+              - "Min4JetSelection_dphiMETnoX_sigmaJERDown = MET_phi_sigmaJERDown"
+              - "Min4JetSelection_dphiMETnoX_sigmaUESUp = MET_phi_sigmaUESUp"
+              - "Min4JetSelection_dphiMETnoX_sigmaUESDown = MET_phi_sigmaUESDown"
+          output: "EventExtended"
 calculate_jet_dphi_metnox:
     func: "zquery.analysis_functions:object_cross_dphi"
     args:
@@ -129,45 +249,27 @@ calculate_dcalomet:
     func: "zquery.analysis_functions:basic_eval"
     args:
         - input: "EventExtended"
-          eval: "MET_dptCaloMET = abs(MET_pt - CaloMET_pt)/METnoX_pt"
+          evals:
+              - "MET_dptCaloMET = abs(MET_pt - CaloMET_pt)/METnoX_pt"
+              - "MET_dptCaloMET_sigmaJESUp = abs(MET_pt + METnoX_pt_sigmaJESUp - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJESUp) - MET_dptCaloMET"
+              - "MET_dptCaloMET_sigmaJESDown = abs(MET_pt + METnoX_pt_sigmaJESDown - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJESDown) - MET_dptCaloMET"
+              - "MET_dptCaloMET_sigmaJERUp = abs(MET_pt + METnoX_pt_sigmaJERUp - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJERUp) - MET_dptCaloMET"
+              - "MET_dptCaloMET_sigmaJERDown = abs(MET_pt + METnoX_pt_sigmaJERDown - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJERDown) - MET_dptCaloMET"
+              - "MET_dptCaloMET_sigmaUESUp = abs(MET_pt + METnoX_pt_sigmaUESUp - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaUESUp) - MET_dptCaloMET"
+              - "MET_dptCaloMET_sigmaUESDown = abs(MET_pt + METnoX_pt_sigmaUESDown - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaUESDown) - MET_dptCaloMET"
           output: "EventExtended"
-        - input: "EventExtended"
-          eval: "MET_dptCaloMET_sigmaJESUp = abs(MET_pt + METnoX_pt_sigmaJESUp - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJESUp) - MET_dptCaloMET"
-          output: "EventExtended"
-        - input: "EventExtended"
-          eval: "MET_dptCaloMET_sigmaJESDown = abs(MET_pt + METnoX_pt_sigmaJESDown - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJESDown) - MET_dptCaloMET"
-          output: "EventExtended"
-        - input: "EventExtended"
-          eval: "MET_dptCaloMET_sigmaJERUp = abs(MET_pt + METnoX_pt_sigmaJERUp - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJERUp) - MET_dptCaloMET"
-          output: "EventExtended"
-        - input: "EventExtended"
-          eval: "MET_dptCaloMET_sigmaJERDown = abs(MET_pt + METnoX_pt_sigmaJERDown - CaloMET_pt)/(METnoX_pt + METnoX_pt_sigmaJERDown) - MET_dptCaloMET"
-          output: "EventExtended"
-calculate_weight_metnox_pt:
+calculate_sigmoid_weights:
     func: "zquery.analysis_functions:weight_sigmoid"
     args:
-        - input: {"table": "EventExtended", "variable": "METnoX_pt", "variations": ["JES", "JER"]}
-          cut: 200.
+        - input: {"table": "EventExtended", "variable": "METnoX_pt", "variations": ["JES", "JER", "UES"]}
+          cut: "200."
+          output_table: "EventExtended"
+        - input: {"table": "EventExtended", "variable": "MET_dptCaloMET", "variations": ["JES", "JER", "UES"]}
+          cut: "0.5"
           output_table: "EventExtended"
         - input: {"table": "JetSelection", "variable": "Jet_pt", "variations": ["JES", "JER"]}
-          cut: 40.
+          cut: "40."
           output_table: "JetSelection"
         - input: {"table": "JetSelection", "variable": "Jet_pt", "variations": ["JES", "JER"]}
-          cut: 200.
+          cut: "200."
           output_table: "JetSelection"
-rename_columns:
-    func: "zquery.analysis_functions:rename_column"
-    args:
-        - input: "Event"
-          rename:
-              MET_pt_sigmaUnclustUp: "MET_pt_sigmaUESUp"
-              MET_pt_sigmaUnclustDown: "MET_pt_sigmaUESDown"
-          output: "Event"
-drop_columns:
-    func: "zquery.analysis_functions:drop_column"
-    args:
-        - input: "Jet"
-          drop:
-              - "Jet_pt_sigmaUnclustUp"
-              - "Jet_pt_sigmaUnclustDown"
-          output: "Jet"
