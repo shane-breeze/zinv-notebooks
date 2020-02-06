@@ -1,15 +1,12 @@
 name: "Events"
 output: "/vols/cms/sdb15/database_outputs/"
 variations:
-    - ["jesTotal", "percentile", 10]
-    - ["jesTotal", "percentile", 20]
-    - ["jesTotal", "percentile", 30]
-    - ["jesTotal", "percentile", 40]
-    - ["jesTotal", "percentile", 50]
-    - ["jesTotal", "percentile", 60]
-    - ["jesTotal", "percentile", 70]
-    - ["jesTotal", "percentile", 80]
-    - ["jesTotal", "percentile", 90]
+    - ["jesTotal", "up", 1.]
+    - ["jesTotal", "down", -1.]
+    - ["jerSF", "up", 1.]
+    - ["jerSF", "down", -1.]
+    - ["unclust", "up", 1.]
+    - ["unclust", "down", -1.]
 attributes:
     Both:
         run: "ev, source, nsig: ev.run"
