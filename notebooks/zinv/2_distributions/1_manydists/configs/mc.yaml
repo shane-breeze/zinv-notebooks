@@ -1,0 +1,193 @@
+histogram:
+    func: "zquery.analysis_functions:histogram"
+    kwargs:
+        input:
+            key: "Events"
+            iterator: true
+            chunksize: 500000
+        lambdas:
+            parent: 'df: np.where( df.parent.isin(["WJetsToLNu", "DYJetsToLL"]), np.where( df.parent=="WJetsToLNu", np.where( df.LeptonIsElectron, np.full_like(df.parent, "WJetsToENu"), np.where( df.LeptonIsMuon, np.full_like(df.parent, "WJetsToMuNu"), np.where( df.LeptonIsTau, np.where( df.nGenTauL==0, np.full_like(df.parent, "WJetsToTauHNu"), np.where( df.nGenTauL==1, np.full_like(df.parent, "WJetsToTauLNu"), np.full_like(df.parent, "WJetsToTauNu"), ), ), np.full_like(df.parent, "WJetsToLNu"), ), ), ), np.where( df.parent=="DYJetsToLL", np.where( df.LeptonIsElectron, np.full_like(df.parent, "DYJetsToEE"), np.where( df.LeptonIsMuon, np.full_like(df.parent, "DYJetsToMuMu"), np.where( df.LeptonIsTau, np.where( df.nGenTauL==0, np.full_like(df.parent, "DYJetsToTauHTauH"), np.where( df.nGenTauL==1, np.full_like(df.parent, "DYJetsToTauHTauL"), np.where( df.nGenTauL==2, np.full_like(df.parent, "DYJetsToTauLTauL"), np.full_like(df.parent, "DYJetsToTauTau"), ), ), ), np.full_like(df.parent, "DYJetsToLL"), ), ), ), df.parent, ), ), df.parent, )'
+            table: 'df: "central"'
+        evals:
+            - "METTriggered = (HLT_PFMETNoMu90_PFMHTNoMu90_IDTight) | (HLT_PFMETNoMu100_PFMHTNoMu100_IDTight) | (HLT_PFMETNoMu110_PFMHTNoMu110_IDTight) | (HLT_PFMETNoMu120_PFMHTNoMu120_IDTight) | (HLT_PFMET170_NotCleaned) | (HLT_PFMET170_BeamHaloCleaned) | (HLT_PFMET170_HBHECleaned) | (HLT_PFMET170_HBHE_BeamHaloCleaned) | (HLT_MET75_IsoTrk50)"
+            - "SingleMuonTriggered = (HLT_IsoMu24) | (HLT_IsoTkMu24)"
+            - "SingleElectronTriggered = (HLT_Ele27_WPTight_Gsf) | (HLT_Ele115_CaloIdVT_GsfTrkIdT)"
+            - "METnoX_pt_bin = 5*floor(METnoX_pt/5)"
+            - "METnoX_phi_bin = 0.06283*floor(METnoX_phi/0.06283)"
+            - "Selection_GenOverlap = (parent != 'EWKV2Jets' or nGenBosonSelection==1)"
+            - "Selection_Flags = Flag_goodVertices and Flag_globalSuperTightHalo2016Filter and Flag_HBHENoiseFilter and Flag_HBHENoiseIsoFilter and Flag_EcalDeadCellTriggerPrimitiveFilter and Flag_BadPFMuonFilter"
+            - "Selection_Jets = (nJetSelection>0) and (nJetSelection==nJetVeto) and (LeadJetSelection_pt>200.) and (LeadJetSelection_chHEF>0.1) and (LeadJetSelection_neHEF<0.8) and (nBJetVeto==0)"
+            - "Selection_Baseline = Selection_GenOverlap and Selection_Flags and Selection_Jets and (MET_dCaloMET<0.5) and (nPhotonVeto==0) and (METnoX_pt>200.)"
+            - "Weight_Theory = WeightXsLumi*WeightQcdEwk"
+            - "Weight_Exp = WeightPU*WeightPreFiring"
+            - "Weight_JetBVeto = WeightOneMinusJetBVetoIdMedium"
+            - "Weight_PhotonVeto = WeightOneMinusPhotonVetoIdLoose*WeightOneMinusPhotonVetoPixelSeedVeto"
+            - "Weight_Baseline = Weight_Theory*Weight_Exp*Weight_JetBVeto*Weight_PhotonVeto"
+            - "Weight_MuonVeto = WeightOneMinusMuonVetoNoSelectionIdLoose*WeightOneMinusMuonVetoNoSelectionIsoLoose*WeightOneMinusMuonSelectionIdTight*WeightOneMinusMuonSelectionIsoTight"
+            - "Weight_ElectronVeto = WeightOneMinusElectronVetoNoSelectionIdIsoVeto*WeightOneMinusElectronSelectionIdIsoTight*WeightOneMinusElectronVetoReco"
+            - "Weight_TauVeto = WeightOneMinusTauVetoNoSelectionIdVLoose"
+            - "Weight_MuonSelection = WeightMuonSelectionIdTight*WeightMuonSelectionIsoTight*WeightOneMinusMuonVetoNoSelectionIdLoose*WeightOneMinusMuonVetoNoSelectionIsoLoose"
+            - "Weight_ElectronSelection = WeightElectronSelectionIdIsoTight*WeightElectronSelectionReco*WeightOneMinusElectronVetoNoSelectionIdIsoVeto*WeightOneMinusElectronVetoNoSelectionReco"
+            - "Weight_TauSelection = WeightOneMinusTauVetoNoSelectionIdVLoose"
+            - "Weight_Monojet = Weight_Baseline*Weight_MuonVeto*Weight_ElectronVeto*Weight_TauVeto*WeightMETTrig"
+            - "Weight_Muon = Weight_Baseline*Weight_MuonSelection*Weight_ElectronVeto*Weight_TauVeto*WeightMETTrig"
+            - "Weight_Electron = Weight_Baseline*Weight_MuonVeto*Weight_ElectronSelection*Weight_TauVeto*WeightSingleElectronTrig"
+            - "Weight_Tau = Weight_Baseline*Weight_MuonVeto*Weight_ElectronVeto*Weight_TauSelection*WeightMETTrig"
+            - "Weight_MuonMu = Weight_Baseline*Weight_MuonSelection*Weight_ElectronVeto*Weight_TauVeto*WeightSingleMuonTrig"
+        cfgs:
+            - lambdas:
+                  selection: 'df: "Monojet"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Monojet*Selection_Baseline*METTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==0)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "MonojetQCD"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Monojet*Selection_Baseline*METTriggered*(MinDPhiJ1234METnoX<=0.5)*(nTauSelection==0)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "SingleMuon"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Muon*Selection_Baseline*METTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==0)*(nMuonSelection==1)*(30<MTW<125)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "SingleMuonQCD"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Muon*Selection_Baseline*METTriggered*(MinDPhiJ1234METnoX<=0.5)*(nTauSelection==0)*(nMuonSelection==1)*(30<MTW<125)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "DoubleMuon"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Muon*Selection_Baseline*METTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==0)*(nMuonSelection==2)*(71<MLL<111)*(LeptonCharge==0)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "SingleElectron"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Electron*Selection_Baseline*SingleElectronTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==0)*(nElectronSelection==1)*(30<MTW<125)*(MET_pt>100)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "SingleElectronQCD"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Electron*Selection_Baseline*METTriggered*(MinDPhiJ1234METnoX<=0.5)*(nTauSelection==0)*(nElectronSelection==1)*(30<MTW<125)*(MET_pt>100)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "DoubleElectron"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Electron*Selection_Baseline*METTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==0)*(nElectronSelection==2)*(71<MLL<111)*(LeptonCharge==0)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "SingleTau"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_Tau*Selection_Baseline*SingleElectronTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==1)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "SingleMuonMu"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_MuonMu*Selection_Baseline*SingleMuonTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==0)*(nMuonSelection==1)*(30<MTW<125)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "SingleMuonMuQCD"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_MuonMu*Selection_Baseline*SingleMuonTriggered*(MinDPhiJ1234METnoX<=0.5)*(nTauSelection==0)*(nMuonSelection==1)*(30<MTW<125)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}
+            - lambdas:
+                  selection: 'df: "DoubleMuonMu"'
+                  varname0: 'df: "{varname0}"'
+              evals:
+                  - "binvar0 = {varname0}_bin"
+                  - "sum_w = Weight_MuonMu*Selection_Baseline*SingleMuonTriggered*(MinDPhiJ1234METnoX>0.5)*(nTauSelection==0)*(nMuonSelection==2)*(71<MLL<111)*(LeptonCharge==0)"
+                  - "sum_ww = sum_w**2"
+              columns: ["table", "varname0", "selection", "parent", "binvar0", "sum_w", "sum_ww"]
+              groupby: ["table", "varname0", "selection", "parent", "binvar0"]
+              agg: "sum"
+              eval_keys:
+                  - {"varname0": "METnoX_pt"}
+                  - {"varname0": "METnoX_phi"}

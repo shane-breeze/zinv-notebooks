@@ -35,7 +35,7 @@ query:
                 & (Flag_BadPFMuonFilter) & (Flag_eeBadScFilter) & (MET_dCaloMET<0.6)
                 & (nJetSelection>0) & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1)
                 & (LeadJetSelection_neHEF<0.8) & (LeadJetSelection_pt>200.) & (nPhotonVeto==0)
-                & (nBJetVeto==0) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
+                & (nBJetVeto==0) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
                 & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.) & (nMuonVeto==2) & (nElectronVeto==0)
                 & (nTauVeto==0)
             weight: '1.'
@@ -49,7 +49,7 @@ query:
                 & (Flag_BadPFMuonFilter) & (Flag_eeBadScFilter) & (MET_dCaloMET<0.6)
                 & (nJetSelection>0) & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1)
                 & (LeadJetSelection_neHEF<0.8) & (LeadJetSelection_pt>200.) & (nPhotonVeto==0)
-                & (nBJetVeto==0) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5) & (nElectronSelection==2)
+                & (nBJetVeto==0) & (MinDPhiJ1234METnoX>0.5) & (nElectronSelection==2)
                 & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.) & (nMuonVeto==0) & (nElectronVeto==2)
                 & (nTauVeto==0)
             weight: '1.'
@@ -63,7 +63,7 @@ query:
                 & (Flag_BadPFMuonFilter) & (Flag_eeBadScFilter) & (MET_dCaloMET<0.6)
                 & (nJetSelection>0) & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1)
                 & (LeadJetSelection_neHEF<0.8) & (LeadJetSelection_pt>200.) & (nPhotonVeto==0)
-                & (nBJetVeto==0) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
+                & (nBJetVeto==0) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
                 & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.) & (nMuonVeto==2) & (nElectronVeto==0)
                 & (nTauVeto==0)
             weight: '1.'

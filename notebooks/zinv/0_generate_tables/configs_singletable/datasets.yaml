@@ -1187,7 +1187,7 @@ datasets:
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/21F23B51-49FE-7544-BCF8-6B6E39111868.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/1C7F3160-6CB1-0940-8225-E1FE7B4A14EF.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/44FB4DBE-23A1-A54E-A745-FE9FE3909227.root
-    - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/00B8F229-7AE2-5342-B742-30744CD0592F.root
+    - /vols/cms/sdb15/NanoAOD/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/00B8F229-7AE2-5342-B742-30744CD0592F.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/3C38ED15-9D8B-1C42-8FEF-E9987D4FFDEC.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/DBE9BD18-3F1F-7848-84EB-FEF9D980818D.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleMuon/NANOAOD/Nano1June2019-v1/70000/8C9D4B10-42DE-D54E-BB39-66413949425B.root
@@ -2313,7 +2313,7 @@ datasets:
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/292E711D-4C17-9447-8DAD-CF8C4B23486A.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/26FEA5FD-6B63-474F-8FB0-0D9038B0B7BB.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/6348A4D3-6491-E44A-A8CB-A9B1E2980793.root
-    - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/FE92D766-6F64-8948-AE59-01BD277B8AD1.root
+    - /vols/cms/sdb15/NanoAOD/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/FE92D766-6F64-8948-AE59-01BD277B8AD1.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/4D51CBE1-B8B1-E246-B3D5-8C642F626DCE.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/034F40FD-CE1F-274B-8A8F-07472EF94F2A.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/data/Run2016H/SingleElectron/NANOAOD/Nano1June2019-v1/230000/D8C64D62-DC77-AE48-8566-53CACD62608E.root
@@ -2489,7 +2489,7 @@ datasets:
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/D7BA5636-E5B6-5743-AECF-01F03AAD5DA9.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/51D510ED-877A-F745-A130-2659370EF7CC.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/7C5A575C-FA99-494C-802D-25CA89DF1053.root
-    - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/8CBE8744-0096-2D48-9546-46BE9F8B5A82.root
+    - /vols/cms/sdb15/NanoAOD/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/8CBE8744-0096-2D48-9546-46BE9F8B5A82.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/0AAD900E-8F7A-2944-B714-A64FE0C1466F.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/5A842BEC-73E8-B540-BF88-22981EFB58B2.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext2-v1/120000/F126B0A7-2FE3-9145-A678-D3922168FF58.root
@@ -2969,7 +2969,7 @@ datasets:
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/E3A1C17E-4335-5344-94DC-42793EE16078.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/38BD3D9F-D84B-E844-866E-C278DB803111.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/526FF7DF-39B0-2047-B0BF-7E5E4942D4E8.root
-    - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/F597DE55-A967-254E-B309-110C8CB617BC.root
+    - /vols/cms/sdb15/NanoAOD/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/F597DE55-A967-254E-B309-110C8CB617BC.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/DB6BD4D6-C679-C64F-91F3-129567DD6701.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/D27999E8-CA72-FD49-845B-82157D02810D.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7-v1/60000/1B662B27-1CFB-4045-A6B6-84AB6125CC3C.root
@@ -3047,7 +3047,7 @@ datasets:
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/0C739ADE-EB66-E84F-B1B4-4304F3FEBC44.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/199AEDB1-F1E2-1E4F-A665-C0C572835D6A.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/24E250B1-7E85-7F40-B08E-3C321593D0F6.root
-    - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/38FEAC04-4491-124F-8205-2863B19C8A5D.root
+    - /vols/cms/sdb15/NanoAOD/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/38FEAC04-4491-124F-8205-2863B19C8A5D.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/994B5B2D-6901-854B-8C76-D823470F72E5.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/09E1FB7E-C255-114F-B6F4-68F4FFE4CC94.root
     - root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/mc/RunIISummer16NanoAODv5/DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PUMoriond17_Nano1June2019_102X_mcRun2_asymptotic_v7_ext3-v1/130000/19E2DC80-0881-CF47-BC65-21E8EB0561B9.root

@@ -2,8 +2,12 @@ create_hdf_from_root:
     func: "zquery.analysis_functions:create_hdf_from_root"
     args:
         - tree: "Events"
-          outtree: "Event"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "Event"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: ["name", "parent", "isdata", "xsection"]
           iterate_kwargs:
               branches: [
                   "run", "luminosityBlock", "event",
@@ -13,76 +17,129 @@ create_hdf_from_root:
                   "HLT_*", "Flag_*",
                   "genWeight", "Generator_*", "GenMET_*",
               ]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
         - tree: "Events"
-          outtree: "Jet"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "Jet"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["Jet_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "Muon"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "Muon"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["Muon_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "Electron"
+          output:
+              tree: "Electron"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
           outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["Electron_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "Tau"
+          output:
+              tree: "Photon"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
           outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
+          iterate_kwargs:
+              branches: ["Photon_*"]
+              entrysteps: 1_000_000
+              flatten: True
+        - tree: "Events"
+          output:
+              tree: "Tau"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["Tau_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "IsoTrack"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "IsoTrack"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["IsoTrack_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "GenPart"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "GenPart"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["GenPart_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "GenDressedLepton"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "GenDressedLepton"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["GenDressedLepton_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "LHEPart"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "LHEPart"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["LHEPart_*"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "LHEPdfWeight"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "LHEPdfWeight"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["LHEPdfWeight"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
         - tree: "Events"
-          outtree: "LHEScaleWeight"
-          outdir: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          output:
+              tree: "LHEScaleWeight"
+              direc: "/vols/cms/sdb15/Analysis/ZinvWidth/databases/hdf_from_nanoaod/2020/02_Feb/05_InitialDataFrames/MC"
+          dataset:
+              cfg: "/vols/build/cms/sdb15/phd/ZinvWidth/zinv-notebooks/notebooks/zinv/5_update_jec_procedure/datasets.yaml"
+              keys: []
           iterate_kwargs:
               branches: ["LHEScaleWeight"]
-              entrysteps: "4 GB"
+              entrysteps: 1_000_000
               flatten: True
 trigger_and_flag_checker:
     func: "zquery.analysis_functions:basic_eval"

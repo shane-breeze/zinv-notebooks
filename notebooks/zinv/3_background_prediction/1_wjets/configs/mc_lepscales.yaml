@@ -17,6 +17,9 @@ query:
     aliases: {}
     eval:
     -   METnoX_pt_bin: 'df: np.floor(df.METnoX_pt/5.)*5.'
+    -   MET_pt_bin: 'df: np.floor(df.MET_pt/5.)*5.'
+    -   LeadMuonSelection_pt_bin: 'df: np.floor(df.LeadMuonSelection_pt/1.)*1.'
+    -   LeadElectronSelection_pt_bin: 'df: np.floor(df.LeadElectronSelection_pt/1.)*1.'
     -   parent: 'df: np.where( df.parent.isin([''WJetsToLNu'', ''DYJetsToLL'']), np.where(
             df.parent==''WJetsToLNu'', np.where( df.LeptonCharge>0, np.where( df.LeptonIsElectron,
             np.full_like(df.parent, ''WJetsToEPlusNu''), np.where( df.LeptonIsMuon,
@@ -73,6 +76,7 @@ query:
             weight: df.Weight_Monojet
             hists:
             - METnoX_pt
+            - MET_pt
         MonojetQCD:
             selection_name: MonojetQCD
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -85,6 +89,7 @@ query:
             weight: df.Weight_MonojetQCD
             hists:
             - METnoX_pt
+            - MET_pt
         SingleMuon:
             selection_name: SingleMuon
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -98,6 +103,8 @@ query:
             weight: df.Weight_SingleMuon
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
         SingleMuonPlus:
             selection_name: SingleMuonPlus
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -111,6 +118,8 @@ query:
             weight: df.Weight_SingleMuonPlus
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
         SingleMuonMinus:
             selection_name: SingleMuonMinus
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -124,6 +133,8 @@ query:
             weight: df.Weight_SingleMuonMinus
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
         SingleMuonQCD:
             selection_name: SingleMuonQCD
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -137,6 +148,8 @@ query:
             weight: df.Weight_SingleMuonQCD
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
         DoubleMuon:
             selection_name: DoubleMuon
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -150,6 +163,8 @@ query:
             weight: df.Weight_DoubleMuon
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
         SingleElectron:
             selection_name: SingleElectron
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -163,6 +178,8 @@ query:
             weight: df.Weight_SingleElectron
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadElectronSelection_pt
         SingleElectronPlus:
             selection_name: SingleElectronPlus
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -176,6 +193,8 @@ query:
             weight: df.Weight_SingleElectronPlus
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadElectronSelection_pt
         SingleElectronMinus:
             selection_name: SingleElectronMinus
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -189,6 +208,8 @@ query:
             weight: df.Weight_SingleElectronMinus
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadElectronSelection_pt
         SingleElectronQCD:
             selection_name: SingleElectronQCD
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -202,6 +223,8 @@ query:
             weight: df.Weight_SingleElectronQCD
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadElectronSelection_pt
         DoubleElectron:
             selection_name: DoubleElectron
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -215,6 +238,8 @@ query:
             weight: df.Weight_DoubleElectron
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadElectronSelection_pt
         SingleTau:
             selection_name: SingleTau
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -227,6 +252,7 @@ query:
             weight: df.Weight_SingleTau
             hists:
             - METnoX_pt
+            - MET_pt
         SingleMuonMu:
             selection_name: SingleMuonMu
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -240,6 +266,8 @@ query:
             weight: df.Weight_SingleMuonMu
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
         SingleMuonMuQCD:
             selection_name: SingleMuonMuQCD
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -253,6 +281,8 @@ query:
             weight: df.Weight_SingleMuonMuQCD
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
         DoubleMuonMu:
             selection_name: DoubleMuonMu
             selection: ((parent!='EWKV2Jets' | nGenBosonSelection==1)) & (Flag_goodVertices)
@@ -266,6 +296,8 @@ query:
             weight: df.Weight_DoubleMuonMu
             hists:
             - METnoX_pt
+            - MET_pt
+            - LeadMuonSelection_pt
     hists:
         METnoX_pt:
         -   table: 'df: ''{table_name}'''
@@ -273,6 +305,33 @@ query:
         -   selection: 'df: ''{selection_name}'''
         -   parent: 'df: df.parent'
         -   binvar0: 'df: df.METnoX_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        MET_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''MET_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.MET_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadMuonSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadMuonSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadMuonSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadElectronSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadElectronSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadElectronSelection_pt_bin'
         -   count: 'df: 1.'
         -   sum_w: 'df: {weight}'
         -   sum_ww: 'df: df.sum_w**2'

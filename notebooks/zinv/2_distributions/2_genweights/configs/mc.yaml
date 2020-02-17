@@ -1,0 +1,22 @@
+histogram:
+    func: zquery.analysis_functions:histogram
+    kwargs:
+        cfgs:
+        -   columns:
+            - sample
+            - count
+            - sum_w
+            - sum_ww
+            evals:
+            - count = 1
+            - sum_w = genWeight
+            - sum_ww = genWeight**2
+            groupby:
+            - sample
+        input:
+            chunksize: 500000
+            columns:
+            - sample
+            - genWeight
+            iterator: true
+            key: Events

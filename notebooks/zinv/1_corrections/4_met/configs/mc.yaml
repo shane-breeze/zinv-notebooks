@@ -50,8 +50,8 @@ query:
                 (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
                 & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
                 & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
-                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
-                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (LeadJetSelection_pt>200.) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
+                & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
             weight: df.Weight_DoubleMuon
             hists:
             - ZCand_pt_METnoX_ptParaZCandCent
@@ -63,8 +63,8 @@ query:
                 (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
                 & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
                 & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
-                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
-                & (nElectronSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (LeadJetSelection_pt>200.) & (MinDPhiJ1234METnoX>0.5) & (nElectronSelection==2)
+                & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
             weight: df.Weight_DoubleElectron
             hists:
             - ZCand_pt_METnoX_ptParaZCandCent
@@ -76,8 +76,8 @@ query:
                 (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
                 & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
                 & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
-                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
-                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (LeadJetSelection_pt>200.) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
+                & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
             weight: df.Weight_DoubleMuonMu
             hists:
             - ZCand_pt_METnoX_ptParaZCandCent
@@ -1071,125 +1071,4 @@ query:
         -   sum_ww_lhePdfWeight102: 'df: (df.sum_w*(df.LHEPdfWeight102))**2'
         -   sum_w_lhePdfWeight103: 'df: df.sum_w*(df.LHEPdfWeight103)'
         -   sum_ww_lhePdfWeight103: 'df: (df.sum_w*(df.LHEPdfWeight103))**2'
-files:
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00000.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00001.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00002.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00003.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00004.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00005.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00006.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00007.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00008-0.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00008-1.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00008-2.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00008-3.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00009-0.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00009-1.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00009-2.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00009-3.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00010.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00011.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00012.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00013.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00014.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00015.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00016.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00017.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00018.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00019.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00020.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00021.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00022.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00023.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00024.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00025-0.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00025-1.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00025-2.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00025-3.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00026-0.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00026-1.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00026-2.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00026-3.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00027.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00028.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00029.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00030.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00031.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00032.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00033.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00034.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00035.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00036-0.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00036-1.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00036-2.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00036-3.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00037.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00038.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00039.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00040.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00041.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00042.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00043.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00044.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00045.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00046.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00047.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00048.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00049.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00050.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00051.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00052.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00053.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00054.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00055.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00056.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00057.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00058.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00059.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00060.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00061.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00062.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00063.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00064.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00065.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00066.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00067.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00068.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00069.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00070.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00071.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00072.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00073.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00074.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00075.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00076.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00077.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00078.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00079.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00080.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00081-0.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00081-1.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00081-2.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00081-3.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00082-0.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00082-1.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00082-2.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00082-3.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00083.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00084.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00085.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00086.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00087.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00088.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00089.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00090.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00091.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00092.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00093.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00094.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00095.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00096.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00097.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00098.h5
-- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2019/09_Sep/14_skims/mc/result_00099.h5
+files: []

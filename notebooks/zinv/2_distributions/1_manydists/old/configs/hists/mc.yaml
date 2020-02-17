@@ -1,0 +1,1568 @@
+query:
+    groupby:
+    - table
+    - varname0
+    - selection
+    - parent
+    - binvar0
+    tables:
+        central: Events
+    aliases: {}
+    eval:
+    -   METTriggered: 'df: (df.HLT_PFMETNoMu90_PFMHTNoMu90_IDTight) | (df.HLT_PFMETNoMu100_PFMHTNoMu100_IDTight)
+            | (df.HLT_PFMETNoMu110_PFMHTNoMu110_IDTight) | (df.HLT_PFMETNoMu120_PFMHTNoMu120_IDTight)
+            | (df.HLT_PFMET170_NotCleaned) | (df.HLT_PFMET170_BeamHaloCleaned) | (df.HLT_PFMET170_HBHECleaned)
+            | (df.HLT_PFMET170_HBHE_BeamHaloCleaned) | (df.HLT_MET75_IsoTrk50)'
+    -   SingleMuonTriggered: 'df: (df.HLT_IsoMu24) | (df.HLT_IsoTkMu24)'
+    -   SingleElectronTriggered: 'df: (df.HLT_Ele27_WPTight_Gsf) | (df.HLT_Ele115_CaloIdVT_GsfTrkIdT)'
+    -   METnoX_pt_bin: 'df: np.floor(df.METnoX_pt/5.)*5'
+    -   METnoX_phi_bin: 'df: np.floor(df.METnoX_phi/0.06283)*0.06283'
+    -   METnoX_sumEt_bin: 'df: np.floor(df.METnoX_sumEt/50.)*50'
+    -   MET_pt_bin: 'df: np.floor(df.MET_pt/5.)*5'
+    -   MET_phi_bin: 'df: np.floor(df.MET_phi/0.06283)*0.06283'
+    -   MET_sumEt_bin: 'df: np.floor(df.MET_sumEt/50.)*50'
+    -   CaloMET_pt_bin: 'df: np.floor(df.CaloMET_pt/5.)*5'
+    -   CaloMET_phi_bin: 'df: np.floor(df.CaloMET_phi/0.06283)*0.06283'
+    -   CaloMET_sumEt_bin: 'df: np.floor(df.CaloMET_sumEt/50.)*50'
+    -   PuppiMET_pt_bin: 'df: np.floor(df.PuppiMET_pt/5.)*5'
+    -   PuppiMET_phi_bin: 'df: np.floor(df.PuppiMET_phi/0.06283)*0.06283'
+    -   PuppiMETnoX_pt_bin: 'df: np.floor(df.PuppiMETnoX_pt/5.)*5'
+    -   PuppiMETnoX_phi_bin: 'df: np.floor(df.PuppiMETnoX_phi/0.06283)*0.06283'
+    -   MET_dCaloMET_bin: 'df: np.floor(df.MET_dCaloMET/0.02)*0.02'
+    -   MinDPhiJ1234METnoX_bin: 'df: np.floor(df.MinDPhiJ1234METnoX/0.05)*0.05'
+    -   MinDPhiJ1234PuppiMETnoX_bin: 'df: np.floor(df.MinDPhiJ1234PuppiMETnoX/0.05)*0.05'
+    -   MTW_bin: 'df: np.floor(df.MTW/4.)*4'
+    -   MLL_bin: 'df: np.floor(df.MLL/0.5)*0.5'
+    -   nJetVeto_bin: 'df: np.floor(df.nJetVeto/1.)*1'
+    -   nJetSelection_bin: 'df: np.floor(df.nJetSelection/1.)*1'
+    -   LeadJetSelection_pt_bin: 'df: np.floor(df.LeadJetSelection_pt/5.)*5'
+    -   LeadJetSelection_eta_bin: 'df: np.floor(df.LeadJetSelection_eta/0.1)*0.1'
+    -   LeadJetSelection_phi_bin: 'df: np.floor(df.LeadJetSelection_phi/0.06283)*0.06283'
+    -   LeadJetSelection_chHEF_bin: 'df: np.floor(df.LeadJetSelection_chHEF/0.01)*0.01'
+    -   LeadJetSelection_neHEF_bin: 'df: np.floor(df.LeadJetSelection_neHEF/0.01)*0.01'
+    -   SecondJetSelection_pt_bin: 'df: np.floor(df.SecondJetSelection_pt/5.)*5'
+    -   SecondJetSelection_eta_bin: 'df: np.floor(df.SecondJetSelection_eta/0.1)*0.1'
+    -   SecondJetSelection_phi_bin: 'df: np.floor(df.SecondJetSelection_phi/0.06283)*0.06283'
+    -   LeadJetFwdSelection_pt_bin: 'df: np.floor(df.LeadJetFwdSelection_pt/1.)*1'
+    -   LeadJetFwdSelection_eta_bin: 'df: np.floor(df.LeadJetFwdSelection_eta/0.1)*0.1'
+    -   LeadJetFwdSelection_phi_bin: 'df: np.floor(df.LeadJetFwdSelection_phi/0.06283)*0.06283'
+    -   NearestJetSelectionMET_pt_bin: 'df: np.floor(df.NearestJetSelectionMET_pt/1.)*1'
+    -   NearestJetSelectionMET_eta_bin: 'df: np.floor(df.NearestJetSelectionMET_eta/0.1)*0.1'
+    -   NearestJetSelectionMET_phi_bin: 'df: np.floor(df.NearestJetSelectionMET_phi/0.06283)*0.06283'
+    -   nMuonVeto_bin: 'df: np.floor(df.nMuonVeto/1.)*1'
+    -   nMuonSelection_bin: 'df: np.floor(df.nMuonSelection/1.)*1'
+    -   LeadMuonSelection_pt_bin: 'df: np.floor(df.LeadMuonSelection_pt/5.)*5'
+    -   LeadMuonSelection_eta_bin: 'df: np.floor(df.LeadMuonSelection_eta/0.1)*0.1'
+    -   LeadMuonSelection_phi_bin: 'df: np.floor(df.LeadMuonSelection_phi/0.06283)*0.06283'
+    -   SecondMuonSelection_pt_bin: 'df: np.floor(df.SecondMuonSelection_pt/5.)*5'
+    -   SecondMuonSelection_eta_bin: 'df: np.floor(df.SecondMuonSelection_eta/0.1)*0.1'
+    -   SecondMuonSelection_phi_bin: 'df: np.floor(df.SecondMuonSelection_phi/0.06283)*0.06283'
+    -   nElectronVeto_bin: 'df: np.floor(df.nElectronVeto/1.)*1'
+    -   nElectronSelection_bin: 'df: np.floor(df.nElectronSelection/1.)*1'
+    -   LeadElectronSelection_pt_bin: 'df: np.floor(df.LeadElectronSelection_pt/5.)*5'
+    -   LeadElectronSelection_eta_bin: 'df: np.floor(df.LeadElectronSelection_eta/0.1)*0.1'
+    -   LeadElectronSelection_phi_bin: 'df: np.floor(df.LeadElectronSelection_phi/0.06283)*0.06283'
+    -   SecondElectronSelection_pt_bin: 'df: np.floor(df.SecondElectronSelection_pt/5.)*5'
+    -   SecondElectronSelection_eta_bin: 'df: np.floor(df.SecondElectronSelection_eta/0.1)*0.1'
+    -   SecondElectronSelection_phi_bin: 'df: np.floor(df.SecondElectronSelection_phi/0.06283)*0.06283'
+    -   nTauVeto_bin: 'df: np.floor(df.nTauVeto/1.)*1'
+    -   nTauSelection_bin: 'df: np.floor(df.nTauSelection/1.)*1'
+    -   LeadTauSelection_pt_bin: 'df: np.floor(df.LeadTauSelection_pt/5.)*5'
+    -   LeadTauSelection_eta_bin: 'df: np.floor(df.LeadTauSelection_eta/0.1)*0.1'
+    -   LeadTauSelection_phi_bin: 'df: np.floor(df.LeadTauSelection_phi/0.06283)*0.06283'
+    -   nIsoTrack_bin: 'df: np.floor(df.nIsoTrack/1.)*1'
+    -   LeadIsoTrack_pt_bin: 'df: np.floor(df.LeadIsoTrack_pt/1.)*1'
+    -   LeadIsoTrack_eta_bin: 'df: np.floor(df.LeadIsoTrack_eta/0.1)*0.1'
+    -   LeadIsoTrack_phi_bin: 'df: np.floor(df.LeadIsoTrack_phi/0.06283)*0.06283'
+    -   LeadIsoTrack_pdgId_bin: 'df: np.floor(df.LeadIsoTrack_pdgId/1.)*1'
+    -   nPhotonVeto_bin: 'df: np.floor(df.nPhotonVeto/1.)*1'
+    -   nPhotonSelection_bin: 'df: np.floor(df.nPhotonSelection/1.)*1'
+    -   nBJetVeto_bin: 'df: np.floor(df.nBJetVeto/1.)*1'
+    -   LeptonCharge_bin: 'df: np.floor(df.LeptonCharge/1.)*1'
+    -   PV_npvsGood_bin: 'df: np.floor(df.PV_npvsGood/1.)*1'
+    -   parent: 'df: np.where( df.parent.isin([''WJetsToLNu'', ''DYJetsToLL'']), np.where(
+            df.parent==''WJetsToLNu'', np.where( df.LeptonIsElectron, np.full_like(df.parent,
+            ''WJetsToENu''), np.where( df.LeptonIsMuon, np.full_like(df.parent, ''WJetsToMuNu''),
+            np.where( df.LeptonIsTau, np.where( df.nGenTauL==0, np.full_like(df.parent,
+            ''WJetsToTauHNu''), np.where( df.nGenTauL==1, np.full_like(df.parent,
+            ''WJetsToTauLNu''), np.full_like(df.parent, ''WJetsToTauNu''), ), ), np.full_like(df.parent,
+            ''WJetsToLNu''), ), ), ), np.where( df.parent==''DYJetsToLL'', np.where(
+            df.LeptonIsElectron, np.full_like(df.parent, ''DYJetsToEE''), np.where(
+            df.LeptonIsMuon, np.full_like(df.parent, ''DYJetsToMuMu''), np.where(
+            df.LeptonIsTau, np.where( df.nGenTauL==0, np.full_like(df.parent, ''DYJetsToTauHTauH''),
+            np.where( df.nGenTauL==1, np.full_like(df.parent, ''DYJetsToTauHTauL''),
+            np.where( df.nGenTauL==2, np.full_like(df.parent, ''DYJetsToTauLTauL''),
+            np.full_like(df.parent, ''DYJetsToTauTau''), ), ), ), np.full_like(df.parent,
+            ''DYJetsToLL''), ), ), ), df.parent, ), ), df.parent, )'
+    -   Weight_Monojet: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightMETTrig)'
+    -   Weight_MonojetQCD: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightMETTrig)'
+    -   Weight_SingleMuon: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightMETTrig)'
+    -   Weight_SingleMuonQCD: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightMETTrig)'
+    -   Weight_DoubleMuon: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightMETTrig)'
+    -   Weight_SingleElectron: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightElectronSelectionIdIsoTight)*(df.WeightElectronSelectionReco)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronVetoNoSelectionReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightSingleElectronTrig)'
+    -   Weight_SingleElectronQCD: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightElectronSelectionIdIsoTight)*(df.WeightElectronSelectionReco)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronVetoNoSelectionReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightSingleElectronTrig)'
+    -   Weight_DoubleElectron: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightElectronSelectionIdIsoTight)*(df.WeightElectronSelectionReco)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronVetoNoSelectionReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightSingleElectronTrig)'
+    -   Weight_SingleTau: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusMuonSelectionIdTight)*(df.WeightOneMinusMuonSelectionIsoTight)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightMETTrig)'
+    -   Weight_SingleMuonMu: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightSingleMuonTrig)'
+    -   Weight_SingleMuonMuQCD: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightSingleMuonTrig)'
+    -   Weight_DoubleMuonMu: 'df: (df.WeightXsLumi)*(df.WeightQcdEwk)*(df.WeightPU)*(df.WeightPreFiring)*(df.WeightOneMinusPhotonVetoIdLoose)*(df.WeightOneMinusPhotonVetoPixelSeedVeto)*(df.WeightOneMinusJetBVetoIdMedium)*(df.WeightOneMinusElectronVetoNoSelectionIdIsoVeto)*(df.WeightOneMinusElectronSelectionIdIsoTight)*(df.WeightOneMinusElectronVetoReco)*(df.WeightMuonSelectionIdTight)*(df.WeightMuonSelectionIsoTight)*(df.WeightOneMinusMuonVetoNoSelectionIdLoose)*(df.WeightOneMinusMuonVetoNoSelectionIsoLoose)*(df.WeightOneMinusTauVetoNoSelectionIdVLoose)*(df.WeightSingleMuonTrig)'
+    cutflows:
+        Monojet:
+            selection_name: Monojet
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (METTriggered) & (MinDPhiJ1234METnoX>0.5) & (nTauSelection==0)
+            weight: df.Weight_Monojet
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        MonojetQCD:
+            selection_name: MonojetQCD
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (METTriggered) & (MinDPhiJ1234METnoX<=0.5) &
+                (nTauSelection==0)
+            weight: df.Weight_MonojetQCD
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        SingleMuon:
+            selection_name: SingleMuon
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (METTriggered) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==1)
+                & (MTW>30.) & (MTW<125.) & (nTauSelection==0)
+            weight: df.Weight_SingleMuon
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MTW
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - LeadMuonSelection_pt
+            - LeadMuonSelection_eta
+            - LeadMuonSelection_phi
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        SingleMuonQCD:
+            selection_name: SingleMuonQCD
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (METTriggered) & (MinDPhiJ1234METnoX<=0.5) &
+                (nMuonSelection==1) & (MTW>30.) & (MTW<125.) & (nTauSelection==0)
+            weight: df.Weight_SingleMuonQCD
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MTW
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - LeadMuonSelection_pt
+            - LeadMuonSelection_eta
+            - LeadMuonSelection_phi
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        DoubleMuon:
+            selection_name: DoubleMuon
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (METTriggered) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
+                & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.) & (nTauSelection==0)
+            weight: df.Weight_DoubleMuon
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MLL
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - LeadMuonSelection_pt
+            - LeadMuonSelection_eta
+            - LeadMuonSelection_phi
+            - SecondMuonSelection_pt
+            - SecondMuonSelection_eta
+            - SecondMuonSelection_phi
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        SingleElectron:
+            selection_name: SingleElectron
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (SingleElectronTriggered) & (MinDPhiJ1234METnoX>0.5)
+                & (nElectronSelection==1) & (MTW>30.) & (MTW<125.) & (MET_pt>100.)
+                & (nTauSelection==0)
+            weight: df.Weight_SingleElectron
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MTW
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - nElectronVeto
+            - nElectronSelection
+            - LeadElectronSelection_pt
+            - LeadElectronSelection_eta
+            - LeadElectronSelection_phi
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        SingleElectronQCD:
+            selection_name: SingleElectronQCD
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (SingleElectronTriggered) & (MinDPhiJ1234METnoX<=0.5)
+                & (nElectronSelection==1) & (MTW>30.) & (MTW<125.) & (MET_pt>100.)
+                & (nTauSelection==0)
+            weight: df.Weight_SingleElectronQCD
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MTW
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - nElectronVeto
+            - nElectronSelection
+            - LeadElectronSelection_pt
+            - LeadElectronSelection_eta
+            - LeadElectronSelection_phi
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        DoubleElectron:
+            selection_name: DoubleElectron
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (SingleElectronTriggered) & (MinDPhiJ1234METnoX>0.5)
+                & (nElectronSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (nTauSelection==0)
+            weight: df.Weight_DoubleElectron
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MLL
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - nElectronVeto
+            - nElectronSelection
+            - LeadElectronSelection_pt
+            - LeadElectronSelection_eta
+            - LeadElectronSelection_phi
+            - SecondElectronSelection_pt
+            - SecondElectronSelection_eta
+            - SecondElectronSelection_phi
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        SingleTau:
+            selection_name: SingleTau
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (METTriggered) & (MinDPhiJ1234METnoX>0.5) & (nTauSelection==1)
+            weight: df.Weight_SingleTau
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - LeadTauSelection_pt
+            - LeadTauSelection_eta
+            - LeadTauSelection_phi
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        SingleMuonMu:
+            selection_name: SingleMuonMu
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (SingleMuonTriggered) & (MinDPhiJ1234METnoX>0.5)
+                & (nMuonSelection==1) & (MTW>30.) & (MTW<125.) & (nTauSelection==0)
+            weight: df.Weight_SingleMuonMu
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MTW
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - LeadMuonSelection_pt
+            - LeadMuonSelection_eta
+            - LeadMuonSelection_phi
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        SingleMuonMuQCD:
+            selection_name: SingleMuonMuQCD
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (SingleMuonTriggered) & (MinDPhiJ1234METnoX<=0.5)
+                & (nMuonSelection==1) & (MTW>30.) & (MTW<125.) & (nTauSelection==0)
+            weight: df.Weight_SingleMuonMuQCD
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MTW
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - LeadMuonSelection_pt
+            - LeadMuonSelection_eta
+            - LeadMuonSelection_phi
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+        DoubleMuonMu:
+            selection_name: DoubleMuonMu
+            selection: ((sample not in ['DYJetsToLL_Inclusive', 'WJetsToLNu_Inclusive',
+                'WJetsToLNu_Inclusive_ext1'])) & ((parent!='EWKV2Jets' | nGenBosonSelection==1))
+                & (Flag_goodVertices) & (Flag_globalSuperTightHalo2016Filter) & (Flag_HBHENoiseFilter)
+                & (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
+                & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.5) & (nJetSelection>0)
+                & (nJetSelection==nJetVeto) & (LeadJetSelection_pt>200.) & (LeadJetSelection_chHEF>0.1)
+                & (LeadJetSelection_neHEF<0.8) & (nPhotonVeto==0) & (nBJetVeto==0)
+                & (METnoX_pt>200.) & (SingleMuonTriggered) & (MinDPhiJ1234METnoX>0.5)
+                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (nTauSelection==0)
+            weight: df.Weight_DoubleMuonMu
+            hists:
+            - METnoX_pt
+            - METnoX_phi
+            - MET_pt
+            - MET_phi
+            - CaloMET_pt
+            - CaloMET_phi
+            - MET_dCaloMET
+            - MinDPhiJ1234METnoX
+            - MLL
+            - nJetVeto
+            - nJetSelection
+            - LeadJetSelection_pt
+            - LeadJetSelection_eta
+            - LeadJetSelection_phi
+            - LeadJetSelection_chHEF
+            - LeadJetSelection_neHEF
+            - SecondJetSelection_pt
+            - SecondJetSelection_eta
+            - SecondJetSelection_phi
+            - LeadJetFwdSelection_pt
+            - LeadJetFwdSelection_eta
+            - LeadJetFwdSelection_phi
+            - NearestJetSelectionMET_pt
+            - NearestJetSelectionMET_eta
+            - NearestJetSelectionMET_phi
+            - nMuonVeto
+            - nMuonSelection
+            - LeadMuonSelection_pt
+            - LeadMuonSelection_eta
+            - LeadMuonSelection_phi
+            - SecondMuonSelection_pt
+            - SecondMuonSelection_eta
+            - SecondMuonSelection_phi
+            - nElectronVeto
+            - nElectronSelection
+            - nTauVeto
+            - nTauSelection
+            - nIsoTrack
+            - LeadIsoTrack_pt
+            - LeadIsoTrack_eta
+            - LeadIsoTrack_phi
+            - LeadIsoTrack_pdgId
+            - nPhotonVeto
+            - nPhotonSelection
+            - nBJetVeto
+            - LeptonCharge
+            - PV_npvsGood
+    hists:
+        METnoX_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''METnoX_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.METnoX_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        METnoX_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''METnoX_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.METnoX_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        MET_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''MET_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.MET_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        MET_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''MET_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.MET_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        CaloMET_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''CaloMET_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.CaloMET_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        CaloMET_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''CaloMET_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.CaloMET_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        MET_dCaloMET:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''MET_dCaloMET'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.MET_dCaloMET_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        MinDPhiJ1234METnoX:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''MinDPhiJ1234METnoX'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.MinDPhiJ1234METnoX_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        MTW:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''MTW'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.MTW_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        MLL:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''MLL'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.MLL_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nJetVeto:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nJetVeto'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nJetVeto_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nJetSelection:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nJetSelection'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nJetSelection_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetSelection_chHEF:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetSelection_chHEF'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetSelection_chHEF_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetSelection_neHEF:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetSelection_neHEF'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetSelection_neHEF_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondJetSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondJetSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondJetSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondJetSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondJetSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondJetSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondJetSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondJetSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondJetSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetFwdSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetFwdSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetFwdSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetFwdSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetFwdSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetFwdSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadJetFwdSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadJetFwdSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadJetFwdSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        NearestJetSelectionMET_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''NearestJetSelectionMET_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.NearestJetSelectionMET_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        NearestJetSelectionMET_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''NearestJetSelectionMET_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.NearestJetSelectionMET_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        NearestJetSelectionMET_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''NearestJetSelectionMET_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.NearestJetSelectionMET_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nMuonVeto:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nMuonVeto'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nMuonVeto_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nMuonSelection:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nMuonSelection'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nMuonSelection_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadMuonSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadMuonSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadMuonSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadMuonSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadMuonSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadMuonSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadMuonSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadMuonSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadMuonSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondMuonSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondMuonSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondMuonSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondMuonSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondMuonSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondMuonSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondMuonSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondMuonSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondMuonSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nElectronVeto:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nElectronVeto'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nElectronVeto_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nElectronSelection:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nElectronSelection'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nElectronSelection_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadElectronSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadElectronSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadElectronSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadElectronSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadElectronSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadElectronSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadElectronSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadElectronSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadElectronSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondElectronSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondElectronSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondElectronSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondElectronSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondElectronSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondElectronSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        SecondElectronSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''SecondElectronSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.SecondElectronSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nTauVeto:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nTauVeto'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nTauVeto_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nTauSelection:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nTauSelection'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nTauSelection_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadTauSelection_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadTauSelection_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadTauSelection_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadTauSelection_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadTauSelection_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadTauSelection_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadTauSelection_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadTauSelection_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadTauSelection_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nIsoTrack:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nIsoTrack'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nIsoTrack_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadIsoTrack_pt:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadIsoTrack_pt'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadIsoTrack_pt_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadIsoTrack_eta:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadIsoTrack_eta'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadIsoTrack_eta_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadIsoTrack_phi:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadIsoTrack_phi'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadIsoTrack_phi_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeadIsoTrack_pdgId:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeadIsoTrack_pdgId'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeadIsoTrack_pdgId_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nPhotonVeto:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nPhotonVeto'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nPhotonVeto_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nPhotonSelection:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nPhotonSelection'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nPhotonSelection_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        nBJetVeto:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''nBJetVeto'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.nBJetVeto_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        LeptonCharge:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''LeptonCharge'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.LeptonCharge_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+        PV_npvsGood:
+        -   table: 'df: ''{table_name}'''
+        -   varname0: 'df: ''PV_npvsGood'''
+        -   selection: 'df: ''{selection_name}'''
+        -   parent: 'df: df.parent'
+        -   binvar0: 'df: df.PV_npvsGood_bin'
+        -   count: 'df: 1.'
+        -   sum_w: 'df: {weight}'
+        -   sum_ww: 'df: df.sum_w**2'
+files:
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00000.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00001.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00002.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00003.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00004.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00005.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00006.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00007.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00008.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00009.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00010.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00011.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00012.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00013.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00014.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00015.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00016.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00017.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00018.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00019.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00020.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00021.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00022.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00023.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00024.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00025.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00026.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00027.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00028.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00029.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00030.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00031.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00032.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00033.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00034.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00035.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00036.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00037.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00038.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00039.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00040.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00041.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00042.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00043.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00044.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00045.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00046.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00047.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00048.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00049.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00050.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00051.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00052.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00053.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00054.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00055.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00056.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00057.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00058.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00059.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00060.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00061.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00062.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00063.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00064.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00065.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00066.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00067.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00068.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00069.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00070.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00071.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00072.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00073.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00074.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00075.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00076.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00077.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00078.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00079.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00080.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00081.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00082.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00083.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00084.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00085.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00086.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00087.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00088.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00089.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00090.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00091.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00092.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00093.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00094.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00095.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00096.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00097.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00098.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00099.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00100.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00101.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00102.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00103.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00104.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00105.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00106.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00107.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00108.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00109.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00110.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00111.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00112.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00113.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00114.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00115.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00116.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00117.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00118.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00119.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00120.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00121.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00122.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00123.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00124.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00125.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00126.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00127.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00128.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00129.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00130.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00131.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00132.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00133.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00134.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00135.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00136.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00137.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00138.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00139.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00140.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00141.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00142.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00143.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00144.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00145.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00146.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00147.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00148.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00149.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00150.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00151.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00152.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00153.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00154.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00155.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00156.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00157.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00158.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00159.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00160.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00161.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00162.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00163.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00164.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00165.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00166.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00167.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00168.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00169.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00170.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00171.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00172.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00173.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00174.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00175.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00176.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00177.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00178.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00179.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00180.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00181.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00182.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00183.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00184.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00185.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00186.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00187.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00188.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00189.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00190.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00191.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00192.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00193.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00194.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00195.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00196.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00197.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00198.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00199.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00200.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00201.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00202.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00203.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00204.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00205.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00206.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00207.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00208.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00209.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00210.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00211.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00212.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00213.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00214.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00215.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00216.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00217.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00218.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00219.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00220.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00221.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00222.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00223.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00224.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00225.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00226.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00227.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00228.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00229.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00230.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00231.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00232.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00233.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00234.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00235.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00236.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00237.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00238.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00239.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00240.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00241.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00242.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00243.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00244.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00245.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00246.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00247.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00248.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00249.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00250.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00251.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00252.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00253.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00254.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00255.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00256.h5
+- /vols/cms/sdb15/Analysis/ZinvWidth/databases/skims/2020/02_Feb/10_SingleTable_FixObjectWeights/mc/result_00257.h5

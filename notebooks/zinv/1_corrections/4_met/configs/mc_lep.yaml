@@ -8,15 +8,14 @@ query:
     - binvar0
     - binvar1
     tables:
-        jesTotal10: Events_jesTotal10
-        jesTotal20: Events_jesTotal20
-        jesTotal30: Events_jesTotal30
-        jesTotal40: Events_jesTotal40
-        jesTotal50: Events_jesTotal50
-        jesTotal60: Events_jesTotal60
-        jesTotal70: Events_jesTotal70
-        jesTotal80: Events_jesTotal80
-        jesTotal90: Events_jesTotal90
+        eleEnergyScaleUp: Events_eleEnergyScaleup
+        eleEnergyScaleDown: Events_eleEnergyScaledown
+        muonPtScaleUp: Events_muonPtScaleup
+        muonPtScaleDown: Events_muonPtScaledown
+        photonEnergyScaleUp: Events_photonEnergyScaleup
+        photonEnergyScaleDown: Events_photonEnergyScaledown
+        tauPtScaleUp: Events_tauPtScaleup
+        tauPtScaleDown: Events_tauPtScaledown
     aliases: {}
     eval:
     -   ZCand_px: 'df: np.where(df.nMuonSelection==2, df.LeadMuonSelection_pt*np.cos(df.LeadMuonSelection_phi)+df.SecondMuonSelection_pt*np.cos(df.SecondMuonSelection_phi),
@@ -58,8 +57,8 @@ query:
                 (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
                 & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
                 & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
-                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
-                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (LeadJetSelection_pt>200.) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
+                & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
             weight: df.Weight_DoubleMuon
             hists:
             - ZCand_pt_METnoX_ptParaZCandCent
@@ -71,8 +70,8 @@ query:
                 (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
                 & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
                 & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
-                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
-                & (nElectronSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (LeadJetSelection_pt>200.) & (MinDPhiJ1234METnoX>0.5) & (nElectronSelection==2)
+                & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
             weight: df.Weight_DoubleElectron
             hists:
             - ZCand_pt_METnoX_ptParaZCandCent
@@ -84,8 +83,8 @@ query:
                 (Flag_HBHENoiseIsoFilter) & (Flag_EcalDeadCellTriggerPrimitiveFilter)
                 & (Flag_BadPFMuonFilter) & (MET_dCaloMET<0.6) & (nJetSelection>0)
                 & (nJetSelection==nJetVeto) & (LeadJetSelection_chHEF>0.1) & (LeadJetSelection_neHEF<0.8)
-                & (LeadJetSelection_pt>200.) & (METnoX_pt>100.) & (MinDPhiJ1234METnoX>0.5)
-                & (nMuonSelection==2) & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
+                & (LeadJetSelection_pt>200.) & (MinDPhiJ1234METnoX>0.5) & (nMuonSelection==2)
+                & (MLL>71.) & (MLL<111.) & (LeptonCharge==0.)
             weight: df.Weight_DoubleMuonMu
             hists:
             - ZCand_pt_METnoX_ptParaZCandCent
